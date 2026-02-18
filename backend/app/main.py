@@ -7,17 +7,15 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.core.database import init_db
-from app.api.routes import auth, manuscripts, analysis
+from app.api.routes import auth, manuscripts, analysis, reports, exports
 
 settings = get_settings()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: initialize database tables
     await init_db()
     yield
-    # Shutdown: cleanup if needed
 
 
 app = FastAPI(
@@ -28,7 +26,6 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS — allow React dev server
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "http://localhost:5173"],
@@ -37,10 +34,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount API routes
 app.include_router(auth.router, prefix=settings.API_PREFIX)
 app.include_router(manuscripts.router, prefix=settings.API_PREFIX)
 app.include_router(analysis.router, prefix=settings.API_PREFIX)
+app.include_router(reports.router, prefix=settings.API_PREFIX)
+app.include_router(exports.router, prefix=settings.API_PREFIX)
 
 
 @app.get("/")

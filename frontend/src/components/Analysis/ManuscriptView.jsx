@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getManuscript, getManuscriptAnalyses, runAnalysis } from '../../services/api';
 import {
-  Brain, PenTool, BarChart3, Clock, FileText, ChevronRight, Play, CheckCircle, AlertCircle, Loader,
+  Brain, PenTool, BarChart3, Clock, FileText, ChevronRight, Play, CheckCircle,
+  AlertCircle, Loader, Mic, Activity, Users, ListChecks, GraduationCap, BookOpen,
+  Quote, Target, Download,
 } from 'lucide-react';
+import ExportModal from '../Export/ExportModal';
 
 function ScoreRing({ score, label, size = 80 }) {
   const radius = (size - 8) / 2;
@@ -26,6 +29,66 @@ function ScoreRing({ score, label, size = 80 }) {
   );
 }
 
+const MODULES = [
+  {
+    key: 'xray', type: 'intelligence_engine', name: 'Manuscript Intelligence Engine',
+    desc: 'Duplication detection, character census, timeline anomalies, lexical fingerprint.',
+    icon: Brain, color: 'text-refinery-blue', btnColor: 'bg-refinery-blue hover:bg-blue-700',
+    route: 'intelligence', scoreKey: 'score_overall',
+  },
+  {
+    key: 'voice_isolation', type: 'voice_isolation', name: 'Voice Isolation Lab',
+    desc: 'Character dialogue extraction, voice fingerprinting, jargon bleed detection.',
+    icon: Mic, color: 'text-purple-500', btnColor: 'bg-purple-500 hover:bg-purple-700',
+    route: 'voice', scoreKey: 'score_voice', tier: 'pro',
+  },
+  {
+    key: 'pacing_architect', type: 'pacing_architect', name: 'Pacing Architect',
+    desc: 'Tension curve, action/emotion pulse graph, breathing space detection.',
+    icon: Activity, color: 'text-emerald-500', btnColor: 'bg-emerald-500 hover:bg-emerald-700',
+    route: 'pacing', scoreKey: 'score_pacing', tier: 'pro',
+  },
+  {
+    key: 'character_arc', type: 'character_arc', name: 'Character Arc Workshop',
+    desc: 'Want/Fear/Belief tracking, inconsistency flagging, transformation validation.',
+    icon: Users, color: 'text-rose-500', btnColor: 'bg-rose-500 hover:bg-rose-700',
+    route: 'characters', scoreKey: 'score_character', tier: 'pro',
+  },
+  {
+    key: 'prose_refinery', type: 'prose_refinery', name: 'Prose Refinery',
+    desc: 'Tic tracker, filter word detector, show-vs-tell, sentence rhythm, metaphor frequency.',
+    icon: PenTool, color: 'text-refinery-gold', btnColor: 'bg-refinery-gold hover:bg-amber-600',
+    route: 'prose', scoreKey: 'score_prose',
+  },
+  {
+    key: 'revision_center', type: 'revision_center', name: 'Revision Command Center',
+    desc: 'Aggregated edit queue from all modules, sorted by impact.',
+    icon: ListChecks, color: 'text-indigo-500', btnColor: 'bg-indigo-500 hover:bg-indigo-700',
+    route: 'revision', scoreKey: null, tier: 'pro',
+  },
+];
+
+const ACADEMIC_MODULES = [
+  {
+    key: 'argument_coherence', type: 'argument_coherence', name: 'Argument Coherence Engine',
+    desc: 'Thesis extraction, evidence-to-claim ratio, logical progression, counterargument coverage.',
+    icon: Target, color: 'text-teal-500', btnColor: 'bg-teal-500 hover:bg-teal-700',
+    route: 'argument', scoreKey: 'score_structure', tier: 'academic',
+  },
+  {
+    key: 'citation_architecture', type: 'citation_architecture', name: 'Citation & Source Architecture',
+    desc: 'Citation frequency heatmap, source recency, primary/secondary balance, format validation.',
+    icon: Quote, color: 'text-cyan-500', btnColor: 'bg-cyan-500 hover:bg-cyan-700',
+    route: 'citations', scoreKey: 'score_overall', tier: 'academic',
+  },
+  {
+    key: 'academic_voice', type: 'academic_voice', name: 'Academic Voice Calibration',
+    desc: 'Register consistency, hedge analysis, passive voice density, formality scoring.',
+    icon: GraduationCap, color: 'text-violet-500', btnColor: 'bg-violet-500 hover:bg-violet-700',
+    route: 'academic-voice', scoreKey: 'score_voice', tier: 'academic',
+  },
+];
+
 export default function ManuscriptView() {
   const { id } = useParams();
   const [manuscript, setManuscript] = useState(null);
@@ -33,6 +96,7 @@ export default function ManuscriptView() {
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState(null);
   const [error, setError] = useState('');
+  const [showExport, setShowExport] = useState(false);
 
   const load = async () => {
     try {
@@ -42,7 +106,7 @@ export default function ManuscriptView() {
       ]);
       setManuscript(mRes.data);
       setAnalyses(aRes.data);
-    } catch (err) {
+    } catch {
       setError('Failed to load manuscript');
     } finally {
       setLoading(false);
@@ -64,9 +128,8 @@ export default function ManuscriptView() {
     }
   };
 
-  // Get latest analysis of each type
-  const latestXray = analyses.find((a) => a.analysis_type === 'xray' && a.status === 'completed');
-  const latestProse = analyses.find((a) => a.analysis_type === 'prose_refinery' && a.status === 'completed');
+  const getLatest = (type) => analyses.find((a) => a.analysis_type === type && a.status === 'completed');
+  const latestXray = getLatest('xray') || getLatest('intelligence_engine');
 
   if (loading) {
     return (
@@ -80,14 +143,70 @@ export default function ManuscriptView() {
     return <div className="text-center py-20 text-slate-500">Manuscript not found</div>;
   }
 
+  const renderModuleCard = (mod) => {
+    const latest = getLatest(mod.key === 'xray' ? 'xray' : mod.type);
+    const Icon = mod.icon;
+    return (
+      <div key={mod.key} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center space-x-3 mb-3">
+          <Icon className={`h-8 w-8 ${mod.color}`} />
+          <div>
+            <h3 className="font-display font-semibold text-refinery-navy">{mod.name}</h3>
+            <p className="text-xs text-slate-400">
+              {mod.tier ? <span className="uppercase bg-slate-100 px-1.5 py-0.5 rounded text-[10px] font-medium mr-1">{mod.tier}+</span> : null}
+            </p>
+          </div>
+        </div>
+        <p className="text-sm text-slate-600 mb-4">{mod.desc}</p>
+        <div className="flex items-center space-x-3">
+          {latest ? (
+            <Link
+              to={`/manuscript/${id}/${mod.route}`}
+              className="flex items-center space-x-1 bg-refinery-navy text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition"
+            >
+              <BarChart3 className="h-4 w-4" />
+              <span>View Results</span>
+              <ChevronRight className="h-4 w-4" />
+            </Link>
+          ) : null}
+          <button
+            onClick={() => handleRunAnalysis(mod.key === 'xray' ? 'xray' : mod.type)}
+            disabled={running === mod.type || running === mod.key}
+            className={`flex items-center space-x-1 ${mod.btnColor} text-white px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-50 transition`}
+          >
+            {running === mod.type || running === mod.key ? (
+              <><Loader className="h-4 w-4 animate-spin" /><span>Running...</span></>
+            ) : (
+              <><Play className="h-4 w-4" /><span>{latest ? 'Re-run' : 'Run'}</span></>
+            )}
+          </button>
+        </div>
+        {latest?.scoreKey && latest[mod.scoreKey] && (
+          <div className="mt-3 text-xs text-slate-400">
+            Score: <span className="font-medium text-refinery-navy">{Math.round(latest[mod.scoreKey])}</span>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div>
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-display font-bold text-refinery-navy">{manuscript.title}</h1>
-        <p className="text-refinery-slate mt-1">
-          {manuscript.word_count.toLocaleString()} words &middot; {manuscript.chapter_count} chapters &middot; .{manuscript.file_type}
-        </p>
+      <div className="flex items-start justify-between mb-8">
+        <div>
+          <h1 className="text-3xl font-display font-bold text-refinery-navy">{manuscript.title}</h1>
+          <p className="text-refinery-slate mt-1">
+            {manuscript.word_count.toLocaleString()} words &middot; {manuscript.chapter_count} chapters &middot; .{manuscript.file_type}
+          </p>
+        </div>
+        <button
+          onClick={() => setShowExport(true)}
+          className="flex items-center space-x-2 bg-refinery-navy text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition"
+        >
+          <Download className="h-4 w-4" />
+          <span>Export</span>
+        </button>
       </div>
 
       {error && (
@@ -97,7 +216,7 @@ export default function ManuscriptView() {
         </div>
       )}
 
-      {/* Health Dashboard (if X-ray completed) */}
+      {/* Health Dashboard */}
       {latestXray && (
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
           <h2 className="text-lg font-display font-semibold text-refinery-navy mb-6">Manuscript Health Dashboard</h2>
@@ -118,118 +237,71 @@ export default function ManuscriptView() {
         </div>
       )}
 
-      {/* Module cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Module 1: Manuscript Intelligence Engine */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <div className="flex items-center space-x-3 mb-3">
-            <Brain className="h-8 w-8 text-refinery-blue" />
-            <div>
-              <h3 className="font-display font-semibold text-refinery-navy">Manuscript Intelligence Engine</h3>
-              <p className="text-xs text-slate-400">Module 1 — Full Structural Scan</p>
-            </div>
-          </div>
-          <p className="text-sm text-slate-600 mb-4">
-            Duplication detection, character census, timeline anomalies, lexical fingerprint, metaphor density heatmap.
-          </p>
-          <div className="flex items-center space-x-3">
-            {latestXray ? (
-              <Link
-                to={`/manuscript/${id}/intelligence`}
-                className="flex items-center space-x-1 bg-refinery-navy text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition"
-              >
-                <BarChart3 className="h-4 w-4" />
-                <span>View Results</span>
-                <ChevronRight className="h-4 w-4" />
-              </Link>
-            ) : null}
-            <button
-              onClick={() => handleRunAnalysis('xray')}
-              disabled={running === 'xray'}
-              className="flex items-center space-x-1 bg-refinery-blue text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition"
-            >
-              {running === 'xray' ? (
-                <><Loader className="h-4 w-4 animate-spin" /><span>Running X-ray...</span></>
-              ) : (
-                <><Play className="h-4 w-4" /><span>{latestXray ? 'Re-run' : 'Run X-ray'}</span></>
-              )}
-            </button>
-          </div>
-        </div>
+      {/* Core Module Cards */}
+      <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Core Analysis Modules</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {MODULES.map(renderModuleCard)}
+      </div>
 
-        {/* Module 5: Prose Refinery */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <div className="flex items-center space-x-3 mb-3">
-            <PenTool className="h-8 w-8 text-refinery-gold" />
-            <div>
-              <h3 className="font-display font-semibold text-refinery-navy">Prose Refinery</h3>
-              <p className="text-xs text-slate-400">Module 5 — Craft-Level Analysis</p>
-            </div>
-          </div>
-          <p className="text-sm text-slate-600 mb-4">
-            Tic tracker, filter word detector, show-vs-tell analyzer, sentence rhythm profiler, metaphor frequency.
-          </p>
-          <div className="flex items-center space-x-3">
-            {latestProse ? (
-              <Link
-                to={`/manuscript/${id}/prose`}
-                className="flex items-center space-x-1 bg-refinery-navy text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition"
-              >
-                <BarChart3 className="h-4 w-4" />
-                <span>View Results</span>
-                <ChevronRight className="h-4 w-4" />
-              </Link>
-            ) : null}
-            <button
-              onClick={() => handleRunAnalysis('prose_refinery')}
-              disabled={running === 'prose_refinery'}
-              className="flex items-center space-x-1 bg-refinery-gold text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-amber-600 disabled:opacity-50 transition"
-            >
-              {running === 'prose_refinery' ? (
-                <><Loader className="h-4 w-4 animate-spin" /><span>Analyzing prose...</span></>
-              ) : (
-                <><Play className="h-4 w-4" /><span>{latestProse ? 'Re-run' : 'Analyze Prose'}</span></>
-              )}
-            </button>
-          </div>
-        </div>
+      {/* Academic Module Cards */}
+      <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Academic Modules</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {ACADEMIC_MODULES.map(renderModuleCard)}
+      </div>
 
-        {/* Future modules (locked) */}
-        {[
-          { icon: '🎭', name: 'Voice Isolation Lab', desc: 'Module 2 — Coming in Beta', locked: true },
-          { icon: '📈', name: 'Pacing Architect', desc: 'Module 3 — Coming in Beta', locked: true },
-          { icon: '🧭', name: 'Character Arc Workshop', desc: 'Module 4 — Coming in Beta', locked: true },
-          { icon: '📋', name: 'Revision Command Center', desc: 'Module 6 — Coming in Beta', locked: true },
-        ].map((mod) => (
-          <div key={mod.name} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 opacity-50">
-            <div className="flex items-center space-x-3 mb-3">
-              <span className="text-2xl">{mod.icon}</span>
-              <div>
-                <h3 className="font-display font-semibold text-refinery-navy">{mod.name}</h3>
-                <p className="text-xs text-slate-400">{mod.desc}</p>
-              </div>
-            </div>
-            <p className="text-sm text-slate-400 italic">Available in the next release</p>
-          </div>
-        ))}
+      {/* Enterprise Actions */}
+      <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Enterprise</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <Link
+          to={`/manuscript/${id}/reader-report`}
+          className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:border-blue-300 transition"
+        >
+          <FileText className="h-8 w-8 text-blue-500 mb-3" />
+          <h3 className="font-display font-semibold text-refinery-navy">Reader Report</h3>
+          <p className="text-sm text-slate-500 mt-1">Generate acquisition reader report</p>
+        </Link>
+        <Link
+          to={`/manuscript/${id}/rejection`}
+          className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:border-blue-300 transition"
+        >
+          <BookOpen className="h-8 w-8 text-amber-500 mb-3" />
+          <h3 className="font-display font-semibold text-refinery-navy">Rejection Letter</h3>
+          <p className="text-sm text-slate-500 mt-1">Draft personalized rejection letter</p>
+        </Link>
+        <button
+          onClick={() => handleRunAnalysis('acquisition_score')}
+          disabled={running === 'acquisition_score'}
+          className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:border-blue-300 transition text-left"
+        >
+          <BarChart3 className="h-8 w-8 text-emerald-500 mb-3" />
+          <h3 className="font-display font-semibold text-refinery-navy">Acquisition Score</h3>
+          <p className="text-sm text-slate-500 mt-1">
+            {running === 'acquisition_score' ? 'Computing...' : 'Compute composite 0-100 score'}
+          </p>
+          {getLatest('acquisition_score') && (
+            <p className="text-2xl font-bold text-emerald-600 mt-2">
+              {Math.round(JSON.parse(getLatest('acquisition_score').results_json || '{}').acquisition_score || 0)}
+            </p>
+          )}
+        </button>
       </div>
 
       {/* Analysis history */}
       {analyses.length > 0 && (
-        <div className="mt-8 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
           <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Analysis History</h2>
           <div className="space-y-2">
             {analyses.map((a) => (
               <div key={a.id} className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-slate-50">
                 <div className="flex items-center space-x-3">
                   {a.status === 'completed' ? (
-                    <CheckCircle className="h-5 w-5 text-refinery-green" />
+                    <CheckCircle className="h-5 w-5 text-green-500" />
                   ) : a.status === 'failed' ? (
-                    <AlertCircle className="h-5 w-5 text-refinery-red" />
+                    <AlertCircle className="h-5 w-5 text-red-500" />
                   ) : (
                     <Loader className="h-5 w-5 text-refinery-blue animate-spin" />
                   )}
-                  <span className="text-sm font-medium">{a.analysis_type.replace('_', ' ')}</span>
+                  <span className="text-sm font-medium capitalize">{a.analysis_type.replace(/_/g, ' ')}</span>
                 </div>
                 <div className="flex items-center space-x-4 text-sm text-slate-400">
                   {a.duration_seconds && <span>{a.duration_seconds.toFixed(1)}s</span>}
@@ -240,6 +312,16 @@ export default function ManuscriptView() {
             ))}
           </div>
         </div>
+      )}
+
+      {/* Export Modal */}
+      {showExport && (
+        <ExportModal
+          isOpen={showExport}
+          onClose={() => setShowExport(false)}
+          manuscriptId={parseInt(id)}
+          manuscriptTitle={manuscript.title}
+        />
       )}
     </div>
   );

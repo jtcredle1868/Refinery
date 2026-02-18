@@ -8,11 +8,15 @@ import enum
 class AnalysisType(str, enum.Enum):
     XRAY = "xray"  # Full manuscript X-ray diagnostic
     INTELLIGENCE_ENGINE = "intelligence_engine"  # Module 1
+    VOICE_ISOLATION = "voice_isolation"  # Module 2
+    PACING_ARCHITECT = "pacing_architect"  # Module 3
+    CHARACTER_ARC = "character_arc"  # Module 4
     PROSE_REFINERY = "prose_refinery"  # Module 5
-    VOICE_ISOLATION = "voice_isolation"  # Module 2 (future)
-    PACING_ARCHITECT = "pacing_architect"  # Module 3 (future)
-    CHARACTER_ARC = "character_arc"  # Module 4 (future)
-    REVISION_CENTER = "revision_center"  # Module 6 (future)
+    REVISION_CENTER = "revision_center"  # Module 6
+    ARGUMENT_COHERENCE = "argument_coherence"  # Module 7 (Academic)
+    CITATION_ARCHITECTURE = "citation_architecture"  # Module 8 (Academic)
+    ACADEMIC_VOICE = "academic_voice"  # Module 9 (Academic)
+    ACQUISITION_SCORE = "acquisition_score"  # Module 11 (Enterprise)
 
 
 class AnalysisStatus(str, enum.Enum):
