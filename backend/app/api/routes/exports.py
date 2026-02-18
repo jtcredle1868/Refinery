@@ -13,7 +13,7 @@ from app.models.analysis import AnalysisResult, AnalysisStatus
 from app.services.export_service import (
     export_clean_docx,
     export_tracked_changes_docx,
-    export_analysis_report_pdf_data,
+    export_analysis_report_docx,
 )
 from app.services.revision_center import aggregate_edit_queue
 
@@ -96,9 +96,13 @@ async def export_manuscript(
             if a.analysis_type.value in ("xray", "intelligence_engine"):
                 health_scores = data.get("health_scores", {})
 
-        report_data = export_analysis_report_pdf_data(
+        docx_bytes = export_analysis_report_docx(
             manuscript.title, health_scores, module_summaries,
         )
-        return report_data
+        return Response(
+            content=docx_bytes,
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            headers={"Content-Disposition": f'attachment; filename="{manuscript.title}_report.docx"'},
+        )
 
     raise HTTPException(status_code=400, detail=f"Invalid export type: {request.export_type}")

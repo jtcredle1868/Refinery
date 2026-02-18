@@ -4,7 +4,7 @@ import api from '../../services/api';
 
 const exportOptions = [
   {
-    type: 'clean_manuscript',
+    type: 'clean_docx',
     label: 'Clean Manuscript',
     description: 'DOCX with all accepted changes applied. Ready to submit or share.',
     icon: Download,
@@ -13,7 +13,7 @@ const exportOptions = [
     format: 'docx',
   },
   {
-    type: 'tracked_changes',
+    type: 'tracked_docx',
     label: 'Tracked Changes',
     description: 'DOCX with all findings embedded as tracked changes and comments.',
     icon: FileText,
@@ -22,13 +22,13 @@ const exportOptions = [
     format: 'docx',
   },
   {
-    type: 'analysis_report',
+    type: 'pdf_report',
     label: 'Analysis Report',
-    description: 'PDF summary report with scores, findings, and recommendations.',
+    description: 'DOCX summary report with scores, findings, and recommendations.',
     icon: FileBarChart,
     color: 'text-emerald-600',
     bg: 'bg-emerald-50',
-    format: 'pdf',
+    format: 'docx',
   },
 ];
 
@@ -49,40 +49,21 @@ export default function ExportModal({ isOpen, onClose, manuscriptId, manuscriptT
           manuscript_id: manuscriptId,
           export_type: option.type,
         },
-        {
-          responseType: option.format === 'docx' ? 'blob' : 'json',
-        }
+        { responseType: 'blob' }
       );
 
-      if (option.format === 'docx') {
-        // Create blob download for DOCX files
-        const blob = new Blob([response.data], {
-          type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        });
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        const safeName = (manuscriptTitle || 'manuscript').replace(/[^a-zA-Z0-9_-]/g, '_');
-        link.download = `${safeName}_${option.type}.docx`;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        window.URL.revokeObjectURL(url);
-      } else {
-        // For PDF / analysis report, create a blob download from the response
-        const blob = new Blob([JSON.stringify(response.data, null, 2)], {
-          type: 'application/pdf',
-        });
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        const safeName = (manuscriptTitle || 'manuscript').replace(/[^a-zA-Z0-9_-]/g, '_');
-        link.download = `${safeName}_analysis_report.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        window.URL.revokeObjectURL(url);
-      }
+      const blob = new Blob([response.data], {
+        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      const safeName = (manuscriptTitle || 'manuscript').replace(/[^a-zA-Z0-9_-]/g, '_');
+      link.download = `${safeName}_${option.type}.docx`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
     } catch (err) {
       setError(
         err.response?.data?.detail || `Failed to export ${option.label}. Please try again.`

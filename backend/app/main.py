@@ -14,6 +14,14 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    if not settings.ANTHROPIC_API_KEY:
+        import warnings
+        warnings.warn(
+            "\n⚠️  ANTHROPIC_API_KEY is not set! "
+            "Analysis features will fail. "
+            "Add it to your .env file.\n",
+            stacklevel=1,
+        )
     await init_db()
     yield
 

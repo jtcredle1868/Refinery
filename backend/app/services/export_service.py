@@ -95,16 +95,53 @@ def export_tracked_changes_docx(
     return buffer.getvalue()
 
 
-def export_analysis_report_pdf_data(
+def export_analysis_report_docx(
     title: str,
     health_scores: dict,
     module_summaries: dict,
-) -> dict:
-    """Generate structured data for PDF report generation."""
-    return {
-        "title": title,
-        "report_type": "Manuscript Analysis Report",
-        "generated_by": "Refinery — Where Prose Becomes Perfect",
-        "health_scores": health_scores,
-        "modules": module_summaries,
-    }
+) -> bytes:
+    """Generate a formatted DOCX analysis report."""
+    doc = Document()
+
+    # Report title
+    heading = doc.add_heading(f"Analysis Report: {title}", level=0)
+    heading.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+    sub = doc.add_paragraph()
+    sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = sub.add_run("Refinery — Where Prose Becomes Perfect")
+    run.italic = True
+    run.font.color.rgb = RGBColor(100, 116, 139)
+
+    doc.add_paragraph("")
+
+    # Health scores section
+    if health_scores:
+        doc.add_heading("Health Scores", level=1)
+        for key, value in health_scores.items():
+            label = key.replace("_", " ").title()
+            score = value if isinstance(value, (int, float)) else "N/A"
+            p = doc.add_paragraph()
+            run = p.add_run(f"{label}: ")
+            run.bold = True
+            p.add_run(f"{score}/100" if isinstance(score, (int, float)) else str(score))
+
+    # Module summaries
+    if module_summaries:
+        doc.add_heading("Module Analysis", level=1)
+        for module_name, data in module_summaries.items():
+            label = module_name.replace("_", " ").title()
+            doc.add_heading(label, level=2)
+            score = data.get("score")
+            if score is not None:
+                p = doc.add_paragraph()
+                run = p.add_run("Score: ")
+                run.bold = True
+                p.add_run(str(score))
+            summary = data.get("summary", "")
+            if summary:
+                doc.add_paragraph(summary)
+
+    buffer = io.BytesIO()
+    doc.save(buffer)
+    return buffer.getvalue()
