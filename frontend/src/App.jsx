@@ -21,6 +21,7 @@ import TriageDashboardView from './components/Enterprise/TriageDashboardView';
 import BatchUploadView from './components/Enterprise/BatchUploadView';
 import ReaderReportView from './components/Enterprise/ReaderReportView';
 import RejectionLetterView from './components/Enterprise/RejectionLetterView';
+import DecisionWorkflowView from './components/Enterprise/DecisionWorkflowView';
 import LandingPage from './components/Landing/LandingPage';
 import ExportModal from './components/Export/ExportModal';
 import ProcessingView from './components/Analysis/ProcessingView';
@@ -89,6 +90,7 @@ export default function App() {
             <Route path="triage" element={<TriageDashboardView />} />
             <Route path="manuscript/:id/reader-report" element={<ReaderReportView />} />
             <Route path="manuscript/:id/rejection" element={<RejectionLetterView />} />
+            <Route path="manuscript/:id/workflow" element={<DecisionWorkflowView />} />
           </Route>
         </Routes>
       </BrowserRouter>

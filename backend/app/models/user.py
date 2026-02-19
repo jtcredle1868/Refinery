@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, Enum as SQLEnum
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Enum as SQLEnum
 from sqlalchemy.orm import relationship
 from app.core.database import Base
 import enum
@@ -22,6 +22,9 @@ class User(Base):
     full_name = Column(String(255), nullable=True)
     tier = Column(SQLEnum(UserTier), default=UserTier.FREE, nullable=False)
     is_active = Column(Boolean, default=True)
+    org_id = Column(Integer, ForeignKey("organizations.id"), nullable=True)
+    stripe_customer_id = Column(String(255), nullable=True)
+    stripe_subscription_id = Column(String(255), nullable=True)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at = Column(
         DateTime(timezone=True),

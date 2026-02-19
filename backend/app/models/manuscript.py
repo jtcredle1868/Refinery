@@ -26,6 +26,10 @@ class Manuscript(Base):
     raw_text = Column(Text, nullable=True)
     chapters_json = Column(Text, nullable=True)  # JSON: list of {title, text, index}
     owner_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    org_id = Column(Integer, ForeignKey("organizations.id"), nullable=True)
+    assigned_to_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    genre = Column(String(100), nullable=True)
+    author_name = Column(String(255), nullable=True)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at = Column(
         DateTime(timezone=True),
@@ -33,5 +37,6 @@ class Manuscript(Base):
         onupdate=lambda: datetime.now(timezone.utc),
     )
 
-    owner = relationship("User", back_populates="manuscripts")
+    owner = relationship("User", back_populates="manuscripts", foreign_keys=[owner_id])
+    assigned_to = relationship("User", foreign_keys=[assigned_to_id])
     analyses = relationship("AnalysisResult", back_populates="manuscript", cascade="all, delete-orphan")

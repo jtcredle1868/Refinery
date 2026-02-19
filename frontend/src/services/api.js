@@ -89,4 +89,122 @@ export const exportManuscript = (manuscriptId, exportType) =>
     export_type: exportType,
   }, exportType.includes('docx') ? { responseType: 'blob' } : {});
 
+// ---------------------------------------------------------------------------
+// Enterprise — Organization
+// ---------------------------------------------------------------------------
+export const createOrganization = (name, primaryContactEmail) =>
+  api.post('/enterprise/org', { name, primary_contact_email: primaryContactEmail });
+
+export const getOrganization = () => api.get('/enterprise/org');
+
+export const addOrgSeat = (userEmail, role = 'reader') =>
+  api.post('/enterprise/org/seats', { user_email: userEmail, role });
+
+export const updateOrgSeat = (membershipId, role) =>
+  api.patch(`/enterprise/org/seats/${membershipId}`, { role });
+
+export const removeOrgSeat = (membershipId) =>
+  api.delete(`/enterprise/org/seats/${membershipId}`);
+
+export const regenerateApiKey = () =>
+  api.post('/enterprise/org/regenerate-key');
+
+// ---------------------------------------------------------------------------
+// Enterprise — Annotations
+// ---------------------------------------------------------------------------
+export const createAnnotation = (manuscriptId, content, chapterNum = null, locationHint = null, annotationType = 'comment') =>
+  api.post('/enterprise/annotations', {
+    manuscript_id: manuscriptId,
+    chapter_num: chapterNum,
+    location_hint: locationHint,
+    content,
+    annotation_type: annotationType,
+  });
+
+export const listAnnotations = (manuscriptId) =>
+  api.get(`/enterprise/annotations/${manuscriptId}`);
+
+export const updateAnnotation = (annotationId, content) =>
+  api.put(`/enterprise/annotations/${annotationId}`, { content });
+
+export const deleteAnnotation = (annotationId) =>
+  api.delete(`/enterprise/annotations/${annotationId}`);
+
+// ---------------------------------------------------------------------------
+// Enterprise — Decision Workflow
+// ---------------------------------------------------------------------------
+export const getWorkflow = (manuscriptId) =>
+  api.get(`/enterprise/workflow/${manuscriptId}`);
+
+export const advanceWorkflow = (manuscriptId, notes = '', outcome = null) =>
+  api.post('/enterprise/workflow/advance', {
+    manuscript_id: manuscriptId,
+    notes,
+    outcome,
+  });
+
+// ---------------------------------------------------------------------------
+// Enterprise — Batch Actions
+// ---------------------------------------------------------------------------
+export const batchAssign = (manuscriptIds, assignToEmail) =>
+  api.post('/enterprise/batch/assign', {
+    manuscript_ids: manuscriptIds,
+    assign_to_email: assignToEmail,
+  });
+
+export const batchPass = (manuscriptIds) =>
+  api.post('/enterprise/batch/pass', { manuscript_ids: manuscriptIds });
+
+export const batchExportCsv = (manuscriptIds) =>
+  api.post('/enterprise/batch/export-csv', { manuscript_ids: manuscriptIds }, { responseType: 'blob' });
+
+// ---------------------------------------------------------------------------
+// Advisor — Student Management
+// ---------------------------------------------------------------------------
+export const createInviteCode = () => api.post('/advisor/invite');
+
+export const redeemInviteCode = (code) =>
+  api.post(`/advisor/redeem?code=${encodeURIComponent(code)}`);
+
+export const listStudents = () => api.get('/advisor/students');
+
+export const listStudentManuscripts = (studentId) =>
+  api.get(`/advisor/students/${studentId}/manuscripts`);
+
+// ---------------------------------------------------------------------------
+// Advisor — Annotations
+// ---------------------------------------------------------------------------
+export const createAdvisorAnnotation = (manuscriptId, content, chapterNum = null, locationHint = null) =>
+  api.post('/advisor/annotations', {
+    manuscript_id: manuscriptId,
+    chapter_num: chapterNum,
+    location_hint: locationHint,
+    content,
+  });
+
+export const listAdvisorAnnotations = (manuscriptId) =>
+  api.get(`/advisor/annotations/${manuscriptId}`);
+
+// ---------------------------------------------------------------------------
+// Advisor — Progress Tracking
+// ---------------------------------------------------------------------------
+export const getProgressTracking = (manuscriptId) =>
+  api.get(`/advisor/progress/${manuscriptId}`);
+
+// ---------------------------------------------------------------------------
+// Payments (Stripe)
+// ---------------------------------------------------------------------------
+export const createCheckoutSession = (priceId, successUrl, cancelUrl) =>
+  api.post('/payments/create-checkout-session', {
+    price_id: priceId,
+    success_url: successUrl,
+    cancel_url: cancelUrl,
+  });
+
+export const createPortalSession = () =>
+  api.post('/payments/create-portal-session');
+
+export const getSubscriptionStatus = () =>
+  api.get('/payments/subscription');
+
 export default api;

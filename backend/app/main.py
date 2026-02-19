@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.core.database import init_db
-from app.api.routes import auth, manuscripts, analysis, reports, exports
+from app.api.routes import auth, manuscripts, analysis, reports, exports, enterprise, advisor, payments
 
 settings = get_settings()
 
@@ -47,6 +47,9 @@ app.include_router(manuscripts.router, prefix=settings.API_PREFIX)
 app.include_router(analysis.router, prefix=settings.API_PREFIX)
 app.include_router(reports.router, prefix=settings.API_PREFIX)
 app.include_router(exports.router, prefix=settings.API_PREFIX)
+app.include_router(enterprise.router, prefix=settings.API_PREFIX)
+app.include_router(advisor.router, prefix=settings.API_PREFIX)
+app.include_router(payments.router, prefix=settings.API_PREFIX)
 
 
 @app.get("/")

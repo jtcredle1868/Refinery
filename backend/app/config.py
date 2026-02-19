@@ -31,6 +31,11 @@ class Settings(BaseSettings):
     PRO_TIER_WORD_LIMIT: int = 200_000
     MAX_UPLOAD_SIZE_MB: int = 50
 
+    # Stripe (scaffold — set these when you have a Stripe account)
+    STRIPE_SECRET_KEY: str = ""
+    STRIPE_WEBHOOK_SECRET: str = ""
+    STRIPE_PUBLISHABLE_KEY: str = ""
+
     # Analysis
     ANALYSIS_TIMEOUT_SECONDS: int = 300  # 5 minutes max
 

@@ -28,6 +28,7 @@ class UserResponse(BaseModel):
     full_name: str | None
     tier: str
     is_active: bool
+    org_id: int | None = None
 
     class Config:
         from_attributes = True
