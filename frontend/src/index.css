@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --refinery-navy: #1a2332;
+  --refinery-blue: #2563eb;
+  --refinery-light-blue: #60a5fa;
+  --refinery-slate: #475569;
+  --refinery-gold: #f59e0b;
+  --refinery-green: #10b981;
+  --refinery-red: #ef4444;
+  --refinery-bg: #f8fafc;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--refinery-bg);
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
