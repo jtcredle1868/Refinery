@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   listManuscripts, getManuscriptAnalyses, runAnalysis,
@@ -74,7 +74,7 @@ export default function TriageDashboardView() {
         })
       );
       setAnalysesMap(Object.fromEntries(analysesEntries));
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to load manuscripts');
     } finally {
       setLoading(false);

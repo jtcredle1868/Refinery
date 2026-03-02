@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Activity, Zap, Heart, Play, Pause } from 'lucide-react';
 import {
   AreaChart,
   Area,
-  BarChart,
   Bar,
   XAxis,
   YAxis,
@@ -39,7 +38,7 @@ export default function PacingArchitectView() {
       if (pacing && pacing.results_json) {
         setResults(JSON.parse(pacing.results_json));
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to load manuscript data');
     } finally {
       setLoading(false);

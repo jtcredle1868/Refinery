@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getManuscriptAnalyses } from '../../services/api';
 import { ArrowLeft, PenTool, Filter, Eye, Activity, Flower2 } from 'lucide-react';

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getManuscript, getManuscriptAnalyses, runAnalysis } from '../../services/api';
-import { ArrowLeft, Quote, AlertTriangle, CheckCircle, Clock, Play, Loader } from 'lucide-react';
+import { ArrowLeft, Quote, AlertTriangle, CheckCircle, Play, Loader } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const PIE_COLORS = ['#10b981', '#f59e0b', '#ef4444'];

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import {
   ArrowLeft,
   Mic,
@@ -329,7 +329,6 @@ function JargonBleedSection({ characters }) {
 
 export default function VoiceIsolationView() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [manuscript, setManuscript] = useState(null);
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -349,7 +348,7 @@ export default function VoiceIsolationView() {
       if (voiceAnalysis && voiceAnalysis.results_json) {
         setResults(JSON.parse(voiceAnalysis.results_json));
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to load manuscript data.');
     } finally {
       setLoading(false);

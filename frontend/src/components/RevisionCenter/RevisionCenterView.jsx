@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -100,7 +100,7 @@ export default function RevisionCenterView() {
         });
         setItemStatuses(statuses);
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to load manuscript data');
     } finally {
       setLoading(false);

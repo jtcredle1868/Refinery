@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { X, Download, FileText, FileBarChart, Loader } from 'lucide-react';
 import api from '../../services/api';
 

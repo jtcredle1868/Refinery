@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getWorkflow, advanceWorkflow, listAnnotations, createAnnotation } from '../../services/api';
 import {
   CheckCircle, Circle, ArrowRight, Loader, AlertCircle, MessageSquare,
-  Send, User, Clock,
+  Send, Clock,
 } from 'lucide-react';
 
 const STAGES = [

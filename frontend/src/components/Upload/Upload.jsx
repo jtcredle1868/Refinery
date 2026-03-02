@@ -1,15 +1,7 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { uploadManuscript } from '../../services/api';
 import { Upload as UploadIcon, FileText, CheckCircle, AlertCircle } from 'lucide-react';
-
-const ACCEPTED_TYPES = {
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
-  'text/plain': 'txt',
-  'application/rtf': 'rtf',
-  'text/rtf': 'rtf',
-  'application/pdf': 'pdf',
-};
 
 export default function Upload() {
   const [file, setFile] = useState(null);
