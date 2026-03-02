@@ -40,10 +40,12 @@ export default function DashboardPage() {
     const ext = file.name.split('.').pop()?.toLowerCase();
     if (!['docx', 'pdf', 'txt', 'rtf'].includes(ext || '')) {
       setUploadError('Unsupported file type. Accepted: .docx, .pdf, .txt, .rtf');
+      if (fileInputRef.current) fileInputRef.current.value = '';
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
       setUploadError('File too large. Maximum size is 5MB.');
+      if (fileInputRef.current) fileInputRef.current.value = '';
       return;
     }
 
