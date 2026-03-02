@@ -13,7 +13,7 @@ from app.core.database import get_db
 from app.core.security import get_current_user
 from app.models.user import User, UserTier
 from app.models.manuscript import Manuscript, ManuscriptStatus
-from app.models.analysis import AnalysisResult, AnalysisStatus
+from app.models.analysis import AnalysisResult, AnalysisStatus, AnalysisType
 from app.models.enterprise import (
     Organization, OrgMembership, EnterpriseRole,
     Annotation, ManuscriptDecision, DecisionStage, DecisionOutcome,
@@ -792,7 +792,7 @@ async def batch_export_csv(
         acq_result = await db.execute(
             select(AnalysisResult).where(
                 AnalysisResult.manuscript_id == ms_id,
-                AnalysisResult.analysis_type == "acquisition_score",
+                AnalysisResult.analysis_type == AnalysisType.ACQUISITION_SCORE,
                 AnalysisResult.status == AnalysisStatus.COMPLETED,
             )
         )
