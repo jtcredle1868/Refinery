@@ -7,20 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        refinery: {
-          navy: '#1a2332',
-          blue: '#2563eb',
-          'light-blue': '#60a5fa',
-          slate: '#475569',
-          gold: '#f59e0b',
-          green: '#10b981',
-          red: '#ef4444',
-          bg: '#f8fafc',
-        }
+        ink: '#171321',
+        parchment: '#f5efe7',
+        plum: '#5f2d82',
+        ember: '#ff784f',
       },
       fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        sans: ['Inter', 'sans-serif'],
+        serif: ['"IBM Plex Serif"', 'serif'],
+        display: ['"Playfair Display"', 'serif'],
+        sans: ['"IBM Plex Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
       }
     },
   },
