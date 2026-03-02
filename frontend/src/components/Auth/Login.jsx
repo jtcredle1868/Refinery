@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { login } from '../../services/api';
-import { BookOpen } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -28,64 +27,53 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-refinery-navy to-slate-800">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <BookOpen className="h-12 w-12 text-refinery-light-blue mx-auto mb-3" />
-          <h1 className="text-3xl font-display font-bold text-white">REFINERY</h1>
-          <p className="text-slate-400 mt-1">Where Prose Becomes Perfect</p>
-        </div>
+    <div className="flex min-h-screen items-center justify-center bg-parchment px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md space-y-5 rounded-3xl border border-ink/10 bg-white/90 p-8 shadow-2xl"
+      >
+        <h1 className="font-display text-3xl text-ink">Return to your atelier</h1>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-8">
-          <h2 className="text-2xl font-display font-semibold text-refinery-navy mb-6">Sign In</h2>
+        {error && (
+          <p className="text-sm text-red-600">{error}</p>
+        )}
 
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm">
-              {error}
-            </div>
-          )}
+        <label className="block">
+          <span className="text-sm font-semibold text-ink">Email</span>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-ink/20 bg-white/80 px-4 py-3"
+            placeholder="you@example.com"
+            required
+          />
+        </label>
+        <label className="block">
+          <span className="text-sm font-semibold text-ink">Password</span>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-ink/20 bg-white/80 px-4 py-3"
+            placeholder="Your password"
+            required
+          />
+        </label>
 
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-refinery-blue focus:border-transparent outline-none transition"
-                placeholder="you@example.com"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-refinery-blue focus:border-transparent outline-none transition"
-                placeholder="Your password"
-                required
-              />
-            </div>
-          </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded-full bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-wider text-parchment disabled:bg-ink/40"
+        >
+          {loading ? 'Signing in…' : 'Sign in'}
+        </button>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full mt-6 bg-refinery-blue text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition"
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-
-          <p className="mt-4 text-center text-sm text-slate-600">
-            Don't have an account?{' '}
-            <Link to="/signup" className="text-refinery-blue font-medium hover:underline">
-              Create one free
-            </Link>
-          </p>
-        </form>
-      </div>
+        <p className="text-center text-sm text-ink/60">
+          Need an account?{' '}
+          <Link to="/signup" className="font-semibold text-plum">Create one free</Link>
+        </p>
+      </form>
     </div>
   );
 }

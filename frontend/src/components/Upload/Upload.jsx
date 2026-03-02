@@ -1,15 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { uploadManuscript } from '../../services/api';
-import { Upload as UploadIcon, FileText, CheckCircle, AlertCircle } from 'lucide-react';
-
-const ACCEPTED_TYPES = {
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
-  'text/plain': 'txt',
-  'application/rtf': 'rtf',
-  'text/rtf': 'rtf',
-  'application/pdf': 'pdf',
-};
 
 export default function Upload() {
   const [file, setFile] = useState(null);
@@ -52,11 +43,14 @@ export default function Upload() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-display font-bold text-refinery-navy mb-2">Upload Manuscript</h1>
-      <p className="text-refinery-slate mb-8">
-        Upload your manuscript and Refinery will perform a full structural X-ray diagnostic in under 90 seconds.
-      </p>
+    <section className="mx-auto max-w-2xl space-y-6">
+      <header>
+        <p className="text-sm uppercase tracking-[0.4em] text-ink/60">Upload</p>
+        <h1 className="font-display text-3xl text-ink">Submit a manuscript</h1>
+        <p className="text-ink/70">
+          Upload your prose and Refinery will perform a full structural X-ray in under 90 seconds.
+        </p>
+      </header>
 
       {/* Drop zone */}
       <div
@@ -64,12 +58,12 @@ export default function Upload() {
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
-        className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all ${
+        className={`rounded-3xl border-2 border-dashed p-12 text-center cursor-pointer transition-all ${
           dragOver
-            ? 'border-refinery-blue bg-blue-50'
+            ? 'border-plum bg-plum/5'
             : file
-            ? 'border-refinery-green bg-green-50'
-            : 'border-slate-300 hover:border-refinery-blue hover:bg-slate-50'
+            ? 'border-plum/40 bg-white/90'
+            : 'border-ink/20 bg-white/60 hover:border-plum/40 hover:bg-white/80'
         }`}
       >
         <input
@@ -82,28 +76,23 @@ export default function Upload() {
 
         {file ? (
           <div>
-            <CheckCircle className="h-12 w-12 text-refinery-green mx-auto mb-3" />
-            <p className="font-medium text-refinery-navy">{file.name}</p>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="text-xs uppercase tracking-[0.4em] text-plum mb-2">Ready to upload</p>
+            <p className="text-xl font-semibold text-ink">{file.name}</p>
+            <p className="text-sm text-ink/60 mt-1">
               {(file.size / 1024 / 1024).toFixed(2)} MB
             </p>
-            <p className="text-sm text-refinery-green mt-2">Ready to upload</p>
           </div>
         ) : (
           <div>
-            <UploadIcon className="h-12 w-12 text-slate-400 mx-auto mb-3" />
-            <p className="font-medium text-refinery-navy">Drop your manuscript here</p>
-            <p className="text-sm text-slate-400 mt-1">or click to browse</p>
-            <p className="text-xs text-slate-400 mt-3">Supports .docx, .txt, .rtf, .pdf (max 50MB)</p>
+            <p className="text-xl font-semibold text-ink mb-1">Drop your manuscript here</p>
+            <p className="text-sm text-ink/60">or click to browse</p>
+            <p className="text-xs text-ink/40 mt-3">Supports .docx, .txt, .rtf, .pdf (max 50MB)</p>
           </div>
         )}
       </div>
 
       {error && (
-        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mt-4 text-sm">
-          <AlertCircle className="h-4 w-4 flex-shrink-0" />
-          <span>{error}</span>
-        </div>
+        <p className="text-sm text-red-600">{error}</p>
       )}
 
       {/* Upload button */}
@@ -111,25 +100,22 @@ export default function Upload() {
         <button
           onClick={handleUpload}
           disabled={uploading}
-          className="w-full mt-6 bg-refinery-blue text-white py-3 rounded-lg font-medium text-lg hover:bg-blue-700 disabled:opacity-50 transition flex items-center justify-center space-x-2"
+          className="w-full rounded-full bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-wider text-parchment disabled:bg-ink/40 flex items-center justify-center gap-2"
         >
           {uploading ? (
             <>
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-              <span>Uploading & parsing...</span>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-parchment"></div>
+              <span>Uploading & parsing…</span>
             </>
           ) : (
-            <>
-              <UploadIcon className="h-5 w-5" />
-              <span>Upload & Analyze</span>
-            </>
+            <span>Upload & analyze</span>
           )}
         </button>
       )}
 
       {/* Supported formats */}
-      <div className="mt-8 bg-white rounded-xl border border-slate-200 p-6">
-        <h3 className="font-medium text-refinery-navy mb-3">Supported Formats</h3>
+      <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
+        <h3 className="font-semibold text-ink mb-3">Supported formats</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
             { ext: '.docx', label: 'Word Document' },
@@ -137,14 +123,13 @@ export default function Upload() {
             { ext: '.rtf', label: 'Rich Text' },
             { ext: '.pdf', label: 'PDF Document' },
           ].map((f) => (
-            <div key={f.ext} className="flex items-center space-x-2 text-sm">
-              <FileText className="h-4 w-4 text-refinery-slate" />
-              <span className="font-medium">{f.ext}</span>
-              <span className="text-slate-400">{f.label}</span>
+            <div key={f.ext} className="text-sm text-ink/70">
+              <span className="font-semibold text-ink">{f.ext}</span>{' '}
+              <span>{f.label}</span>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

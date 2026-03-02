@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { signup } from '../../services/api';
-import { BookOpen } from 'lucide-react';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -29,76 +28,65 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-refinery-navy to-slate-800">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <BookOpen className="h-12 w-12 text-refinery-light-blue mx-auto mb-3" />
-          <h1 className="text-3xl font-display font-bold text-white">REFINERY</h1>
-          <p className="text-slate-400 mt-1">Where Prose Becomes Perfect</p>
-        </div>
+    <div className="flex min-h-screen items-center justify-center bg-parchment px-4">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md space-y-5 rounded-3xl border border-ink/10 bg-white/90 p-8 shadow-2xl"
+      >
+        <h1 className="font-display text-3xl text-ink">Begin your craft</h1>
+        <p className="text-sm text-ink/60">Start with the Free tier — upgrade to Pro anytime.</p>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-8">
-          <h2 className="text-2xl font-display font-semibold text-refinery-navy mb-6">Create Account</h2>
-          <p className="text-sm text-slate-500 mb-6">Start with the Free tier — upgrade to Pro anytime.</p>
+        {error && (
+          <p className="text-sm text-red-600">{error}</p>
+        )}
 
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm">
-              {error}
-            </div>
-          )}
+        <label className="block">
+          <span className="text-sm font-semibold text-ink">Full Name</span>
+          <input
+            type="text"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-ink/20 bg-white/80 px-4 py-3"
+            placeholder="Your name"
+          />
+        </label>
+        <label className="block">
+          <span className="text-sm font-semibold text-ink">Email</span>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-ink/20 bg-white/80 px-4 py-3"
+            placeholder="you@example.com"
+            required
+          />
+        </label>
+        <label className="block">
+          <span className="text-sm font-semibold text-ink">Password</span>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-ink/20 bg-white/80 px-4 py-3"
+            placeholder="Create a password"
+            required
+            minLength={8}
+          />
+        </label>
 
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-              <input
-                type="text"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-refinery-blue focus:border-transparent outline-none transition"
-                placeholder="Your name"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-refinery-blue focus:border-transparent outline-none transition"
-                placeholder="you@example.com"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-refinery-blue focus:border-transparent outline-none transition"
-                placeholder="Create a password"
-                required
-                minLength={8}
-              />
-            </div>
-          </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded-full bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-wider text-parchment disabled:bg-ink/40"
+        >
+          {loading ? 'Creating account…' : 'Create free account'}
+        </button>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full mt-6 bg-refinery-blue text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition"
-          >
-            {loading ? 'Creating account...' : 'Create Free Account'}
-          </button>
-
-          <p className="mt-4 text-center text-sm text-slate-600">
-            Already have an account?{' '}
-            <Link to="/login" className="text-refinery-blue font-medium hover:underline">
-              Sign in
-            </Link>
-          </p>
-        </form>
-      </div>
+        <p className="text-center text-sm text-ink/60">
+          Already have an account?{' '}
+          <Link to="/login" className="font-semibold text-plum">Sign in</Link>
+        </p>
+      </form>
     </div>
   );
 }

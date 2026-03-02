@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { listManuscripts } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
-import { FileText, Upload, ChevronRight, BookOpen, Star } from 'lucide-react';
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -16,119 +15,98 @@ export default function Dashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  const statusColors = {
-    uploaded: 'bg-yellow-100 text-yellow-800',
-    parsing: 'bg-blue-100 text-blue-800',
-    ready: 'bg-green-100 text-green-800',
-    analyzing: 'bg-purple-100 text-purple-800',
-    analyzed: 'bg-emerald-100 text-emerald-800',
-    error: 'bg-red-100 text-red-800',
+  const statusLabels = {
+    uploaded: 'Uploaded',
+    parsing: 'Parsing',
+    ready: 'Ready',
+    analyzing: 'Analyzing',
+    analyzed: 'Analyzed',
+    error: 'Error',
   };
 
   return (
-    <div>
+    <section className="space-y-6">
       {/* Welcome header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-display font-bold text-refinery-navy">
+      <header>
+        <p className="text-sm uppercase tracking-[0.4em] text-ink/60">Dashboard</p>
+        <h1 className="font-display text-3xl text-ink">
           Welcome back{user?.full_name ? `, ${user.full_name}` : ''}
         </h1>
-        <p className="text-refinery-slate mt-1">
-          Your manuscript analysis dashboard
-        </p>
-      </div>
+        <p className="text-ink/70">Your manuscript analysis control room.</p>
+      </header>
 
       {/* Quick stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-slate-500">Manuscripts</p>
-              <p className="text-3xl font-bold text-refinery-navy mt-1">{manuscripts.length}</p>
-            </div>
-            <FileText className="h-10 w-10 text-refinery-light-blue" />
-          </div>
-        </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-slate-500">Total Words</p>
-              <p className="text-3xl font-bold text-refinery-navy mt-1">
-                {manuscripts.reduce((sum, m) => sum + m.word_count, 0).toLocaleString()}
-              </p>
-            </div>
-            <BookOpen className="h-10 w-10 text-refinery-light-blue" />
-          </div>
-        </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-slate-500">Current Tier</p>
-              <p className="text-3xl font-bold text-refinery-navy mt-1 uppercase">{user?.tier || 'Free'}</p>
-            </div>
-            <Star className="h-10 w-10 text-refinery-gold" />
-          </div>
-        </div>
+      <div className="grid gap-4 md:grid-cols-3">
+        <article className="rounded-3xl border border-ink/10 bg-white/90 p-6">
+          <p className="text-xs uppercase tracking-[0.4em] text-ink/50">Manuscripts</p>
+          <p className="mt-2 text-3xl font-semibold text-ink">{manuscripts.length}</p>
+        </article>
+        <article className="rounded-3xl border border-ink/10 bg-white/90 p-6">
+          <p className="text-xs uppercase tracking-[0.4em] text-ink/50">Total words</p>
+          <p className="mt-2 text-3xl font-semibold text-ink">
+            {manuscripts.reduce((sum, m) => sum + m.word_count, 0).toLocaleString()}
+          </p>
+        </article>
+        <article className="rounded-3xl border border-ink/10 bg-white/90 p-6">
+          <p className="text-xs uppercase tracking-[0.4em] text-ink/50">Current tier</p>
+          <p className="mt-2 text-3xl font-semibold text-ink uppercase">{user?.tier || 'Free'}</p>
+        </article>
       </div>
 
       {/* Manuscripts list */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200">
-        <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-          <h2 className="text-lg font-display font-semibold text-refinery-navy">Your Manuscripts</h2>
+      <section className="rounded-3xl border border-ink/10 bg-white/90">
+        <div className="flex items-center justify-between border-b border-ink/10 px-6 py-4">
+          <h2 className="font-semibold text-ink">Your Manuscripts</h2>
           <Link
             to="/upload"
-            className="flex items-center space-x-1 bg-refinery-blue text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
+            className="rounded-full bg-ink px-5 py-2 text-sm font-semibold uppercase tracking-wider text-parchment"
           >
-            <Upload className="h-4 w-4" />
-            <span>Upload New</span>
+            Upload new
           </Link>
         </div>
 
         {loading ? (
           <div className="p-12 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-refinery-blue mx-auto"></div>
-            <p className="mt-3 text-slate-500">Loading manuscripts...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-plum mx-auto"></div>
+            <p className="mt-3 text-ink/60">Gathering your manuscripts…</p>
           </div>
         ) : manuscripts.length === 0 ? (
           <div className="p-12 text-center">
-            <FileText className="h-16 w-16 text-slate-300 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-slate-600">No manuscripts yet</h3>
-            <p className="text-slate-400 mt-1 mb-4">Upload your first manuscript to get started</p>
+            <h3 className="text-lg font-semibold text-ink">No manuscripts yet</h3>
+            <p className="text-ink/60 mt-1 mb-4">Upload your first manuscript to get started.</p>
             <Link
               to="/upload"
-              className="inline-flex items-center space-x-2 bg-refinery-blue text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-700 transition"
+              className="rounded-full bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-wider text-parchment"
             >
-              <Upload className="h-4 w-4" />
-              <span>Upload Manuscript</span>
+              Upload Manuscript
             </Link>
           </div>
         ) : (
-          <div className="divide-y divide-slate-100">
+          <ul className="divide-y divide-ink/5">
             {manuscripts.map((m) => (
-              <Link
-                key={m.id}
-                to={`/manuscript/${m.id}`}
-                className="flex items-center justify-between px-6 py-4 hover:bg-slate-50 transition"
-              >
-                <div className="flex items-center space-x-4">
-                  <FileText className="h-8 w-8 text-refinery-slate" />
+              <li key={m.id}>
+                <Link
+                  to={`/manuscript/${m.id}`}
+                  className="flex items-center justify-between px-6 py-4 hover:bg-ink/[0.03] transition-colors"
+                >
                   <div>
-                    <h3 className="font-medium text-refinery-navy">{m.title}</h3>
-                    <p className="text-sm text-slate-400">
-                      {m.word_count.toLocaleString()} words &middot; {m.chapter_count} chapters &middot; .{m.file_type}
+                    <h3 className="font-semibold text-ink">{m.title}</h3>
+                    <p className="mt-1 text-sm text-ink/60">
+                      {m.word_count.toLocaleString()} words · {m.chapter_count} chapters · .{m.file_type}
                     </p>
                   </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[m.status] || 'bg-slate-100 text-slate-600'}`}>
-                    {m.status}
-                  </span>
-                  <ChevronRight className="h-5 w-5 text-slate-400" />
-                </div>
-              </Link>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs uppercase tracking-wider text-ink/50">
+                      {statusLabels[m.status] || m.status}
+                    </span>
+                    <span className="text-ink/30">→</span>
+                  </div>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }
