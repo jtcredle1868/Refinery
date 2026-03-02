@@ -1,6 +1,6 @@
 import os
+import uuid
 import json
-import datetime
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 
@@ -52,10 +52,10 @@ async def upload_manuscript(
     if len(content) > settings.MAX_FILE_SIZE:
         raise HTTPException(status_code=422, detail=f"File too large. Maximum size is {settings.MAX_FILE_SIZE // (1024*1024)}MB")
 
-    # Save file
+    # Save file using a server-generated UUID filename to prevent path traversal
     os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
-    safe_filename = f"{current_user.id}_{datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S')}_{filename}"
-    file_path = os.path.join(settings.UPLOAD_DIR, safe_filename)
+    server_filename = f"{uuid.uuid4().hex}{ext}"
+    file_path = os.path.join(settings.UPLOAD_DIR, server_filename)
     with open(file_path, "wb") as f:
         f.write(content)
 
