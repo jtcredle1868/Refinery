@@ -128,7 +128,7 @@ export default function ReaderReportView() {
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
                 placeholder="Enter the author's name"
-                className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-refinery-blue focus:border-transparent"
+                className="w-full border border-ink/20 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-plum focus:border-transparent"
               />
             </div>
 
@@ -294,7 +294,7 @@ export default function ReaderReportView() {
           <div className="flex justify-center">
             <button
               onClick={() => setReport(null)}
-              className="border border-slate-300 text-ink/80 px-6 py-2.5 rounded-lg font-medium hover:bg-ink/5 transition"
+              className="border border-ink/20 text-ink/80 px-6 py-2.5 rounded-lg font-medium hover:bg-ink/5 transition"
             >
               Generate New Report
             </button>

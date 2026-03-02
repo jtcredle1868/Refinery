@@ -36,7 +36,7 @@ const strengthColor = (strength) => {
     case 'adequate': return 'bg-blue-100 text-blue-700 border-blue-300';
     case 'weak': return 'bg-amber-100 text-amber-700 border-amber-300';
     case 'missing': return 'bg-red-100 text-red-700 border-red-300';
-    default: return 'bg-ink/10 text-ink/70 border-slate-300';
+    default: return 'bg-ink/10 text-ink/70 border-ink/20';
   }
 };
 
@@ -165,7 +165,7 @@ export default function ArgumentCoherenceView() {
             <select
               value={discipline}
               onChange={(e) => setDiscipline(e.target.value)}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-refinery-blue focus:border-transparent"
+              className="border border-ink/20 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-plum focus:border-transparent"
             >
               <option value="general">General</option>
               <option value="humanities">Humanities</option>
@@ -180,7 +180,7 @@ export default function ArgumentCoherenceView() {
             <select
               value={documentType}
               onChange={(e) => setDocumentType(e.target.value)}
-              className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-refinery-blue focus:border-transparent"
+              className="border border-ink/20 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-plum focus:border-transparent"
             >
               <option value="thesis">Thesis</option>
               <option value="dissertation">Dissertation</option>

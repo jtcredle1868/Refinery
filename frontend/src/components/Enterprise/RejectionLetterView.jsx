@@ -144,7 +144,7 @@ export default function RejectionLetterView() {
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
                 placeholder="Enter the author's name"
-                className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-refinery-blue focus:border-transparent"
+                className="w-full border border-ink/20 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-plum focus:border-transparent"
               />
             </div>
 
@@ -153,7 +153,7 @@ export default function RejectionLetterView() {
               <select
                 value={tone}
                 onChange={(e) => setTone(e.target.value)}
-                className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-refinery-blue focus:border-transparent"
+                className="w-full border border-ink/20 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-plum focus:border-transparent"
               >
                 <option value="standard">Standard</option>
                 <option value="encouraging">Encouraging</option>
@@ -261,7 +261,7 @@ export default function RejectionLetterView() {
                     key={t}
                     onClick={() => handleRegenerate(t)}
                     disabled={generating}
-                    className="flex items-center space-x-1 border border-slate-300 text-ink/80 px-3 py-2 rounded-lg text-sm font-medium hover:bg-ink/5 disabled:opacity-50 transition capitalize"
+                    className="flex items-center space-x-1 border border-ink/20 text-ink/80 px-3 py-2 rounded-lg text-sm font-medium hover:bg-ink/5 disabled:opacity-50 transition capitalize"
                   >
                     <RefreshCw className="h-3 w-3" />
                     <span>{t}</span>

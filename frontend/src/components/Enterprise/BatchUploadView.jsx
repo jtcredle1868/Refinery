@@ -175,7 +175,7 @@ export default function BatchUploadView() {
         className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all ${
           dragOver
             ? 'border-plum bg-blue-50'
-            : 'border-slate-300 hover:border-plum hover:bg-ink/5'
+            : 'border-ink/20 hover:border-plum hover:bg-ink/5'
         }`}
       >
         <input
@@ -325,7 +325,7 @@ export default function BatchUploadView() {
 
           <button
             onClick={() => { setFiles([]); setResults([]); }}
-            className="w-full mt-4 border border-slate-300 text-ink/80 py-2.5 rounded-lg font-medium hover:bg-ink/5 transition"
+            className="w-full mt-4 border border-ink/20 text-ink/80 py-2.5 rounded-lg font-medium hover:bg-ink/5 transition"
           >
             Upload More Files
           </button>

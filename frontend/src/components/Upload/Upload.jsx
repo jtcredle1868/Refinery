@@ -58,10 +58,10 @@ export default function Upload() {
         onClick={() => inputRef.current?.click()}
         className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all ${
           dragOver
-            ? 'border-plum bg-blue-50'
+            ? 'border-plum bg-plum/10'
             : file
-            ? 'border-plum bg-green-50'
-            : 'border-slate-300 hover:border-plum hover:bg-ink/5'
+            ? 'border-plum bg-plum/5'
+            : 'border-ink/20 hover:border-plum hover:bg-ink/5'
         }`}
       >
         <input

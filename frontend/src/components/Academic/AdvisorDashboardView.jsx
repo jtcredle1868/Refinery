@@ -320,7 +320,7 @@ export default function AdvisorDashboardView() {
             <div className="p-4 border-t flex space-x-2">
               <input type="text" value={newComment} onChange={(e) => setNewComment(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handlePostAnnotation()}
-                placeholder="Add annotation..." className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                placeholder="Add annotation..." className="flex-1 border border-ink/20 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" />
               <button onClick={handlePostAnnotation} disabled={!newComment.trim() || posting}
                 className="bg-violet-500 text-parchment px-3 py-2 rounded-full text-sm uppercase tracking-wider hover:bg-violet-700 disabled:opacity-50 transition">
                 {posting ? <Loader className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}

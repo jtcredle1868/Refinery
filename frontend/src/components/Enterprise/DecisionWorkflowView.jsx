@@ -177,7 +177,7 @@ export default function DecisionWorkflowView() {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Add your notes for this stage..."
-            className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm h-20 focus:outline-none focus:ring-2 focus:ring-refinery-blue mb-3"
+            className="w-full border border-ink/20 rounded-xl px-4 py-2.5 text-sm h-20 focus:outline-none focus:ring-2 focus:ring-plum mb-3"
           />
 
           {/* Outcome selector (only at editor_recommended -> director_decision) */}
@@ -192,7 +192,7 @@ export default function DecisionWorkflowView() {
                     className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
                       selectedOutcome === o.value
                         ? `${o.color} text-white border-transparent`
-                        : 'bg-white text-ink/70 border-slate-300 hover:bg-ink/5'
+                        : 'bg-white text-ink/70 border-ink/20 hover:bg-ink/5'
                     }`}
                   >
                     {o.label}
@@ -253,7 +253,7 @@ export default function DecisionWorkflowView() {
             onChange={(e) => setNewComment(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handlePostComment()}
             placeholder="Add a comment..."
-            className="flex-1 border border-slate-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-refinery-blue"
+            className="flex-1 border border-ink/20 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-plum"
           />
           <button
             onClick={handlePostComment}

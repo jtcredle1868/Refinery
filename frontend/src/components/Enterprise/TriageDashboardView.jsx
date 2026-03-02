@@ -243,7 +243,7 @@ export default function TriageDashboardView() {
         {TIERS.map((t) => (
           <div key={t.label}
             onClick={() => setFilterTier(filterTier === t.label ? 'all' : t.label)}
-            className={`bg-white rounded-lg shadow-sm border p-4 cursor-pointer transition hover:shadow-md ${filterTier === t.label ? 'ring-2 ring-refinery-blue' : ''}`}
+            className={`bg-white rounded-lg shadow-sm border p-4 cursor-pointer transition hover:shadow-md ${filterTier === t.label ? 'ring-2 ring-plum' : ''}`}
           >
             <p className="text-sm text-ink/60">{t.label}</p>
             <p className="text-2xl font-bold text-ink mt-1">{tierCounts[t.label]}</p>
@@ -270,7 +270,7 @@ export default function TriageDashboardView() {
         <div className="flex items-center space-x-3">
           <Filter className="h-4 w-4 text-ink/40" />
           <select value={filterTier} onChange={(e) => setFilterTier(e.target.value)}
-            className="text-sm border border-slate-300 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-refinery-blue">
+            className="text-sm border border-ink/20 rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-plum">
             <option value="all">All Tiers</option>
             <option value="Strong Consider">Strong Consider</option>
             <option value="Consider">Consider</option>
@@ -299,14 +299,14 @@ export default function TriageDashboardView() {
 
         {selectedIds.size === 0 && (
           <button onClick={handleExportCsv}
-            className="flex items-center space-x-1 text-sm text-ink/70 hover:text-slate-800 border border-slate-300 rounded-lg px-3 py-1.5 transition">
+            className="flex items-center space-x-1 text-sm text-ink/70 hover:text-slate-800 border border-ink/20 rounded-xl px-3 py-1.5 transition">
             <Download className="h-4 w-4" /><span>Export All CSV</span>
           </button>
         )}
 
         <div className="relative">
           <button onClick={() => setSortMenuOpen(!sortMenuOpen)}
-            className="flex items-center space-x-2 text-sm border border-slate-300 rounded-lg px-3 py-1.5 hover:bg-ink/5 transition">
+            className="flex items-center space-x-2 text-sm border border-ink/20 rounded-xl px-3 py-1.5 hover:bg-ink/5 transition">
             <ArrowDownWideNarrow className="h-4 w-4 text-ink/40" />
             <span>Sort: {sortBy === 'score' ? 'Score' : sortBy === 'title' ? 'Title' : 'Date'}</span>
             <ChevronDown className="h-3 w-3 text-ink/40" />
@@ -400,9 +400,9 @@ export default function TriageDashboardView() {
               <Users className="h-5 w-5 inline mr-2" />Assign {selectedIds.size} Manuscript{selectedIds.size > 1 ? 's' : ''} to Editor
             </h3>
             <input type="email" value={assignEmail} onChange={(e) => setAssignEmail(e.target.value)} placeholder="Editor's email address"
-              className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-refinery-blue mb-4" />
+              className="w-full border border-ink/20 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-plum mb-4" />
             <div className="flex space-x-3">
-              <button onClick={() => setShowAssignModal(false)} className="flex-1 border border-slate-300 text-ink/80 px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/5 transition">Cancel</button>
+              <button onClick={() => setShowAssignModal(false)} className="flex-1 border border-ink/20 text-ink/80 px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/5 transition">Cancel</button>
               <button onClick={handleBatchAssign} disabled={!assignEmail.trim() || batchLoading}
                 className="flex-1 bg-ink text-parchment px-4 py-2 rounded-full uppercase tracking-wider text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition">
                 {batchLoading ? 'Assigning...' : 'Assign'}
