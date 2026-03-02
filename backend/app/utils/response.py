@@ -16,5 +16,6 @@ def api_response(
         "meta": {
             "request_id": str(uuid.uuid4()),
             "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+            "status_code": status_code,
         },
     }
