@@ -50,16 +50,22 @@ def analyze_manuscript(
     if not manuscript.extracted_text:
         raise HTTPException(status_code=400, detail="Manuscript text not yet extracted")
 
+    if req and req.modules:
+        valid_modules = {m.value for m in AnalysisModule}
+        invalid_modules = [m for m in req.modules if m not in valid_modules]
+        if invalid_modules:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid module name(s): {invalid_modules}. Valid modules are: {[m.value for m in AnalysisModule]}",
+            )
+
     try:
         if req and req.modules:
             results = {}
             for mod_name in req.modules:
-                try:
-                    module = AnalysisModule(mod_name)
-                    result = run_single_module(db, manuscript, module)
-                    results[mod_name] = result
-                except ValueError:
-                    pass
+                module = AnalysisModule(mod_name)
+                result = run_single_module(db, manuscript, module)
+                results[mod_name] = result
             manuscript.status = ManuscriptStatus.COMPLETE
             manuscript.progress_percent = 100.0
             db.commit()
