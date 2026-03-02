@@ -52,14 +52,22 @@ def analyze_manuscript(
 
     try:
         if req and req.modules:
-            results = {}
+            invalid_modules = []
+            valid_modules = []
             for mod_name in req.modules:
                 try:
-                    module = AnalysisModule(mod_name)
-                    result = run_single_module(db, manuscript, module)
-                    results[mod_name] = result
+                    valid_modules.append(AnalysisModule(mod_name))
                 except ValueError:
-                    pass
+                    invalid_modules.append(mod_name)
+            if invalid_modules:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Invalid module names: {', '.join(invalid_modules)}"
+                )
+            results = {}
+            for module in valid_modules:
+                result = run_single_module(db, manuscript, module)
+                results[module.value] = result
             manuscript.status = ManuscriptStatus.COMPLETE
             manuscript.progress_percent = 100.0
             db.commit()
