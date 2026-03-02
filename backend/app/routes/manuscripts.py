@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 
@@ -34,7 +35,7 @@ def _manuscript_to_dict(m: Manuscript) -> dict:
 @router.post("", status_code=201)
 async def upload_manuscript(
     file: UploadFile = File(...),
-    title: str = Form(None),
+    title: Optional[str] = Form(None),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
