@@ -379,7 +379,7 @@ export default function TriageDashboardView() {
                     <td className="px-4 py-4">
                       {m.acquisitionScore == null && (
                         <button onClick={(e) => handleRunScore(e, m.id)} disabled={runningId === m.id}
-                          className="flex items-center space-x-1 bg-ink text-white px-3 py-1.5 rounded-full text-xs font-medium hover:bg-ink/80 disabled:opacity-50 transition">
+                          className="flex items-center space-x-1 bg-ink text-parchment px-3 py-1.5 rounded-full text-xs font-medium uppercase tracking-wider hover:bg-ink/80 disabled:opacity-50 transition">
                           {runningId === m.id ? <><Loader className="h-3 w-3 animate-spin" /><span>Scoring...</span></> : <><Play className="h-3 w-3" /><span>Score</span></>}
                         </button>
                       )}

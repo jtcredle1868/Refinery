@@ -135,7 +135,7 @@ export default function ReaderReportView() {
             <button
               onClick={handleGenerate}
               disabled={generating}
-              className="w-full bg-ink text-white py-3 rounded-lg font-medium hover:bg-ink/80 disabled:opacity-50 transition flex items-center justify-center space-x-2"
+              className="w-full bg-ink text-parchment py-3 rounded-full font-medium uppercase tracking-wider hover:bg-ink/80 disabled:opacity-50 transition flex items-center justify-center space-x-2"
             >
               {generating ? (
                 <>

@@ -144,7 +144,7 @@ export default function CharacterArcView() {
       <button
         onClick={handleRunAnalysis}
         disabled={running}
-        className="flex items-center space-x-2 bg-ink text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition mb-8"
+        className="flex items-center space-x-2 bg-ink text-parchment px-5 py-2.5 rounded-full text-sm font-medium uppercase tracking-wider hover:bg-ink/80 disabled:opacity-50 transition mb-8"
       >
         {running ? (
           <>

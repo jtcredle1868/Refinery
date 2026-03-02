@@ -205,7 +205,7 @@ export default function DecisionWorkflowView() {
           <button
             onClick={handleAdvance}
             disabled={advancing || (currentStageIndex === 2 && !selectedOutcome)}
-            className="flex items-center space-x-2 bg-ink text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
+            className="flex items-center space-x-2 bg-ink text-parchment px-5 py-2.5 rounded-full text-sm font-medium uppercase tracking-wider hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {advancing ? <Loader className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
             <span>{advancing ? 'Advancing...' : 'Advance Workflow'}</span>

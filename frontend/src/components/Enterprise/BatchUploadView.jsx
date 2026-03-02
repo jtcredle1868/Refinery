@@ -264,7 +264,7 @@ export default function BatchUploadView() {
           {!uploading && results.length === 0 && files.some((f) => f.status === 'pending') && (
             <button
               onClick={handleUploadAll}
-              className="w-full mt-4 bg-ink text-white py-3 rounded-lg font-medium hover:bg-ink/80 transition flex items-center justify-center space-x-2"
+              className="w-full mt-4 bg-ink text-parchment py-3 rounded-full font-medium uppercase tracking-wider hover:bg-ink/80 transition flex items-center justify-center space-x-2"
             >
               <Upload className="h-5 w-5" />
               <span>Upload All ({files.filter((f) => f.status === 'pending').length} files)</span>
