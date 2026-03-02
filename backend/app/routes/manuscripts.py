@@ -1,6 +1,8 @@
 import os
+import re
 import json
 import datetime
+from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 
@@ -34,12 +36,16 @@ def _manuscript_to_dict(m: Manuscript) -> dict:
 @router.post("", status_code=201)
 async def upload_manuscript(
     file: UploadFile = File(...),
-    title: str = Form(None),
+    title: Optional[str] = Form(None),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    # Validate file extension
-    filename = file.filename or "untitled"
+    # Sanitize filename to prevent path traversal
+    filename = os.path.basename(file.filename or "untitled")
+    filename = re.sub(r'[^\w.\-]', '_', filename)
+    # Reject filenames with ".." sequences after sanitization
+    if not filename or ".." in filename:
+        filename = "untitled"
     ext = os.path.splitext(filename)[1].lower()
     if ext not in settings.ALLOWED_EXTENSIONS:
         raise HTTPException(

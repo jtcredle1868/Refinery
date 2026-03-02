@@ -7,7 +7,6 @@ def api_response(
     data: Any = None,
     error: Optional[str] = None,
     success: bool = True,
-    status_code: int = 200,
 ) -> dict:
     return {
         "success": success,
