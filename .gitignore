@@ -12,6 +12,7 @@ backend/uploads/*
 backend/exports/*
 !backend/uploads/.gitkeep
 !backend/exports/.gitkeep
+backend/.venv/
 .env
 
 # Frontend
