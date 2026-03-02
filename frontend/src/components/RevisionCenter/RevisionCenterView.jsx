@@ -185,7 +185,7 @@ export default function RevisionCenterView() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-refinery-blue"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-plum"></div>
       </div>
     );
   }
@@ -194,10 +194,10 @@ export default function RevisionCenterView() {
   if (!manuscript) {
     return (
       <div className="text-center py-20">
-        <p className="text-slate-500">Manuscript not found.</p>
+        <p className="text-ink/60">Manuscript not found.</p>
         <button
           onClick={() => navigate(-1)}
-          className="text-refinery-blue mt-2 inline-block hover:underline"
+          className="text-plum mt-2 inline-block hover:underline"
         >
           Go back
         </button>
@@ -214,19 +214,19 @@ export default function RevisionCenterView() {
       {/* Back navigation */}
       <button
         onClick={() => navigate(`/manuscript/${id}`)}
-        className="flex items-center text-refinery-blue hover:underline mb-6 text-sm"
+        className="flex items-center text-plum hover:underline mb-6 text-sm"
       >
         <ArrowLeft className="h-4 w-4 mr-1" /> Back to manuscript
       </button>
 
       {/* Page header */}
       <div className="flex items-center space-x-3 mb-2">
-        <Filter className="h-8 w-8 text-refinery-blue" />
-        <h1 className="text-3xl font-display font-bold text-refinery-navy">
+        <Filter className="h-8 w-8 text-plum" />
+        <h1 className="text-3xl font-display text-ink">
           Revision Command Center
         </h1>
       </div>
-      <p className="text-refinery-slate mb-6">
+      <p className="text-ink/60 mb-6">
         Aggregated edit queue for <span className="font-medium">{manuscript.title}</span>
       </p>
 
@@ -240,19 +240,19 @@ export default function RevisionCenterView() {
 
       {/* No results -- generate button */}
       {!results && (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
-          <Filter className="h-16 w-16 text-slate-300 mx-auto mb-4" />
-          <h2 className="text-xl font-display font-semibold text-refinery-navy mb-2">
+        <div className="rounded-3xl border border-ink/10 bg-white/90 p-12 text-center">
+          <Filter className="h-16 w-16 text-ink/40 mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-ink mb-2">
             No Edit Queue Generated
           </h2>
-          <p className="text-sm text-slate-500 mb-6 max-w-md mx-auto">
+          <p className="text-sm text-ink/60 mb-6 max-w-md mx-auto">
             Generate a consolidated edit queue by aggregating findings from all completed analysis
             modules. This gives you a single, prioritized list of every revision suggestion.
           </p>
           <button
             onClick={handleGenerate}
             disabled={generating}
-            className="inline-flex items-center space-x-2 bg-refinery-blue text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition"
+            className="inline-flex items-center space-x-2 bg-ink text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {generating ? (
               <>
@@ -273,14 +273,14 @@ export default function RevisionCenterView() {
       {results && (
         <>
           {/* Stats Header */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+          <div className="rounded-3xl border border-ink/10 bg-white/90 p-6 mb-6">
             <div className="flex flex-wrap items-center gap-6">
               {/* Total findings */}
               <div className="flex flex-col">
-                <span className="text-3xl font-bold text-refinery-navy">
+                <span className="text-3xl font-bold text-ink">
                   {stats?.total || 0}
                 </span>
-                <span className="text-xs text-slate-500 uppercase tracking-wide">
+                <span className="text-xs text-ink/60 uppercase tracking-wide">
                   Total Findings
                 </span>
               </div>
@@ -314,7 +314,7 @@ export default function RevisionCenterView() {
                   <XCircle className="h-4 w-4" />
                   <span>{statusCounts.rejected} rejected</span>
                 </span>
-                <span className="inline-flex items-center space-x-1 text-slate-500">
+                <span className="inline-flex items-center space-x-1 text-ink/60">
                   <Clock className="h-4 w-4" />
                   <span>{statusCounts.deferred} deferred</span>
                 </span>
@@ -326,13 +326,13 @@ export default function RevisionCenterView() {
               {/* By module pills */}
               {stats?.by_module && (
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs text-slate-500 uppercase tracking-wide mr-1">
+                  <span className="text-xs text-ink/60 uppercase tracking-wide mr-1">
                     By Module:
                   </span>
                   {Object.entries(stats.by_module).map(([mod, count]) => {
                     const colors = MODULE_COLORS[mod] || {
-                      bg: 'bg-slate-100',
-                      text: 'text-slate-700',
+                      bg: 'bg-ink/10',
+                      text: 'text-ink/80',
                     };
                     return (
                       <span
@@ -352,11 +352,11 @@ export default function RevisionCenterView() {
               <button
                 onClick={handleGenerate}
                 disabled={generating}
-                className="inline-flex items-center space-x-2 text-sm text-refinery-blue hover:text-blue-800 disabled:opacity-50 transition font-medium"
+                className="inline-flex items-center space-x-2 text-sm text-plum hover:text-blue-800 disabled:opacity-50 transition font-medium"
               >
                 {generating ? (
                   <>
-                    <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-refinery-blue"></div>
+                    <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-plum"></div>
                     <span>Regenerating...</span>
                   </>
                 ) : (
@@ -370,11 +370,11 @@ export default function RevisionCenterView() {
           </div>
 
           {/* Filters Bar */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 mb-6">
+          <div className="rounded-3xl border border-ink/10 bg-white/90 p-4 mb-6">
             <div className="flex flex-wrap gap-6">
               {/* Severity filter */}
               <div>
-                <label className="block text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">
+                <label className="block text-xs font-medium text-ink/60 uppercase tracking-wide mb-2">
                   Severity
                 </label>
                 <div className="flex flex-wrap gap-1">
@@ -390,8 +390,8 @@ export default function RevisionCenterView() {
                             ? 'bg-amber-500 text-white'
                             : opt === 'low'
                             ? 'bg-green-600 text-white'
-                            : 'bg-refinery-navy text-white'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                            : 'bg-ink text-white'
+                          : 'bg-ink/10 text-ink/70 hover:bg-slate-200'
                       }`}
                     >
                       {opt.charAt(0).toUpperCase() + opt.slice(1)}
@@ -402,7 +402,7 @@ export default function RevisionCenterView() {
 
               {/* Module filter */}
               <div>
-                <label className="block text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">
+                <label className="block text-xs font-medium text-ink/60 uppercase tracking-wide mb-2">
                   Module
                 </label>
                 <div className="flex flex-wrap gap-1">
@@ -417,8 +417,8 @@ export default function RevisionCenterView() {
                           isActive
                             ? colors
                               ? `${colors.bg} ${colors.text} ring-1 ${colors.border}`
-                              : 'bg-refinery-navy text-white'
-                            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                              : 'bg-ink text-white'
+                            : 'bg-ink/10 text-ink/70 hover:bg-slate-200'
                         }`}
                       >
                         {opt === 'all' ? 'All' : MODULE_LABELS[opt] || opt}
@@ -430,7 +430,7 @@ export default function RevisionCenterView() {
 
               {/* Status filter */}
               <div>
-                <label className="block text-xs font-medium text-slate-500 uppercase tracking-wide mb-2">
+                <label className="block text-xs font-medium text-ink/60 uppercase tracking-wide mb-2">
                   Status
                 </label>
                 <div className="flex flex-wrap gap-1">
@@ -446,8 +446,8 @@ export default function RevisionCenterView() {
                             ? 'bg-red-600 text-white'
                             : opt === 'deferred'
                             ? 'bg-slate-600 text-white'
-                            : 'bg-refinery-navy text-white'
-                          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                            : 'bg-ink text-white'
+                          : 'bg-ink/10 text-ink/70 hover:bg-slate-200'
                       }`}
                     >
                       {opt.charAt(0).toUpperCase() + opt.slice(1)}
@@ -460,7 +460,7 @@ export default function RevisionCenterView() {
             {/* Active filter summary */}
             {(severityFilter !== 'all' || moduleFilter !== 'all' || statusFilter !== 'all') && (
               <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-ink/60">
                   Showing {filteredItems.length} of {results.items?.length || 0} findings
                 </span>
                 <button
@@ -469,7 +469,7 @@ export default function RevisionCenterView() {
                     setModuleFilter('all');
                     setStatusFilter('all');
                   }}
-                  className="text-xs text-refinery-blue hover:underline font-medium"
+                  className="text-xs text-plum hover:underline font-medium"
                 >
                   Clear all filters
                 </button>
@@ -478,11 +478,11 @@ export default function RevisionCenterView() {
           </div>
 
           {/* Edit Queue Table */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="rounded-3xl border border-ink/10 bg-white/90 overflow-hidden">
             {/* Table header */}
-            <div className="hidden lg:grid lg:grid-cols-12 gap-4 px-6 py-3 bg-slate-50 border-b border-slate-200 text-xs font-medium text-slate-500 uppercase tracking-wide">
+            <div className="hidden lg:grid lg:grid-cols-12 gap-4 px-6 py-3 bg-ink/5 border-b border-ink/10 text-xs font-medium text-ink/60 uppercase tracking-wide">
               <div
-                className="col-span-1 flex items-center cursor-pointer hover:text-slate-700"
+                className="col-span-1 flex items-center cursor-pointer hover:text-ink/80"
                 onClick={() => toggleSort('severity')}
               >
                 Severity
@@ -494,7 +494,7 @@ export default function RevisionCenterView() {
                   ))}
               </div>
               <div
-                className="col-span-2 flex items-center cursor-pointer hover:text-slate-700"
+                className="col-span-2 flex items-center cursor-pointer hover:text-ink/80"
                 onClick={() => toggleSort('module')}
               >
                 Module
@@ -506,7 +506,7 @@ export default function RevisionCenterView() {
                   ))}
               </div>
               <div
-                className="col-span-1 flex items-center cursor-pointer hover:text-slate-700"
+                className="col-span-1 flex items-center cursor-pointer hover:text-ink/80"
                 onClick={() => toggleSort('type')}
               >
                 Type
@@ -518,7 +518,7 @@ export default function RevisionCenterView() {
                   ))}
               </div>
               <div
-                className="col-span-1 flex items-center cursor-pointer hover:text-slate-700"
+                className="col-span-1 flex items-center cursor-pointer hover:text-ink/80"
                 onClick={() => toggleSort('chapter')}
               >
                 Location
@@ -537,18 +537,18 @@ export default function RevisionCenterView() {
             {/* Items */}
             {filteredItems.length === 0 ? (
               <div className="px-6 py-16 text-center">
-                <AlertTriangle className="h-10 w-10 text-slate-300 mx-auto mb-3" />
-                <p className="text-sm text-slate-500">
+                <AlertTriangle className="h-10 w-10 text-ink/40 mx-auto mb-3" />
+                <p className="text-sm text-ink/60">
                   No findings match the current filters.
                 </p>
               </div>
             ) : (
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-ink/5">
                 {filteredItems.map((item) => {
                   const sevStyle = SEVERITY_STYLES[item.severity] || SEVERITY_STYLES.low;
                   const modColors = MODULE_COLORS[item.module] || {
-                    bg: 'bg-slate-100',
-                    text: 'text-slate-700',
+                    bg: 'bg-ink/10',
+                    text: 'text-ink/80',
                   };
                   const isExpanded = expandedItem === item._idx;
                   const currentStatus = item._status;
@@ -556,13 +556,13 @@ export default function RevisionCenterView() {
                   return (
                     <div
                       key={item._idx}
-                      className={`px-6 py-4 transition hover:bg-slate-50 ${
+                      className={`px-6 py-4 transition hover:bg-ink/5 ${
                         currentStatus === 'accepted'
                           ? 'bg-green-50/40'
                           : currentStatus === 'rejected'
                           ? 'bg-red-50/30 opacity-60'
                           : currentStatus === 'deferred'
-                          ? 'bg-slate-50/50'
+                          ? 'bg-ink/5/50'
                           : ''
                       }`}
                     >
@@ -589,29 +589,29 @@ export default function RevisionCenterView() {
 
                         {/* Finding type */}
                         <div className="col-span-1">
-                          <span className="text-xs text-slate-600 font-medium">
+                          <span className="text-xs text-ink/70 font-medium">
                             {item.finding_type || '--'}
                           </span>
                         </div>
 
                         {/* Chapter location */}
                         <div className="col-span-1">
-                          <span className="text-xs text-slate-500 font-mono">
+                          <span className="text-xs text-ink/60 font-mono">
                             {item.chapter || '--'}
                           </span>
                         </div>
 
                         {/* Description + suggestion */}
                         <div className="col-span-4">
-                          <p className="text-sm text-slate-700 leading-relaxed">
+                          <p className="text-sm text-ink/80 leading-relaxed">
                             {item.description}
                           </p>
                           {item.suggestion && (
-                            <div className="mt-2 pl-3 border-l-2 border-refinery-blue/30">
-                              <p className="text-xs text-slate-500 font-medium mb-0.5">
+                            <div className="mt-2 pl-3 border-l-2 border-plum/30">
+                              <p className="text-xs text-ink/60 font-medium mb-0.5">
                                 Suggestion
                               </p>
-                              <p className="text-sm text-slate-600 italic">
+                              <p className="text-sm text-ink/70 italic">
                                 {item.suggestion}
                               </p>
                             </div>
@@ -627,8 +627,8 @@ export default function RevisionCenterView() {
                                 : currentStatus === 'rejected'
                                 ? 'bg-red-100 text-red-800'
                                 : currentStatus === 'deferred'
-                                ? 'bg-slate-200 text-slate-700'
-                                : 'bg-slate-100 text-slate-500'
+                                ? 'bg-slate-200 text-ink/80'
+                                : 'bg-ink/10 text-ink/60'
                             }`}
                           >
                             {currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)}
@@ -643,7 +643,7 @@ export default function RevisionCenterView() {
                             className={`p-1.5 rounded-lg transition ${
                               currentStatus === 'accepted'
                                 ? 'bg-green-200 text-green-800'
-                                : 'hover:bg-green-100 text-slate-400 hover:text-green-700'
+                                : 'hover:bg-green-100 text-ink/40 hover:text-green-700'
                             }`}
                           >
                             <CheckCircle className="h-4 w-4" />
@@ -654,7 +654,7 @@ export default function RevisionCenterView() {
                             className={`p-1.5 rounded-lg transition ${
                               currentStatus === 'rejected'
                                 ? 'bg-red-200 text-red-800'
-                                : 'hover:bg-red-100 text-slate-400 hover:text-red-700'
+                                : 'hover:bg-red-100 text-ink/40 hover:text-red-700'
                             }`}
                           >
                             <XCircle className="h-4 w-4" />
@@ -665,7 +665,7 @@ export default function RevisionCenterView() {
                             className={`p-1.5 rounded-lg transition ${
                               currentStatus === 'deferred'
                                 ? 'bg-slate-300 text-slate-800'
-                                : 'hover:bg-slate-200 text-slate-400 hover:text-slate-700'
+                                : 'hover:bg-slate-200 text-ink/40 hover:text-ink/80'
                             }`}
                           >
                             <Clock className="h-4 w-4" />
@@ -694,35 +694,35 @@ export default function RevisionCenterView() {
                               {MODULE_LABELS[item.module] || item.module}
                             </span>
                             {item.chapter && (
-                              <span className="text-xs text-slate-400 font-mono">
+                              <span className="text-xs text-ink/40 font-mono">
                                 {item.chapter}
                               </span>
                             )}
                           </div>
                           {isExpanded ? (
-                            <ChevronUp className="h-4 w-4 text-slate-400 flex-shrink-0" />
+                            <ChevronUp className="h-4 w-4 text-ink/40 flex-shrink-0" />
                           ) : (
-                            <ChevronDown className="h-4 w-4 text-slate-400 flex-shrink-0" />
+                            <ChevronDown className="h-4 w-4 text-ink/40 flex-shrink-0" />
                           )}
                         </div>
 
-                        <p className="text-sm text-slate-700 mt-2 leading-relaxed">
+                        <p className="text-sm text-ink/80 mt-2 leading-relaxed">
                           {item.description}
                         </p>
 
                         {isExpanded && (
                           <div className="mt-3 space-y-3">
                             {item.finding_type && (
-                              <p className="text-xs text-slate-500">
+                              <p className="text-xs text-ink/60">
                                 <span className="font-medium">Type:</span> {item.finding_type}
                               </p>
                             )}
                             {item.suggestion && (
-                              <div className="pl-3 border-l-2 border-refinery-blue/30">
-                                <p className="text-xs text-slate-500 font-medium mb-0.5">
+                              <div className="pl-3 border-l-2 border-plum/30">
+                                <p className="text-xs text-ink/60 font-medium mb-0.5">
                                   Suggestion
                                 </p>
-                                <p className="text-sm text-slate-600 italic">
+                                <p className="text-sm text-ink/70 italic">
                                   {item.suggestion}
                                 </p>
                               </div>
@@ -766,7 +766,7 @@ export default function RevisionCenterView() {
                                 className={`flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
                                   currentStatus === 'deferred'
                                     ? 'bg-slate-300 text-slate-800'
-                                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                    : 'bg-ink/10 text-ink/70 hover:bg-slate-200'
                                 }`}
                               >
                                 <Clock className="h-3.5 w-3.5" />
@@ -784,7 +784,7 @@ export default function RevisionCenterView() {
 
             {/* Footer summary */}
             {filteredItems.length > 0 && (
-              <div className="px-6 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+              <div className="px-6 py-3 bg-ink/5 border-t border-ink/10 flex items-center justify-between text-xs text-ink/60">
                 <span>
                   {filteredItems.length} finding{filteredItems.length !== 1 ? 's' : ''} shown
                 </span>

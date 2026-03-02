@@ -117,16 +117,16 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+      <section className="bg-parchment text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
           <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-4">
+            <h1 className="text-5xl md:text-7xl font-display tracking-tight mb-4">
               REFINERY
             </h1>
             <p className="text-xl md:text-2xl text-blue-300 font-medium mb-6">
               Where Prose Becomes Perfect
             </p>
-            <p className="text-lg text-slate-300 mb-10 leading-relaxed">
+            <p className="text-lg text-ink/40 mb-10 leading-relaxed">
               AI-powered manuscript analysis that goes beyond grammar. Get deep
               structural insights, voice consistency scoring, pacing analysis,
               and craft-level prose refinement — all in one place.
@@ -134,7 +134,7 @@ export default function LandingPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to="/signup"
-                className="inline-flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-lg text-lg font-semibold transition shadow-lg shadow-blue-600/25"
+                className="inline-flex items-center space-x-2 bg-blue-600 hover:bg-ink/80 text-white px-8 py-3.5 rounded-lg text-lg font-semibold transition shadow-lg shadow-blue-600/25"
               >
                 <span>Get Started Free</span>
                 <ArrowRight className="h-5 w-5" />
@@ -151,13 +151,13 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-ink/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-display text-slate-900 mb-4">
               Six Modules. One Manuscript.
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-lg text-ink/70 max-w-2xl mx-auto">
               Every angle of your writing, analyzed with precision. From
               high-level structure to individual sentence craft.
             </p>
@@ -168,17 +168,17 @@ export default function LandingPage() {
               return (
                 <div
                   key={feature.name}
-                  className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 hover:shadow-md transition"
+                  className="rounded-3xl border border-ink/10 bg-white/90 p-8 hover:shadow-md transition"
                 >
                   <div
                     className={`inline-flex items-center justify-center w-12 h-12 rounded-lg ${feature.bg} mb-5`}
                   >
                     <Icon className={`h-6 w-6 ${feature.color}`} />
                   </div>
-                  <h3 className="text-lg font-display font-semibold text-slate-900 mb-2">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-2">
                     {feature.name}
                   </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
+                  <p className="text-ink/70 text-sm leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
@@ -192,10 +192,10 @@ export default function LandingPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-display text-slate-900 mb-4">
               Simple, Transparent Pricing
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-lg text-ink/70 max-w-2xl mx-auto">
               Start free. Upgrade when you're ready for the full power of
               Refinery.
             </p>
@@ -207,7 +207,7 @@ export default function LandingPage() {
                 className={`rounded-xl border-2 p-8 flex flex-col ${
                   tier.highlighted
                     ? 'border-blue-600 shadow-lg shadow-blue-600/10 relative'
-                    : 'border-slate-200'
+                    : 'border-ink/10'
                 }`}
               >
                 {tier.highlighted && (
@@ -215,16 +215,16 @@ export default function LandingPage() {
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-xl font-display font-bold text-slate-900 mb-2">
+                <h3 className="text-xl font-display text-slate-900 mb-2">
                   {tier.name}
                 </h3>
                 <div className="mb-4">
                   <span className="text-4xl font-bold text-slate-900">
                     {tier.price}
                   </span>
-                  <span className="text-slate-500">{tier.period}</span>
+                  <span className="text-ink/60">{tier.period}</span>
                 </div>
-                <p className="text-sm text-slate-600 mb-6">
+                <p className="text-sm text-ink/70 mb-6">
                   {tier.description}
                 </p>
                 <ul className="space-y-3 mb-8 flex-1">
@@ -234,7 +234,7 @@ export default function LandingPage() {
                       className="flex items-start space-x-2 text-sm"
                     >
                       <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-slate-700">{feat}</span>
+                      <span className="text-ink/80">{feat}</span>
                     </li>
                   ))}
                 </ul>
@@ -242,8 +242,8 @@ export default function LandingPage() {
                   to={tier.ctaLink}
                   className={`block text-center py-3 rounded-lg font-semibold transition ${
                     tier.highlighted
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-900'
+                      ? 'bg-blue-600 hover:bg-ink/80 text-white shadow-md'
+                      : 'bg-ink/10 hover:bg-slate-200 text-slate-900'
                   }`}
                 >
                   {tier.cta}
@@ -255,7 +255,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-12">
+      <footer className="bg-slate-900 text-ink/40 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-lg font-display text-slate-200 mb-2">
             Refinery &mdash; Where Prose Becomes Perfect

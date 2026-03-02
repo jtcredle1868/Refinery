@@ -26,7 +26,7 @@ export default function IntelligenceEngine() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-refinery-blue"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-plum"></div>
       </div>
     );
   }
@@ -34,8 +34,8 @@ export default function IntelligenceEngine() {
   if (!results) {
     return (
       <div className="text-center py-20">
-        <p className="text-slate-500">No analysis results found. Run the X-ray diagnostic first.</p>
-        <Link to={`/manuscript/${id}`} className="text-refinery-blue mt-2 inline-block hover:underline">Back to manuscript</Link>
+        <p className="text-ink/60">No analysis results found. Run the X-ray diagnostic first.</p>
+        <Link to={`/manuscript/${id}`} className="text-plum mt-2 inline-block hover:underline">Back to manuscript</Link>
       </div>
     );
   }
@@ -47,35 +47,35 @@ export default function IntelligenceEngine() {
 
   return (
     <div>
-      <Link to={`/manuscript/${id}`} className="flex items-center text-refinery-blue hover:underline mb-6 text-sm">
+      <Link to={`/manuscript/${id}`} className="flex items-center text-plum hover:underline mb-6 text-sm">
         <ArrowLeft className="h-4 w-4 mr-1" /> Back to manuscript
       </Link>
 
-      <h1 className="text-3xl font-display font-bold text-refinery-navy mb-2">Manuscript Intelligence Engine</h1>
-      <p className="text-refinery-slate mb-8">Full structural scan results</p>
+      <h1 className="text-3xl font-display text-ink mb-2">Manuscript Intelligence Engine</h1>
+      <p className="text-ink/60 mb-8">Full structural scan results</p>
 
       {/* Summary */}
       {results.summary && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 mb-8">
-          <h2 className="font-display font-semibold text-refinery-navy mb-2">Executive Summary</h2>
-          <p className="text-sm text-slate-700 whitespace-pre-line">{results.summary}</p>
+        <div className="border border-ink/10 bg-white/90 rounded-xl p-6 mb-8">
+          <h2 className="font-semibold text-ink mb-2">Executive Summary</h2>
+          <p className="text-sm text-ink/80 whitespace-pre-line">{results.summary}</p>
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Character Census */}
         {character_census && (
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
             <div className="flex items-center space-x-2 mb-4">
-              <Users className="h-5 w-5 text-refinery-blue" />
-              <h2 className="font-display font-semibold text-refinery-navy">
+              <Users className="h-5 w-5 text-plum" />
+              <h2 className="font-semibold text-ink">
                 Character Census ({character_census.total_characters} characters)
               </h2>
             </div>
             <div className="overflow-auto max-h-80">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-xs text-slate-500 border-b">
+                  <tr className="text-left text-xs text-ink/60 border-b">
                     <th className="pb-2">Name</th>
                     <th className="pb-2">Mentions</th>
                     <th className="pb-2">First</th>
@@ -83,18 +83,18 @@ export default function IntelligenceEngine() {
                     <th className="pb-2">Role</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-ink/5">
                   {(character_census.characters || []).map((c, i) => (
-                    <tr key={i} className="hover:bg-slate-50">
+                    <tr key={i} className="hover:bg-ink/5">
                       <td className="py-2 font-medium">{c.name}</td>
-                      <td className="py-2 text-slate-600">{c.frequency}</td>
-                      <td className="py-2 text-slate-500 text-xs">{c.first_appearance}</td>
-                      <td className="py-2 text-slate-500 text-xs">{c.last_appearance}</td>
+                      <td className="py-2 text-ink/70">{c.frequency}</td>
+                      <td className="py-2 text-ink/60 text-xs">{c.first_appearance}</td>
+                      <td className="py-2 text-ink/60 text-xs">{c.last_appearance}</td>
                       <td className="py-2">
                         <span className={`text-xs px-2 py-0.5 rounded-full ${
                           c.role === 'protagonist' ? 'bg-blue-100 text-blue-800' :
                           c.role === 'antagonist' ? 'bg-red-100 text-red-800' :
-                          'bg-slate-100 text-slate-600'
+                          'bg-ink/10 text-ink/70'
                         }`}>{c.role}</span>
                       </td>
                     </tr>
@@ -107,35 +107,35 @@ export default function IntelligenceEngine() {
 
         {/* Timeline Anomalies */}
         {timeline_anomalies && (
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
             <div className="flex items-center space-x-2 mb-4">
-              <Clock className="h-5 w-5 text-refinery-gold" />
-              <h2 className="font-display font-semibold text-refinery-navy">
+              <Clock className="h-5 w-5 text-ember" />
+              <h2 className="font-semibold text-ink">
                 Timeline Anomalies ({timeline_anomalies.anomalies_found} found)
               </h2>
             </div>
             {(timeline_anomalies.items || []).length === 0 ? (
-              <p className="text-sm text-slate-500">No chronological inconsistencies detected.</p>
+              <p className="text-sm text-ink/60">No chronological inconsistencies detected.</p>
             ) : (
               <div className="space-y-3 max-h-80 overflow-auto">
                 {timeline_anomalies.items.map((a, i) => (
                   <div key={i} className={`p-3 rounded-lg border ${
                     a.severity === 'high' ? 'border-red-200 bg-red-50' :
                     a.severity === 'medium' ? 'border-yellow-200 bg-yellow-50' :
-                    'border-slate-200 bg-slate-50'
+                    'border-ink/10 bg-ink/5'
                   }`}>
                     <div className="flex items-center space-x-2 mb-1">
                       <AlertTriangle className={`h-4 w-4 ${
                         a.severity === 'high' ? 'text-red-600' : 'text-yellow-600'
                       }`} />
-                      <span className="text-xs font-medium text-slate-600">{a.location}</span>
+                      <span className="text-xs font-medium text-ink/70">{a.location}</span>
                       <span className={`text-xs px-1.5 py-0.5 rounded ${
                         a.severity === 'high' ? 'bg-red-100 text-red-700' :
                         a.severity === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                        'bg-slate-100 text-slate-600'
+                        'bg-ink/10 text-ink/70'
                       }`}>{a.severity}</span>
                     </div>
-                    <p className="text-sm text-slate-700">{a.description}</p>
+                    <p className="text-sm text-ink/80">{a.description}</p>
                   </div>
                 ))}
               </div>
@@ -145,24 +145,24 @@ export default function IntelligenceEngine() {
 
         {/* Duplication Detection */}
         {duplication_detection && (
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
             <div className="flex items-center space-x-2 mb-4">
-              <BookOpen className="h-5 w-5 text-refinery-red" />
-              <h2 className="font-display font-semibold text-refinery-navy">
+              <BookOpen className="h-5 w-5 text-red-600" />
+              <h2 className="font-semibold text-ink">
                 Duplication Detection ({duplication_detection.duplicates_found} found)
               </h2>
             </div>
             {(duplication_detection.items || []).length === 0 ? (
-              <p className="text-sm text-slate-500">No significant duplication detected.</p>
+              <p className="text-sm text-ink/60">No significant duplication detected.</p>
             ) : (
               <div className="space-y-3 max-h-80 overflow-auto">
                 {duplication_detection.items.map((d, i) => (
                   <div key={i} className="p-3 rounded-lg border border-red-200 bg-red-50">
-                    <div className="flex justify-between text-xs text-slate-600 mb-1">
+                    <div className="flex justify-between text-xs text-ink/70 mb-1">
                       <span>{d.location_a} ↔ {d.location_b}</span>
                       <span className="font-bold text-red-700">{d.similarity_percent}% similar</span>
                     </div>
-                    <p className="text-sm text-slate-700 italic">"{d.excerpt}"</p>
+                    <p className="text-sm text-ink/80 italic">"{d.excerpt}"</p>
                   </div>
                 ))}
               </div>
@@ -172,12 +172,12 @@ export default function IntelligenceEngine() {
 
         {/* Lexical Fingerprint */}
         {lexical_fingerprint && (
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
             <div className="flex items-center space-x-2 mb-4">
               <Fingerprint className="h-5 w-5 text-indigo-600" />
-              <h2 className="font-display font-semibold text-refinery-navy">Lexical Fingerprint</h2>
+              <h2 className="font-semibold text-ink">Lexical Fingerprint</h2>
             </div>
-            <p className="text-xs text-slate-500 mb-3">Top 50 distinctive words that define this manuscript</p>
+            <p className="text-xs text-ink/60 mb-3">Top 50 distinctive words that define this manuscript</p>
             <div className="flex flex-wrap gap-2">
               {(lexical_fingerprint.top_50_with_frequency || []).slice(0, 50).map((w, i) => (
                 <span
@@ -197,12 +197,12 @@ export default function IntelligenceEngine() {
 
         {/* Metaphor Density Heatmap */}
         {metaphor_density && metaphor_density.chapter_heatmap && (
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 lg:col-span-2">
+          <div className="rounded-3xl border border-ink/10 bg-white/90 p-6 lg:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <Flame className="h-5 w-5 text-orange-600" />
-              <h2 className="font-display font-semibold text-refinery-navy">Metaphor Density Heatmap</h2>
+              <h2 className="font-semibold text-ink">Metaphor Density Heatmap</h2>
             </div>
-            <p className="text-xs text-slate-500 mb-4">
+            <p className="text-xs text-ink/60 mb-4">
               Dominant families: {(metaphor_density.dominant_families || []).join(', ')}
             </p>
             <ResponsiveContainer width="100%" height={250}>
@@ -222,8 +222,8 @@ export default function IntelligenceEngine() {
 
         {/* Chapter Word Counts */}
         {chapterData.length > 0 && (
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 lg:col-span-2">
-            <h2 className="font-display font-semibold text-refinery-navy mb-4">Chapter Word Counts</h2>
+          <div className="rounded-3xl border border-ink/10 bg-white/90 p-6 lg:col-span-2">
+            <h2 className="font-semibold text-ink mb-4">Chapter Word Counts</h2>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={chapterData}>
                 <XAxis dataKey="chapter" />

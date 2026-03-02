@@ -35,7 +35,7 @@ function tierBadgeClasses(tierLabel) {
     case 'Consider': return 'bg-blue-100 text-blue-800';
     case 'Maybe': return 'bg-amber-100 text-amber-800';
     case 'Pass': return 'bg-red-100 text-red-800';
-    default: return 'bg-slate-100 text-slate-600';
+    default: return 'bg-ink/10 text-ink/70';
   }
 }
 
@@ -206,7 +206,7 @@ export default function TriageDashboardView() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-refinery-blue"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-plum"></div>
       </div>
     );
   }
@@ -214,26 +214,26 @@ export default function TriageDashboardView() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-display font-bold text-refinery-navy">Acquisition Triage</h1>
-        <p className="text-refinery-slate mt-1">Enterprise manuscript acquisition scoring and triage dashboard</p>
+        <h1 className="text-3xl font-display text-ink">Acquisition Triage</h1>
+        <p className="text-ink/60 mt-1">Enterprise manuscript acquisition scoring and triage dashboard</p>
       </div>
 
       {/* Analytics strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div className="bg-white rounded-lg shadow-sm border p-4">
-          <p className="text-xs text-slate-500 uppercase tracking-wide">Total Submissions</p>
-          <p className="text-2xl font-bold text-refinery-navy mt-1">{analytics.total}</p>
+          <p className="text-xs text-ink/60 uppercase tracking-wide">Total Submissions</p>
+          <p className="text-2xl font-bold text-ink mt-1">{analytics.total}</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-4">
-          <p className="text-xs text-slate-500 uppercase tracking-wide">Analyzed</p>
-          <p className="text-2xl font-bold text-refinery-navy mt-1">{analytics.pctAnalyzed}%</p>
+          <p className="text-xs text-ink/60 uppercase tracking-wide">Analyzed</p>
+          <p className="text-2xl font-bold text-ink mt-1">{analytics.pctAnalyzed}%</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-4">
-          <p className="text-xs text-slate-500 uppercase tracking-wide">Avg Score</p>
-          <p className="text-2xl font-bold text-refinery-navy mt-1">{analytics.avgScore || '--'}</p>
+          <p className="text-xs text-ink/60 uppercase tracking-wide">Avg Score</p>
+          <p className="text-2xl font-bold text-ink mt-1">{analytics.avgScore || '--'}</p>
         </div>
         <div className="bg-white rounded-lg shadow-sm border p-4">
-          <p className="text-xs text-slate-500 uppercase tracking-wide">Top Tier</p>
+          <p className="text-xs text-ink/60 uppercase tracking-wide">Top Tier</p>
           <p className="text-2xl font-bold text-green-700 mt-1">{tierCounts['Strong Consider']}</p>
         </div>
       </div>
@@ -245,9 +245,9 @@ export default function TriageDashboardView() {
             onClick={() => setFilterTier(filterTier === t.label ? 'all' : t.label)}
             className={`bg-white rounded-lg shadow-sm border p-4 cursor-pointer transition hover:shadow-md ${filterTier === t.label ? 'ring-2 ring-refinery-blue' : ''}`}
           >
-            <p className="text-sm text-slate-500">{t.label}</p>
-            <p className="text-2xl font-bold text-refinery-navy mt-1">{tierCounts[t.label]}</p>
-            <p className="text-xs text-slate-400 mt-1">Score {t.min}-{t.max}</p>
+            <p className="text-sm text-ink/60">{t.label}</p>
+            <p className="text-2xl font-bold text-ink mt-1">{tierCounts[t.label]}</p>
+            <p className="text-xs text-ink/40 mt-1">Score {t.min}-{t.max}</p>
           </div>
         ))}
       </div>
@@ -268,7 +268,7 @@ export default function TriageDashboardView() {
       {/* Filter & Sort bar + Batch actions */}
       <div className="bg-white rounded-lg shadow-sm border p-4 mb-6 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center space-x-3">
-          <Filter className="h-4 w-4 text-slate-400" />
+          <Filter className="h-4 w-4 text-ink/40" />
           <select value={filterTier} onChange={(e) => setFilterTier(e.target.value)}
             className="text-sm border border-slate-300 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-refinery-blue">
             <option value="all">All Tiers</option>
@@ -281,7 +281,7 @@ export default function TriageDashboardView() {
 
         {selectedIds.size > 0 && (
           <div className="flex items-center space-x-2">
-            <span className="text-sm text-slate-600 mr-2">{selectedIds.size} selected</span>
+            <span className="text-sm text-ink/70 mr-2">{selectedIds.size} selected</span>
             <button onClick={() => setShowAssignModal(true)} disabled={batchLoading}
               className="flex items-center space-x-1 bg-blue-500 text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-blue-600 disabled:opacity-50 transition">
               <UserPlus className="h-3 w-3" /><span>Assign</span>
@@ -299,24 +299,24 @@ export default function TriageDashboardView() {
 
         {selectedIds.size === 0 && (
           <button onClick={handleExportCsv}
-            className="flex items-center space-x-1 text-sm text-slate-600 hover:text-slate-800 border border-slate-300 rounded-lg px-3 py-1.5 transition">
+            className="flex items-center space-x-1 text-sm text-ink/70 hover:text-slate-800 border border-slate-300 rounded-lg px-3 py-1.5 transition">
             <Download className="h-4 w-4" /><span>Export All CSV</span>
           </button>
         )}
 
         <div className="relative">
           <button onClick={() => setSortMenuOpen(!sortMenuOpen)}
-            className="flex items-center space-x-2 text-sm border border-slate-300 rounded-lg px-3 py-1.5 hover:bg-slate-50 transition">
-            <ArrowDownWideNarrow className="h-4 w-4 text-slate-400" />
+            className="flex items-center space-x-2 text-sm border border-slate-300 rounded-lg px-3 py-1.5 hover:bg-ink/5 transition">
+            <ArrowDownWideNarrow className="h-4 w-4 text-ink/40" />
             <span>Sort: {sortBy === 'score' ? 'Score' : sortBy === 'title' ? 'Title' : 'Date'}</span>
-            <ChevronDown className="h-3 w-3 text-slate-400" />
+            <ChevronDown className="h-3 w-3 text-ink/40" />
           </button>
           {sortMenuOpen && (
             <div className="absolute right-0 mt-1 bg-white border rounded-lg shadow-lg z-10 py-1 min-w-[140px]">
               {[{ value: 'score', label: 'Score (High-Low)' }, { value: 'title', label: 'Title (A-Z)' }, { value: 'date', label: 'Date (Newest)' }].map((opt) => (
                 <button key={opt.value}
                   onClick={() => { setSortBy(opt.value); setSortMenuOpen(false); }}
-                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-slate-50 ${sortBy === opt.value ? 'text-refinery-blue font-medium' : 'text-slate-700'}`}>
+                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-ink/5 ${sortBy === opt.value ? 'text-plum font-medium' : 'text-ink/80'}`}>
                   {opt.label}
                 </button>
               ))}
@@ -330,11 +330,11 @@ export default function TriageDashboardView() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-xs text-slate-500 bg-slate-50 border-b">
+              <tr className="text-left text-xs text-ink/60 bg-ink/5 border-b">
                 <th className="px-4 py-3 font-medium w-10">
-                  <button onClick={toggleSelectAll} className="text-slate-400 hover:text-slate-600">
+                  <button onClick={toggleSelectAll} className="text-ink/40 hover:text-ink/70">
                     {selectedIds.size === filteredAndSorted.length && filteredAndSorted.length > 0
-                      ? <CheckSquare className="h-4 w-4 text-refinery-blue" /> : <Square className="h-4 w-4" />}
+                      ? <CheckSquare className="h-4 w-4 text-plum" /> : <Square className="h-4 w-4" />}
                   </button>
                 </th>
                 <th className="px-4 py-3 font-medium">Title</th>
@@ -345,41 +345,41 @@ export default function TriageDashboardView() {
                 <th className="px-4 py-3 font-medium">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-ink/5">
               {filteredAndSorted.length === 0 ? (
-                <tr><td colSpan={7} className="px-6 py-12 text-center text-slate-400">
-                  <FileText className="h-12 w-12 mx-auto mb-3 text-slate-300" /><p>No manuscripts found.</p>
+                <tr><td colSpan={7} className="px-6 py-12 text-center text-ink/40">
+                  <FileText className="h-12 w-12 mx-auto mb-3 text-ink/40" /><p>No manuscripts found.</p>
                 </td></tr>
               ) : (
                 filteredAndSorted.map((m) => (
-                  <tr key={m.id} className={`hover:bg-slate-50 cursor-pointer transition ${selectedIds.has(m.id) ? 'bg-blue-50' : ''}`}>
+                  <tr key={m.id} className={`hover:bg-ink/5 cursor-pointer transition ${selectedIds.has(m.id) ? 'bg-blue-50' : ''}`}>
                     <td className="px-4 py-4" onClick={(e) => { e.stopPropagation(); toggleSelect(m.id); }}>
-                      {selectedIds.has(m.id) ? <CheckSquare className="h-4 w-4 text-refinery-blue" /> : <Square className="h-4 w-4 text-slate-300" />}
+                      {selectedIds.has(m.id) ? <CheckSquare className="h-4 w-4 text-plum" /> : <Square className="h-4 w-4 text-ink/40" />}
                     </td>
                     <td className="px-4 py-4" onClick={() => navigate(`/manuscript/${m.id}`)}>
                       <div className="flex items-center space-x-3">
-                        <FileText className="h-5 w-5 text-refinery-slate flex-shrink-0" />
-                        <span className="font-medium text-refinery-navy">{m.title}</span>
+                        <FileText className="h-5 w-5 text-ink/60 flex-shrink-0" />
+                        <span className="font-medium text-ink">{m.title}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-4 text-slate-600" onClick={() => navigate(`/manuscript/${m.id}`)}>{(m.word_count || 0).toLocaleString()}</td>
+                    <td className="px-4 py-4 text-ink/70" onClick={() => navigate(`/manuscript/${m.id}`)}>{(m.word_count || 0).toLocaleString()}</td>
                     <td className="px-4 py-4" onClick={() => navigate(`/manuscript/${m.id}`)}>
                       {m.acquisitionScore != null
                         ? <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${scoreBadgeClasses(m.acquisitionScore)}`}>{m.acquisitionScore}</span>
-                        : <span className="text-xs text-slate-400">--</span>}
+                        : <span className="text-xs text-ink/40">--</span>}
                     </td>
                     <td className="px-4 py-4" onClick={() => navigate(`/manuscript/${m.id}`)}>
                       {m.tier
                         ? <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${tierBadgeClasses(m.tier.label)}`}>{m.tier.label}</span>
-                        : <span className="text-xs text-slate-400">--</span>}
+                        : <span className="text-xs text-ink/40">--</span>}
                     </td>
                     <td className="px-4 py-4" onClick={() => navigate(`/manuscript/${m.id}`)}>
-                      <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[m.status] || 'bg-slate-100 text-slate-600'}`}>{m.status}</span>
+                      <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[m.status] || 'bg-ink/10 text-ink/70'}`}>{m.status}</span>
                     </td>
                     <td className="px-4 py-4">
                       {m.acquisitionScore == null && (
                         <button onClick={(e) => handleRunScore(e, m.id)} disabled={runningId === m.id}
-                          className="flex items-center space-x-1 bg-refinery-blue text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-blue-700 disabled:opacity-50 transition">
+                          className="flex items-center space-x-1 bg-ink text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-ink/80 disabled:opacity-50 transition">
                           {runningId === m.id ? <><Loader className="h-3 w-3 animate-spin" /><span>Scoring...</span></> : <><Play className="h-3 w-3" /><span>Score</span></>}
                         </button>
                       )}
@@ -396,15 +396,15 @@ export default function TriageDashboardView() {
       {showAssignModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowAssignModal(false)}>
           <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6" onClick={(e) => e.stopPropagation()}>
-            <h3 className="text-lg font-display font-semibold text-refinery-navy mb-4">
+            <h3 className="text-lg font-semibold text-ink mb-4">
               <Users className="h-5 w-5 inline mr-2" />Assign {selectedIds.size} Manuscript{selectedIds.size > 1 ? 's' : ''} to Editor
             </h3>
             <input type="email" value={assignEmail} onChange={(e) => setAssignEmail(e.target.value)} placeholder="Editor's email address"
               className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-refinery-blue mb-4" />
             <div className="flex space-x-3">
-              <button onClick={() => setShowAssignModal(false)} className="flex-1 border border-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition">Cancel</button>
+              <button onClick={() => setShowAssignModal(false)} className="flex-1 border border-slate-300 text-ink/80 px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/5 transition">Cancel</button>
               <button onClick={handleBatchAssign} disabled={!assignEmail.trim() || batchLoading}
-                className="flex-1 bg-refinery-blue text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition">
+                className="flex-1 bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition">
                 {batchLoading ? 'Assigning...' : 'Assign'}
               </button>
             </div>

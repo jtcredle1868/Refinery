@@ -65,14 +65,14 @@ export default function PacingArchitectView() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-refinery-blue"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-plum"></div>
       </div>
     );
   }
 
   if (!manuscript) {
     return (
-      <div className="text-center py-20 text-slate-500">Manuscript not found</div>
+      <div className="text-center py-20 text-ink/60">Manuscript not found</div>
     );
   }
 
@@ -94,9 +94,9 @@ export default function PacingArchitectView() {
 
   // Score color helper
   const scoreColor = (score) => {
-    if (score >= 80) return 'text-refinery-green';
-    if (score >= 60) return 'text-refinery-gold';
-    return 'text-refinery-red';
+    if (score >= 80) return 'text-plum';
+    if (score >= 60) return 'text-ember';
+    return 'text-red-600';
   };
 
   // Badge color helper for beat type
@@ -105,7 +105,7 @@ export default function PacingArchitectView() {
     if (t === 'ACTION') return 'bg-blue-100 text-blue-700';
     if (t === 'EMOTION') return 'bg-pink-100 text-pink-700';
     if (t === 'TRANSITION') return 'bg-amber-100 text-amber-700';
-    return 'bg-slate-100 text-slate-600';
+    return 'bg-ink/10 text-ink/70';
   };
 
   return (
@@ -113,21 +113,21 @@ export default function PacingArchitectView() {
       {/* Navigation */}
       <button
         onClick={() => navigate(`/manuscript/${id}`)}
-        className="flex items-center text-refinery-blue hover:underline mb-6 text-sm"
+        className="flex items-center text-plum hover:underline mb-6 text-sm"
       >
         <ArrowLeft className="h-4 w-4 mr-1" /> Back to manuscript
       </button>
 
       {/* Page title */}
       <div className="flex items-center space-x-3 mb-2">
-        <Activity className="h-8 w-8 text-refinery-blue" />
-        <h1 className="text-3xl font-display font-bold text-refinery-navy">
+        <Activity className="h-8 w-8 text-plum" />
+        <h1 className="text-3xl font-display text-ink">
           Pacing Architect
         </h1>
       </div>
-      <p className="text-refinery-slate mb-6">
+      <p className="text-ink/60 mb-6">
         Pacing analysis for{' '}
-        <span className="font-medium text-refinery-navy">
+        <span className="font-medium text-ink">
           {manuscript.title}
         </span>
       </p>
@@ -141,19 +141,19 @@ export default function PacingArchitectView() {
 
       {/* No results -- show run button */}
       {!results && (
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-12 text-center">
-          <Activity className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-          <h2 className="text-lg font-display font-semibold text-refinery-navy mb-2">
+        <div className="rounded-3xl border border-ink/10 bg-white/90 p-12 text-center">
+          <Activity className="h-12 w-12 text-ink/40 mx-auto mb-4" />
+          <h2 className="text-lg font-semibold text-ink mb-2">
             No Pacing Analysis Yet
           </h2>
-          <p className="text-sm text-slate-500 mb-6 max-w-md mx-auto">
+          <p className="text-sm text-ink/60 mb-6 max-w-md mx-auto">
             Run the Pacing Architect to analyze tension curves, chapter beats,
             action/emotion density, and act structure across your manuscript.
           </p>
           <button
             onClick={handleRunAnalysis}
             disabled={running}
-            className="inline-flex items-center space-x-2 bg-refinery-blue text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition"
+            className="inline-flex items-center space-x-2 bg-ink text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {running ? (
               <>
@@ -177,10 +177,10 @@ export default function PacingArchitectView() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Pacing Score */}
             {results.pacing_score !== undefined && (
-              <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+              <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
                 <div className="flex items-center space-x-2 mb-3">
-                  <Zap className="h-5 w-5 text-refinery-gold" />
-                  <span className="text-sm font-medium text-slate-500">
+                  <Zap className="h-5 w-5 text-ember" />
+                  <span className="text-sm font-medium text-ink/60">
                     Pacing Score
                   </span>
                 </div>
@@ -190,21 +190,21 @@ export default function PacingArchitectView() {
                   >
                     {results.pacing_score}
                   </span>
-                  <span className="text-sm text-slate-400">/100</span>
+                  <span className="text-sm text-ink/40">/100</span>
                 </div>
               </div>
             )}
 
             {/* Act Structure */}
             {results.act_structure && (
-              <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+              <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
                 <div className="flex items-center space-x-2 mb-3">
-                  <Activity className="h-5 w-5 text-refinery-blue" />
-                  <span className="text-sm font-medium text-slate-500">
+                  <Activity className="h-5 w-5 text-plum" />
+                  <span className="text-sm font-medium text-ink/60">
                     Act Structure
                   </span>
                 </div>
-                <span className="text-2xl font-bold text-refinery-navy">
+                <span className="text-2xl font-bold text-ink">
                   {results.act_structure.type || results.act_structure.detected_structure || 'N/A'}
                 </span>
               </div>
@@ -212,14 +212,14 @@ export default function PacingArchitectView() {
 
             {/* Tension Curve Shape */}
             {results.tension_curve_shape && (
-              <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+              <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
                 <div className="flex items-center space-x-2 mb-3">
                   <Heart className="h-5 w-5 text-pink-500" />
-                  <span className="text-sm font-medium text-slate-500">
+                  <span className="text-sm font-medium text-ink/60">
                     Tension Curve
                   </span>
                 </div>
-                <span className="text-2xl font-bold text-refinery-navy capitalize">
+                <span className="text-2xl font-bold text-ink capitalize">
                   {results.tension_curve_shape}
                 </span>
               </div>
@@ -228,11 +228,11 @@ export default function PacingArchitectView() {
 
           {/* Tension Curve Chart */}
           {tensionCurveData.length > 0 && (
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-              <h2 className="font-display font-semibold text-refinery-navy mb-1">
+            <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
+              <h2 className="font-semibold text-ink mb-1">
                 Tension Curve
               </h2>
-              <p className="text-sm text-slate-500 mb-4">
+              <p className="text-sm text-ink/60 mb-4">
                 Overall tension level across chapters
               </p>
               <ResponsiveContainer width="100%" height={300}>
@@ -282,11 +282,11 @@ export default function PacingArchitectView() {
 
           {/* Chapter Beats Chart */}
           {chapterBeatsChartData.length > 0 && (
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-              <h2 className="font-display font-semibold text-refinery-navy mb-1">
+            <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
+              <h2 className="font-semibold text-ink mb-1">
                 Chapter Beats
               </h2>
-              <p className="text-sm text-slate-500 mb-4">
+              <p className="text-sm text-ink/60 mb-4">
                 Action density, emotional depth, and tension per chapter
               </p>
               <ResponsiveContainer width="100%" height={350}>
@@ -345,30 +345,30 @@ export default function PacingArchitectView() {
 
           {/* Chapter Beats Table */}
           {chapterBeats.length > 0 && (
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-              <h2 className="font-display font-semibold text-refinery-navy mb-4">
+            <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
+              <h2 className="font-semibold text-ink mb-4">
                 Chapter Beats Detail
               </h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-slate-200">
-                      <th className="text-left py-3 px-3 font-medium text-slate-500">
+                    <tr className="border-b border-ink/10">
+                      <th className="text-left py-3 px-3 font-medium text-ink/60">
                         Chapter
                       </th>
-                      <th className="text-left py-3 px-3 font-medium text-slate-500">
+                      <th className="text-left py-3 px-3 font-medium text-ink/60">
                         Title
                       </th>
-                      <th className="text-center py-3 px-3 font-medium text-slate-500">
+                      <th className="text-center py-3 px-3 font-medium text-ink/60">
                         Action (0-10)
                       </th>
-                      <th className="text-center py-3 px-3 font-medium text-slate-500">
+                      <th className="text-center py-3 px-3 font-medium text-ink/60">
                         Emotion (0-10)
                       </th>
-                      <th className="text-center py-3 px-3 font-medium text-slate-500">
+                      <th className="text-center py-3 px-3 font-medium text-ink/60">
                         Tension (0-10)
                       </th>
-                      <th className="text-center py-3 px-3 font-medium text-slate-500">
+                      <th className="text-center py-3 px-3 font-medium text-ink/60">
                         Beat Type
                       </th>
                     </tr>
@@ -377,12 +377,12 @@ export default function PacingArchitectView() {
                     {chapterBeats.map((beat, idx) => (
                       <tr
                         key={idx}
-                        className="border-b border-slate-100 hover:bg-slate-50 transition"
+                        className="border-b border-slate-100 hover:bg-ink/5 transition"
                       >
-                        <td className="py-3 px-3 font-medium text-refinery-navy">
+                        <td className="py-3 px-3 font-medium text-ink">
                           {beat.chapter_number || beat.chapter}
                         </td>
-                        <td className="py-3 px-3 text-slate-700">
+                        <td className="py-3 px-3 text-ink/80">
                           {beat.title || '-'}
                         </td>
                         <td className="py-3 px-3 text-center">
@@ -418,18 +418,18 @@ export default function PacingArchitectView() {
           {/* Pacing Flags */}
           {((results.pacing_flags?.breathing_space_flags || []).length > 0 ||
             (results.pacing_flags?.slow_zone_flags || []).length > 0) && (
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-              <h2 className="font-display font-semibold text-refinery-navy mb-4">
+            <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
+              <h2 className="font-semibold text-ink mb-4">
                 Pacing Flags
               </h2>
 
               {/* Breathing Space Flags */}
               {(results.pacing_flags?.breathing_space_flags || []).length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-sm font-medium text-slate-700 mb-3 flex items-center space-x-2">
+                  <h3 className="text-sm font-medium text-ink/80 mb-3 flex items-center space-x-2">
                     <Zap className="h-4 w-4 text-orange-500" />
                     <span>Breathing Space Needed</span>
-                    <span className="text-xs text-slate-400 font-normal">
+                    <span className="text-xs text-ink/40 font-normal">
                       (high-action sequences without relief)
                     </span>
                   </h3>
@@ -444,7 +444,7 @@ export default function PacingArchitectView() {
                             Chapters {flag.start_chapter}&#8211;{flag.end_chapter}
                           </span>
                         </div>
-                        <p className="text-sm text-slate-700 mb-1">
+                        <p className="text-sm text-ink/80 mb-1">
                           {flag.description}
                         </p>
                         {flag.suggestion && (
@@ -461,10 +461,10 @@ export default function PacingArchitectView() {
               {/* Slow Zone Flags */}
               {(results.pacing_flags?.slow_zone_flags || []).length > 0 && (
                 <div>
-                  <h3 className="text-sm font-medium text-slate-700 mb-3 flex items-center space-x-2">
+                  <h3 className="text-sm font-medium text-ink/80 mb-3 flex items-center space-x-2">
                     <Pause className="h-4 w-4 text-blue-500" />
                     <span>Slow Zones Detected</span>
-                    <span className="text-xs text-slate-400 font-normal">
+                    <span className="text-xs text-ink/40 font-normal">
                       (sustained low-energy stretches)
                     </span>
                   </h3>
@@ -479,7 +479,7 @@ export default function PacingArchitectView() {
                             Chapters {flag.start_chapter}&#8211;{flag.end_chapter}
                           </span>
                         </div>
-                        <p className="text-sm text-slate-700 mb-1">
+                        <p className="text-sm text-ink/80 mb-1">
                           {flag.description}
                         </p>
                         {flag.suggestion && (
@@ -497,29 +497,29 @@ export default function PacingArchitectView() {
 
           {/* Act Structure Detail */}
           {results.act_structure && (
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-              <h2 className="font-display font-semibold text-refinery-navy mb-4">
+            <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
+              <h2 className="font-semibold text-ink mb-4">
                 Act Structure
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <p className="text-sm text-slate-500 mb-1">
+                  <p className="text-sm text-ink/60 mb-1">
                     Detected Structure
                   </p>
-                  <p className="text-lg font-bold text-refinery-navy">
+                  <p className="text-lg font-bold text-ink">
                     {results.act_structure.type || results.act_structure.detected_structure || 'N/A'}
                   </p>
                 </div>
                 {(results.act_structure.act_breaks || []).length > 0 && (
                   <div>
-                    <p className="text-sm text-slate-500 mb-2">
+                    <p className="text-sm text-ink/60 mb-2">
                       Act Break Chapters
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {results.act_structure.act_breaks.map((chapterNum, idx) => (
                         <span
                           key={idx}
-                          className="inline-flex items-center justify-center bg-refinery-navy text-white text-sm font-medium rounded-full w-10 h-10"
+                          className="inline-flex items-center justify-center bg-ink text-white text-sm font-medium rounded-full w-10 h-10"
                         >
                           {chapterNum}
                         </span>
@@ -533,11 +533,11 @@ export default function PacingArchitectView() {
 
           {/* Summary */}
           {results.summary && (
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
-              <h2 className="font-display font-semibold text-refinery-navy mb-2">
+            <div className="border border-ink/10 bg-white/90 rounded-xl p-6">
+              <h2 className="font-semibold text-ink mb-2">
                 Summary
               </h2>
-              <p className="text-sm text-slate-700 whitespace-pre-line">
+              <p className="text-sm text-ink/80 whitespace-pre-line">
                 {results.summary}
               </p>
             </div>

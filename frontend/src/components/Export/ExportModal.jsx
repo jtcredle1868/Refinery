@@ -86,18 +86,18 @@ export default function ExportModal({ isOpen, onClose, manuscriptId, manuscriptT
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition"
+          className="absolute top-4 right-4 text-ink/40 hover:text-ink/70 transition"
         >
           <X className="h-5 w-5" />
         </button>
 
         {/* Header */}
         <div className="mb-6">
-          <h2 className="text-xl font-display font-bold text-slate-900">
+          <h2 className="text-xl font-display text-slate-900">
             Export Manuscript
           </h2>
           {manuscriptTitle && (
-            <p className="text-sm text-slate-500 mt-1 truncate">
+            <p className="text-sm text-ink/60 mt-1 truncate">
               {manuscriptTitle}
             </p>
           )}
@@ -119,7 +119,7 @@ export default function ExportModal({ isOpen, onClose, manuscriptId, manuscriptT
             return (
               <div
                 key={option.type}
-                className="flex items-center justify-between p-4 rounded-lg border border-slate-200 hover:bg-blue-50 transition cursor-pointer group"
+                className="flex items-center justify-between p-4 rounded-lg border border-ink/10 hover:bg-blue-50 transition cursor-pointer group"
                 onClick={() => !loadingType && handleExport(option)}
               >
                 <div className="flex items-center space-x-4">
@@ -132,12 +132,12 @@ export default function ExportModal({ isOpen, onClose, manuscriptId, manuscriptT
                     <h3 className="text-sm font-semibold text-slate-900">
                       {option.label}
                     </h3>
-                    <p className="text-xs text-slate-500">{option.description}</p>
+                    <p className="text-xs text-ink/60">{option.description}</p>
                   </div>
                 </div>
                 <button
                   disabled={!!loadingType}
-                  className="flex-shrink-0 ml-4 flex items-center space-x-1 bg-slate-100 group-hover:bg-blue-100 text-slate-700 group-hover:text-blue-700 px-3 py-2 rounded-lg text-sm font-medium transition disabled:opacity-50"
+                  className="flex-shrink-0 ml-4 flex items-center space-x-1 bg-ink/10 group-hover:bg-blue-100 text-ink/80 group-hover:text-blue-700 px-3 py-2 rounded-lg text-sm font-medium transition disabled:opacity-50"
                 >
                   {isLoading ? (
                     <>
@@ -157,7 +157,7 @@ export default function ExportModal({ isOpen, onClose, manuscriptId, manuscriptT
         </div>
 
         {/* Footer note */}
-        <p className="text-xs text-slate-400 text-center mt-6">
+        <p className="text-xs text-ink/40 text-center mt-6">
           Exports are generated from your latest completed analysis.
         </p>
       </div>

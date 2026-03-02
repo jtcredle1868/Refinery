@@ -45,8 +45,8 @@ export default function Upload() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-display font-bold text-refinery-navy mb-2">Upload Manuscript</h1>
-      <p className="text-refinery-slate mb-8">
+      <h1 className="text-3xl font-display text-ink mb-2">Upload Manuscript</h1>
+      <p className="text-ink/60 mb-8">
         Upload your manuscript and Refinery will perform a full structural X-ray diagnostic in under 90 seconds.
       </p>
 
@@ -58,10 +58,10 @@ export default function Upload() {
         onClick={() => inputRef.current?.click()}
         className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all ${
           dragOver
-            ? 'border-refinery-blue bg-blue-50'
+            ? 'border-plum bg-blue-50'
             : file
-            ? 'border-refinery-green bg-green-50'
-            : 'border-slate-300 hover:border-refinery-blue hover:bg-slate-50'
+            ? 'border-plum bg-green-50'
+            : 'border-slate-300 hover:border-plum hover:bg-ink/5'
         }`}
       >
         <input
@@ -74,19 +74,19 @@ export default function Upload() {
 
         {file ? (
           <div>
-            <CheckCircle className="h-12 w-12 text-refinery-green mx-auto mb-3" />
-            <p className="font-medium text-refinery-navy">{file.name}</p>
-            <p className="text-sm text-slate-500 mt-1">
+            <CheckCircle className="h-12 w-12 text-plum mx-auto mb-3" />
+            <p className="font-medium text-ink">{file.name}</p>
+            <p className="text-sm text-ink/60 mt-1">
               {(file.size / 1024 / 1024).toFixed(2)} MB
             </p>
-            <p className="text-sm text-refinery-green mt-2">Ready to upload</p>
+            <p className="text-sm text-plum mt-2">Ready to upload</p>
           </div>
         ) : (
           <div>
-            <UploadIcon className="h-12 w-12 text-slate-400 mx-auto mb-3" />
-            <p className="font-medium text-refinery-navy">Drop your manuscript here</p>
-            <p className="text-sm text-slate-400 mt-1">or click to browse</p>
-            <p className="text-xs text-slate-400 mt-3">Supports .docx, .txt, .rtf, .pdf (max 50MB)</p>
+            <UploadIcon className="h-12 w-12 text-ink/40 mx-auto mb-3" />
+            <p className="font-medium text-ink">Drop your manuscript here</p>
+            <p className="text-sm text-ink/40 mt-1">or click to browse</p>
+            <p className="text-xs text-ink/40 mt-3">Supports .docx, .txt, .rtf, .pdf (max 50MB)</p>
           </div>
         )}
       </div>
@@ -103,7 +103,7 @@ export default function Upload() {
         <button
           onClick={handleUpload}
           disabled={uploading}
-          className="w-full mt-6 bg-refinery-blue text-white py-3 rounded-lg font-medium text-lg hover:bg-blue-700 disabled:opacity-50 transition flex items-center justify-center space-x-2"
+          className="w-full mt-6 bg-ink text-white py-3 rounded-lg font-medium text-lg hover:bg-ink/80 disabled:opacity-50 transition flex items-center justify-center space-x-2"
         >
           {uploading ? (
             <>
@@ -120,8 +120,8 @@ export default function Upload() {
       )}
 
       {/* Supported formats */}
-      <div className="mt-8 bg-white rounded-xl border border-slate-200 p-6">
-        <h3 className="font-medium text-refinery-navy mb-3">Supported Formats</h3>
+      <div className="mt-8 bg-white rounded-xl border border-ink/10 p-6">
+        <h3 className="font-medium text-ink mb-3">Supported Formats</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
             { ext: '.docx', label: 'Word Document' },
@@ -130,9 +130,9 @@ export default function Upload() {
             { ext: '.pdf', label: 'PDF Document' },
           ].map((f) => (
             <div key={f.ext} className="flex items-center space-x-2 text-sm">
-              <FileText className="h-4 w-4 text-refinery-slate" />
+              <FileText className="h-4 w-4 text-ink/60" />
               <span className="font-medium">{f.ext}</span>
-              <span className="text-slate-400">{f.label}</span>
+              <span className="text-ink/40">{f.label}</span>
             </div>
           ))}
         </div>

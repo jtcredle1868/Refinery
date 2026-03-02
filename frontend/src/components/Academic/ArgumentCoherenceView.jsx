@@ -25,7 +25,7 @@ function ScoreRing({ score, label, size = 80 }) {
         />
       </svg>
       <span className="text-xl font-bold -mt-12 mb-6" style={{ color }}>{score}</span>
-      <span className="text-xs text-slate-500 mt-1">{label}</span>
+      <span className="text-xs text-ink/60 mt-1">{label}</span>
     </div>
   );
 }
@@ -36,7 +36,7 @@ const strengthColor = (strength) => {
     case 'adequate': return 'bg-blue-100 text-blue-700 border-blue-300';
     case 'weak': return 'bg-amber-100 text-amber-700 border-amber-300';
     case 'missing': return 'bg-red-100 text-red-700 border-red-300';
-    default: return 'bg-slate-100 text-slate-600 border-slate-300';
+    default: return 'bg-ink/10 text-ink/70 border-slate-300';
   }
 };
 
@@ -57,7 +57,7 @@ const adequacyBadge = (adequacy) => {
     case 'partial': return 'bg-amber-100 text-amber-700';
     case 'weak':
     case 'insufficient': return 'bg-red-100 text-red-700';
-    default: return 'bg-slate-100 text-slate-600';
+    default: return 'bg-ink/10 text-ink/70';
   }
 };
 
@@ -117,13 +117,13 @@ export default function ArgumentCoherenceView() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-refinery-blue"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-plum"></div>
       </div>
     );
   }
 
   if (!manuscript) {
-    return <div className="text-center py-20 text-slate-500">Manuscript not found</div>;
+    return <div className="text-center py-20 text-ink/60">Manuscript not found</div>;
   }
 
   const thesis = results?.thesis_statement;
@@ -139,15 +139,15 @@ export default function ArgumentCoherenceView() {
 
   return (
     <div>
-      <Link to={`/manuscript/${id}`} className="flex items-center text-refinery-blue hover:underline mb-6 text-sm">
+      <Link to={`/manuscript/${id}`} className="flex items-center text-plum hover:underline mb-6 text-sm">
         <ArrowLeft className="h-4 w-4 mr-1" /> Back to manuscript
       </Link>
 
       <div className="flex items-center space-x-3 mb-2">
-        <Target className="h-8 w-8 text-refinery-blue" />
-        <h1 className="text-3xl font-display font-bold text-refinery-navy">Argument Coherence Engine</h1>
+        <Target className="h-8 w-8 text-plum" />
+        <h1 className="text-3xl font-display text-ink">Argument Coherence Engine</h1>
       </div>
-      <p className="text-refinery-slate mb-6">Module 7 -- Argument structure and logical coherence analysis</p>
+      <p className="text-ink/60 mb-6">Module 7 -- Argument structure and logical coherence analysis</p>
 
       {error && (
         <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
@@ -157,11 +157,11 @@ export default function ArgumentCoherenceView() {
       )}
 
       {/* Run Analysis Controls */}
-      <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mb-8">
-        <h2 className="font-display font-semibold text-refinery-navy mb-4">Run Argument Analysis</h2>
+      <div className="rounded-3xl border border-ink/10 bg-white/90 p-6 mb-8">
+        <h2 className="font-semibold text-ink mb-4">Run Argument Analysis</h2>
         <div className="flex flex-wrap items-end gap-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Discipline</label>
+            <label className="block text-sm font-medium text-ink/80 mb-1">Discipline</label>
             <select
               value={discipline}
               onChange={(e) => setDiscipline(e.target.value)}
@@ -176,7 +176,7 @@ export default function ArgumentCoherenceView() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Document Type</label>
+            <label className="block text-sm font-medium text-ink/80 mb-1">Document Type</label>
             <select
               value={documentType}
               onChange={(e) => setDocumentType(e.target.value)}
@@ -192,7 +192,7 @@ export default function ArgumentCoherenceView() {
           <button
             onClick={handleRunAnalysis}
             disabled={running}
-            className="flex items-center space-x-2 bg-refinery-blue text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition"
+            className="flex items-center space-x-2 bg-ink text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {running ? (
               <><Loader className="h-4 w-4 animate-spin" /><span>Analyzing...</span></>
@@ -205,15 +205,15 @@ export default function ArgumentCoherenceView() {
 
       {!results && (
         <div className="text-center py-16">
-          <Target className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-          <p className="text-slate-500">No argument analysis results. Run the analysis above to begin.</p>
+          <Target className="h-12 w-12 text-ink/40 mx-auto mb-4" />
+          <p className="text-ink/60">No argument analysis results. Run the analysis above to begin.</p>
         </div>
       )}
 
       {results && (
         <>
           {/* Header Scores */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 mb-8">
+          <div className="border border-ink/10 bg-white/90 rounded-xl p-6 mb-8">
             <div className="flex flex-wrap items-center justify-around gap-6">
               <ScoreRing score={Math.round(results.coherence_score || 0)} label="Coherence Score" size={100} />
               {thesis && (
@@ -224,41 +224,41 @@ export default function ArgumentCoherenceView() {
 
           {/* Thesis Statement Card */}
           {thesis && (
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mb-6">
+            <div className="rounded-3xl border border-ink/10 bg-white/90 p-6 mb-6">
               <div className="flex items-center space-x-2 mb-4">
-                <FileText className="h-5 w-5 text-refinery-blue" />
-                <h2 className="font-display font-semibold text-refinery-navy">Thesis Statement</h2>
+                <FileText className="h-5 w-5 text-plum" />
+                <h2 className="font-semibold text-ink">Thesis Statement</h2>
               </div>
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                 <p className="text-sm text-slate-800 italic">"{thesis.extracted_thesis}"</p>
                 {thesis.location && (
-                  <p className="text-xs text-slate-500 mt-2">Location: {thesis.location}</p>
+                  <p className="text-xs text-ink/60 mt-2">Location: {thesis.location}</p>
                 )}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-slate-50 rounded-lg p-3 text-center">
-                  <p className="text-2xl font-bold text-refinery-navy">{Math.round(thesis.clarity_score || 0)}</p>
-                  <p className="text-xs text-slate-500">Clarity Score</p>
+                <div className="bg-ink/5 rounded-lg p-3 text-center">
+                  <p className="text-2xl font-bold text-ink">{Math.round(thesis.clarity_score || 0)}</p>
+                  <p className="text-xs text-ink/60">Clarity Score</p>
                 </div>
-                <div className="bg-slate-50 rounded-lg p-3">
-                  <p className="text-xs font-medium text-slate-600 mb-1">Restated in Chapters</p>
+                <div className="bg-ink/5 rounded-lg p-3">
+                  <p className="text-xs font-medium text-ink/70 mb-1">Restated in Chapters</p>
                   <div className="flex flex-wrap gap-1">
                     {(thesis.restated_chapters || []).map((ch, i) => (
                       <span key={i} className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">{ch}</span>
                     ))}
                     {(thesis.restated_chapters || []).length === 0 && (
-                      <span className="text-xs text-slate-400">None detected</span>
+                      <span className="text-xs text-ink/40">None detected</span>
                     )}
                   </div>
                 </div>
-                <div className="bg-slate-50 rounded-lg p-3">
-                  <p className="text-xs font-medium text-slate-600 mb-1">Contested in Chapters</p>
+                <div className="bg-ink/5 rounded-lg p-3">
+                  <p className="text-xs font-medium text-ink/70 mb-1">Contested in Chapters</p>
                   <div className="flex flex-wrap gap-1">
                     {(thesis.contested_chapters || []).map((ch, i) => (
                       <span key={i} className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">{ch}</span>
                     ))}
                     {(thesis.contested_chapters || []).length === 0 && (
-                      <span className="text-xs text-slate-400">None detected</span>
+                      <span className="text-xs text-ink/40">None detected</span>
                     )}
                   </div>
                 </div>
@@ -268,15 +268,15 @@ export default function ArgumentCoherenceView() {
 
           {/* Evidence-to-Claim Ratio */}
           {evidenceRatio && (
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mb-6">
+            <div className="rounded-3xl border border-ink/10 bg-white/90 p-6 mb-6">
               <div className="flex items-center space-x-2 mb-4">
-                <BarChart3 className="h-5 w-5 text-refinery-blue" />
-                <h2 className="font-display font-semibold text-refinery-navy">Evidence-to-Claim Ratio</h2>
+                <BarChart3 className="h-5 w-5 text-plum" />
+                <h2 className="font-semibold text-ink">Evidence-to-Claim Ratio</h2>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-left text-xs text-slate-500 border-b border-slate-200">
+                    <tr className="text-left text-xs text-ink/60 border-b border-ink/10">
                       <th className="pb-2 pr-4">Chapter</th>
                       <th className="pb-2 pr-4">Claims Made</th>
                       <th className="pb-2 pr-4">Evidence Provided</th>
@@ -284,19 +284,19 @@ export default function ArgumentCoherenceView() {
                       <th className="pb-2">Under-supported Claims</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-ink/5">
                     {(evidenceRatio.chapters || []).map((ch, i) => {
                       const ratio = ch.ratio || 0;
                       const ratioColor = ratio > 1.0 ? 'text-green-600' : ratio >= 0.5 ? 'text-amber-600' : 'text-red-600';
                       const ratioBg = ratio > 1.0 ? 'bg-green-50' : ratio >= 0.5 ? 'bg-amber-50' : 'bg-red-50';
                       return (
                         <React.Fragment key={i}>
-                          <tr className="hover:bg-slate-50">
-                            <td className="py-3 pr-4 font-medium text-slate-700">
+                          <tr className="hover:bg-ink/5">
+                            <td className="py-3 pr-4 font-medium text-ink/80">
                               {ch.chapter_title || `Chapter ${ch.chapter_number}`}
                             </td>
-                            <td className="py-3 pr-4 text-slate-600">{ch.claims_made}</td>
-                            <td className="py-3 pr-4 text-slate-600">{ch.evidence_provided}</td>
+                            <td className="py-3 pr-4 text-ink/70">{ch.claims_made}</td>
+                            <td className="py-3 pr-4 text-ink/70">{ch.evidence_provided}</td>
                             <td className="py-3 pr-4">
                               <span className={`inline-block px-2 py-0.5 rounded font-mono font-bold text-xs ${ratioBg} ${ratioColor}`}>
                                 {ratio.toFixed(2)}
@@ -306,7 +306,7 @@ export default function ArgumentCoherenceView() {
                               {(ch.under_supported_claims || []).length > 0 ? (
                                 <button
                                   onClick={() => toggleClaims(i)}
-                                  className="flex items-center space-x-1 text-xs text-refinery-blue hover:underline"
+                                  className="flex items-center space-x-1 text-xs text-plum hover:underline"
                                 >
                                   <span>{ch.under_supported_claims.length} claim(s)</span>
                                   {expandedClaims[i] ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
@@ -325,7 +325,7 @@ export default function ArgumentCoherenceView() {
                                 <div className="ml-4 space-y-2">
                                   {ch.under_supported_claims.map((claim, j) => (
                                     <div key={j} className="bg-red-50 border border-red-200 rounded-lg p-3 text-xs">
-                                      <p className="text-slate-700">{claim}</p>
+                                      <p className="text-ink/80">{claim}</p>
                                     </div>
                                   ))}
                                 </div>
@@ -343,17 +343,17 @@ export default function ArgumentCoherenceView() {
 
           {/* Logical Progression */}
           {progression && (
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mb-6">
+            <div className="rounded-3xl border border-ink/10 bg-white/90 p-6 mb-6">
               <div className="flex items-center space-x-2 mb-4">
                 <GitBranch className="h-5 w-5 text-indigo-600" />
-                <h2 className="font-display font-semibold text-refinery-navy">Logical Progression</h2>
+                <h2 className="font-semibold text-ink">Logical Progression</h2>
               </div>
 
               {/* Chapter connection flow */}
               <div className="space-y-3 mb-6">
                 {(progression.chapter_connections || []).map((conn, i) => (
                   <div key={i} className="flex items-center space-x-3">
-                    <div className="bg-slate-100 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 min-w-[120px] text-center">
+                    <div className="bg-ink/10 rounded-lg px-3 py-2 text-sm font-medium text-ink/80 min-w-[120px] text-center">
                       {conn.from_chapter || `Ch ${conn.from}`}
                     </div>
                     <div className="flex-1 flex items-center">
@@ -365,7 +365,7 @@ export default function ArgumentCoherenceView() {
                       </div>
                       <div className={`flex-1 h-1 rounded ${strengthDot(conn.connection_strength)}`}></div>
                     </div>
-                    <div className="bg-slate-100 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 min-w-[120px] text-center">
+                    <div className="bg-ink/10 rounded-lg px-3 py-2 text-sm font-medium text-ink/80 min-w-[120px] text-center">
                       {conn.to_chapter || `Ch ${conn.to}`}
                     </div>
                   </div>
@@ -375,12 +375,12 @@ export default function ArgumentCoherenceView() {
               {/* Stall Points */}
               {(progression.stall_points || []).length > 0 && (
                 <div className="mb-4">
-                  <h3 className="text-sm font-medium text-slate-700 mb-2">Stall Points</h3>
+                  <h3 className="text-sm font-medium text-ink/80 mb-2">Stall Points</h3>
                   <div className="space-y-2">
                     {progression.stall_points.map((point, i) => (
                       <div key={i} className="bg-amber-50 border border-amber-200 rounded-lg p-3">
                         <p className="text-xs font-medium text-amber-700">{point.location}</p>
-                        <p className="text-sm text-slate-700 mt-1">{point.description}</p>
+                        <p className="text-sm text-ink/80 mt-1">{point.description}</p>
                       </div>
                     ))}
                   </div>
@@ -390,12 +390,12 @@ export default function ArgumentCoherenceView() {
               {/* Contradiction Points */}
               {(progression.contradiction_points || []).length > 0 && (
                 <div>
-                  <h3 className="text-sm font-medium text-slate-700 mb-2">Contradiction Points</h3>
+                  <h3 className="text-sm font-medium text-ink/80 mb-2">Contradiction Points</h3>
                   <div className="space-y-2">
                     {progression.contradiction_points.map((point, i) => (
                       <div key={i} className="bg-red-50 border border-red-200 rounded-lg p-3">
                         <p className="text-xs font-medium text-red-700">{point.location}</p>
-                        <p className="text-sm text-slate-700 mt-1">{point.description}</p>
+                        <p className="text-sm text-ink/80 mt-1">{point.description}</p>
                       </div>
                     ))}
                   </div>
@@ -406,27 +406,27 @@ export default function ArgumentCoherenceView() {
 
           {/* Counterargument Coverage */}
           {counterarguments && (
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mb-6">
+            <div className="rounded-3xl border border-ink/10 bg-white/90 p-6 mb-6">
               <div className="flex items-center space-x-2 mb-4">
                 <Shield className="h-5 w-5 text-purple-600" />
-                <h2 className="font-display font-semibold text-refinery-navy">Counterargument Coverage</h2>
+                <h2 className="font-semibold text-ink">Counterargument Coverage</h2>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="text-left text-xs text-slate-500 border-b border-slate-200">
+                    <tr className="text-left text-xs text-ink/60 border-b border-ink/10">
                       <th className="pb-2 pr-4">Counterargument</th>
                       <th className="pb-2 pr-4">How Addressed</th>
                       <th className="pb-2 pr-4">Adequacy</th>
                       <th className="pb-2">Suggestion</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-ink/5">
                     {(counterarguments.items || []).map((item, i) => (
-                      <tr key={i} className="hover:bg-slate-50">
-                        <td className="py-3 pr-4 text-slate-700 max-w-xs">{item.counterargument}</td>
+                      <tr key={i} className="hover:bg-ink/5">
+                        <td className="py-3 pr-4 text-ink/80 max-w-xs">{item.counterargument}</td>
                         <td className="py-3 pr-4">
-                          <span className="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full">
+                          <span className="text-xs bg-ink/10 text-ink/80 px-2 py-0.5 rounded-full">
                             {item.how_addressed}
                           </span>
                         </td>
@@ -435,22 +435,22 @@ export default function ArgumentCoherenceView() {
                             {item.adequacy}
                           </span>
                         </td>
-                        <td className="py-3 text-slate-600 text-xs max-w-sm">{item.suggestion}</td>
+                        <td className="py-3 text-ink/70 text-xs max-w-sm">{item.suggestion}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
               {(counterarguments.items || []).length === 0 && (
-                <p className="text-sm text-slate-500 mt-2">No counterarguments identified in the manuscript.</p>
+                <p className="text-sm text-ink/60 mt-2">No counterarguments identified in the manuscript.</p>
               )}
             </div>
           )}
 
           {/* Chapter Coherence Scores - Horizontal Bar Chart */}
           {chapterBarData.length > 0 && (
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 mb-6">
-              <h2 className="font-display font-semibold text-refinery-navy mb-4">Chapter Coherence Scores</h2>
+            <div className="rounded-3xl border border-ink/10 bg-white/90 p-6 mb-6">
+              <h2 className="font-semibold text-ink mb-4">Chapter Coherence Scores</h2>
               <ResponsiveContainer width="100%" height={Math.max(200, chapterBarData.length * 45)}>
                 <BarChart data={chapterBarData} layout="vertical" margin={{ left: 20 }}>
                   <XAxis type="number" domain={[0, 100]} />
@@ -471,9 +471,9 @@ export default function ArgumentCoherenceView() {
 
           {/* Summary */}
           {results.summary && (
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
-              <h2 className="font-display font-semibold text-refinery-navy mb-2">Summary</h2>
-              <p className="text-sm text-slate-700 whitespace-pre-line">{results.summary}</p>
+            <div className="border border-ink/10 bg-white/90 rounded-xl p-6">
+              <h2 className="font-semibold text-ink mb-2">Summary</h2>
+              <p className="text-sm text-ink/80 whitespace-pre-line">{results.summary}</p>
             </div>
           )}
         </>

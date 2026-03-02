@@ -24,7 +24,7 @@ function ScoreRing({ score, label, size = 80 }) {
         />
       </svg>
       <span className="text-xl font-bold -mt-12 mb-6" style={{ color }}>{score}</span>
-      <span className="text-xs text-slate-500 mt-1">{label}</span>
+      <span className="text-xs text-ink/60 mt-1">{label}</span>
     </div>
   );
 }
@@ -33,7 +33,7 @@ const MODULES = [
   {
     key: 'xray', type: 'intelligence_engine', name: 'Manuscript Intelligence Engine',
     desc: 'Duplication detection, character census, timeline anomalies, lexical fingerprint.',
-    icon: Brain, color: 'text-refinery-blue', btnColor: 'bg-refinery-blue hover:bg-blue-700',
+    icon: Brain, color: 'text-plum', btnColor: 'bg-ink hover:bg-ink/80',
     route: 'intelligence', scoreKey: 'score_overall',
   },
   {
@@ -57,7 +57,7 @@ const MODULES = [
   {
     key: 'prose_refinery', type: 'prose_refinery', name: 'Prose Refinery',
     desc: 'Tic tracker, filter word detector, show-vs-tell, sentence rhythm, metaphor frequency.',
-    icon: PenTool, color: 'text-refinery-gold', btnColor: 'bg-refinery-gold hover:bg-amber-600',
+    icon: PenTool, color: 'text-ember', btnColor: 'bg-ember hover:bg-amber-600',
     route: 'prose', scoreKey: 'score_prose',
   },
   {
@@ -134,35 +134,35 @@ export default function ManuscriptView() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-refinery-blue"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-plum"></div>
       </div>
     );
   }
 
   if (!manuscript) {
-    return <div className="text-center py-20 text-slate-500">Manuscript not found</div>;
+    return <div className="text-center py-20 text-ink/60">Manuscript not found</div>;
   }
 
   const renderModuleCard = (mod) => {
     const latest = getLatest(mod.key === 'xray' ? 'xray' : mod.type);
     const Icon = mod.icon;
     return (
-      <div key={mod.key} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <div key={mod.key} className="rounded-3xl border border-ink/10 bg-white/90 p-6">
         <div className="flex items-center space-x-3 mb-3">
           <Icon className={`h-8 w-8 ${mod.color}`} />
           <div>
-            <h3 className="font-display font-semibold text-refinery-navy">{mod.name}</h3>
-            <p className="text-xs text-slate-400">
-              {mod.tier ? <span className="uppercase bg-slate-100 px-1.5 py-0.5 rounded text-[10px] font-medium mr-1">{mod.tier}+</span> : null}
+            <h3 className="font-semibold text-ink">{mod.name}</h3>
+            <p className="text-xs text-ink/40">
+              {mod.tier ? <span className="uppercase bg-ink/10 px-1.5 py-0.5 rounded text-[10px] font-medium mr-1">{mod.tier}+</span> : null}
             </p>
           </div>
         </div>
-        <p className="text-sm text-slate-600 mb-4">{mod.desc}</p>
+        <p className="text-sm text-ink/70 mb-4">{mod.desc}</p>
         <div className="flex items-center space-x-3">
           {latest ? (
             <Link
               to={`/manuscript/${id}/${mod.route}`}
-              className="flex items-center space-x-1 bg-refinery-navy text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition"
+              className="flex items-center space-x-1 bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 transition"
             >
               <BarChart3 className="h-4 w-4" />
               <span>View Results</span>
@@ -182,8 +182,8 @@ export default function ManuscriptView() {
           </button>
         </div>
         {latest?.scoreKey && latest[mod.scoreKey] && (
-          <div className="mt-3 text-xs text-slate-400">
-            Score: <span className="font-medium text-refinery-navy">{Math.round(latest[mod.scoreKey])}</span>
+          <div className="mt-3 text-xs text-ink/40">
+            Score: <span className="font-medium text-ink">{Math.round(latest[mod.scoreKey])}</span>
           </div>
         )}
       </div>
@@ -195,14 +195,14 @@ export default function ManuscriptView() {
       {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-display font-bold text-refinery-navy">{manuscript.title}</h1>
-          <p className="text-refinery-slate mt-1">
+          <h1 className="text-3xl font-display text-ink">{manuscript.title}</h1>
+          <p className="text-ink/60 mt-1">
             {manuscript.word_count.toLocaleString()} words &middot; {manuscript.chapter_count} chapters &middot; .{manuscript.file_type}
           </p>
         </div>
         <button
           onClick={() => setShowExport(true)}
-          className="flex items-center space-x-2 bg-refinery-navy text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition"
+          className="flex items-center space-x-2 bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 transition"
         >
           <Download className="h-4 w-4" />
           <span>Export</span>
@@ -218,8 +218,8 @@ export default function ManuscriptView() {
 
       {/* Health Dashboard */}
       {latestXray && (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
-          <h2 className="text-lg font-display font-semibold text-refinery-navy mb-6">Manuscript Health Dashboard</h2>
+        <div className="rounded-3xl border border-ink/10 bg-white/90 p-6 mb-8">
+          <h2 className="text-lg font-semibold text-ink mb-6">Manuscript Health Dashboard</h2>
           <div className="flex flex-wrap justify-around gap-4">
             <ScoreRing score={Math.round(latestXray.score_structure || 0)} label="Structure" />
             <ScoreRing score={Math.round(latestXray.score_voice || 0)} label="Voice" />
@@ -229,7 +229,7 @@ export default function ManuscriptView() {
             <ScoreRing score={Math.round(latestXray.score_overall || 0)} label="Overall" size={100} />
           </div>
           {latestXray.duration_seconds && (
-            <p className="text-xs text-slate-400 text-center mt-4">
+            <p className="text-xs text-ink/40 text-center mt-4">
               <Clock className="inline h-3 w-3 mr-1" />
               Analyzed in {latestXray.duration_seconds.toFixed(1)}s
             </p>
@@ -238,44 +238,44 @@ export default function ManuscriptView() {
       )}
 
       {/* Core Module Cards */}
-      <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Core Analysis Modules</h2>
+      <h2 className="text-lg font-semibold text-ink mb-4">Core Analysis Modules</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {MODULES.map(renderModuleCard)}
       </div>
 
       {/* Academic Module Cards */}
-      <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Academic Modules</h2>
+      <h2 className="text-lg font-semibold text-ink mb-4">Academic Modules</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {ACADEMIC_MODULES.map(renderModuleCard)}
       </div>
 
       {/* Enterprise Actions */}
-      <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Enterprise</h2>
+      <h2 className="text-lg font-semibold text-ink mb-4">Enterprise</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <Link
           to={`/manuscript/${id}/reader-report`}
-          className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:border-blue-300 transition"
+          className="rounded-3xl border border-ink/10 bg-white/90 p-6 hover:border-plum/30 transition"
         >
           <FileText className="h-8 w-8 text-blue-500 mb-3" />
-          <h3 className="font-display font-semibold text-refinery-navy">Reader Report</h3>
-          <p className="text-sm text-slate-500 mt-1">Generate acquisition reader report</p>
+          <h3 className="font-semibold text-ink">Reader Report</h3>
+          <p className="text-sm text-ink/60 mt-1">Generate acquisition reader report</p>
         </Link>
         <Link
           to={`/manuscript/${id}/rejection`}
-          className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:border-blue-300 transition"
+          className="rounded-3xl border border-ink/10 bg-white/90 p-6 hover:border-plum/30 transition"
         >
           <BookOpen className="h-8 w-8 text-amber-500 mb-3" />
-          <h3 className="font-display font-semibold text-refinery-navy">Rejection Letter</h3>
-          <p className="text-sm text-slate-500 mt-1">Draft personalized rejection letter</p>
+          <h3 className="font-semibold text-ink">Rejection Letter</h3>
+          <p className="text-sm text-ink/60 mt-1">Draft personalized rejection letter</p>
         </Link>
         <button
           onClick={() => handleRunAnalysis('acquisition_score')}
           disabled={running === 'acquisition_score'}
-          className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:border-blue-300 transition text-left"
+          className="rounded-3xl border border-ink/10 bg-white/90 p-6 hover:border-plum/30 transition text-left"
         >
           <BarChart3 className="h-8 w-8 text-emerald-500 mb-3" />
-          <h3 className="font-display font-semibold text-refinery-navy">Acquisition Score</h3>
-          <p className="text-sm text-slate-500 mt-1">
+          <h3 className="font-semibold text-ink">Acquisition Score</h3>
+          <p className="text-sm text-ink/60 mt-1">
             {running === 'acquisition_score' ? 'Computing...' : 'Compute composite 0-100 score'}
           </p>
           {getLatest('acquisition_score') && (
@@ -288,24 +288,24 @@ export default function ManuscriptView() {
 
       {/* Analysis history */}
       {analyses.length > 0 && (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Analysis History</h2>
+        <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
+          <h2 className="text-lg font-semibold text-ink mb-4">Analysis History</h2>
           <div className="space-y-2">
             {analyses.map((a) => (
-              <div key={a.id} className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-slate-50">
+              <div key={a.id} className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-ink/5">
                 <div className="flex items-center space-x-3">
                   {a.status === 'completed' ? (
                     <CheckCircle className="h-5 w-5 text-green-500" />
                   ) : a.status === 'failed' ? (
                     <AlertCircle className="h-5 w-5 text-red-500" />
                   ) : (
-                    <Loader className="h-5 w-5 text-refinery-blue animate-spin" />
+                    <Loader className="h-5 w-5 text-plum animate-spin" />
                   )}
                   <span className="text-sm font-medium capitalize">{a.analysis_type.replace(/_/g, ' ')}</span>
                 </div>
-                <div className="flex items-center space-x-4 text-sm text-slate-400">
+                <div className="flex items-center space-x-4 text-sm text-ink/40">
                   {a.duration_seconds && <span>{a.duration_seconds.toFixed(1)}s</span>}
-                  {a.score_overall && <span className="font-medium text-refinery-navy">Score: {Math.round(a.score_overall)}</span>}
+                  {a.score_overall && <span className="font-medium text-ink">Score: {Math.round(a.score_overall)}</span>}
                   <span>{new Date(a.created_at).toLocaleDateString()}</span>
                 </div>
               </div>

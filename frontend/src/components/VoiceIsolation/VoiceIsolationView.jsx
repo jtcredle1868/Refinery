@@ -35,7 +35,7 @@ function SeverityBadge({ level }) {
   return (
     <span
       className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-        styles[level] || 'bg-slate-100 text-slate-600'
+        styles[level] || 'bg-ink/10 text-ink/70'
       }`}
     >
       {level}
@@ -103,11 +103,11 @@ function CharacterCard({ character }) {
   const fp = character.voice_fingerprint || {};
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+    <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
       {/* Character header */}
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h3 className="text-lg font-display font-semibold text-refinery-navy">
+          <h3 className="text-lg font-semibold text-ink">
             {character.name}
           </h3>
           <div className="flex items-center space-x-3 mt-1">
@@ -117,7 +117,7 @@ function CharacterCard({ character }) {
               </span>
             )}
             {character.dialogue_count !== undefined && (
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-ink/60">
                 <MessageSquare className="inline h-3 w-3 mr-1" />
                 {character.dialogue_count} dialogue lines
               </span>
@@ -128,29 +128,29 @@ function CharacterCard({ character }) {
 
       {/* Voice fingerprint stats */}
       <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="bg-slate-50 rounded-lg p-3">
-          <p className="text-xs text-slate-500">Avg Sentence Length</p>
-          <p className="text-lg font-bold text-refinery-navy">
+        <div className="bg-ink/5 rounded-lg p-3">
+          <p className="text-xs text-ink/60">Avg Sentence Length</p>
+          <p className="text-lg font-bold text-ink">
             {fp.avg_sentence_length?.toFixed(1) ?? '--'}
           </p>
         </div>
-        <div className="bg-slate-50 rounded-lg p-3">
-          <p className="text-xs text-slate-500">Vocabulary Richness</p>
-          <p className="text-lg font-bold text-refinery-navy">
+        <div className="bg-ink/5 rounded-lg p-3">
+          <p className="text-xs text-ink/60">Vocabulary Richness</p>
+          <p className="text-lg font-bold text-ink">
             {fp.vocabulary_richness?.toFixed(2) ?? '--'}
           </p>
         </div>
-        <div className="bg-slate-50 rounded-lg p-3">
-          <p className="text-xs text-slate-500">Register</p>
-          <p className="text-sm font-semibold text-refinery-navy capitalize">
+        <div className="bg-ink/5 rounded-lg p-3">
+          <p className="text-xs text-ink/60">Register</p>
+          <p className="text-sm font-semibold text-ink capitalize">
             {fp.register ?? '--'}
           </p>
         </div>
-        <div className="bg-slate-50 rounded-lg p-3">
-          <p className="text-xs text-slate-500">Formality Score</p>
-          <p className="text-lg font-bold text-refinery-navy">
+        <div className="bg-ink/5 rounded-lg p-3">
+          <p className="text-xs text-ink/60">Formality Score</p>
+          <p className="text-lg font-bold text-ink">
             {fp.formality_score?.toFixed(1) ?? '--'}
-            <span className="text-xs text-slate-400 font-normal">/10</span>
+            <span className="text-xs text-ink/40 font-normal">/10</span>
           </p>
         </div>
       </div>
@@ -161,10 +161,10 @@ function CharacterCard({ character }) {
       {/* Speech patterns */}
       {character.speech_patterns && (
         <div className="mt-4">
-          <h4 className="text-xs font-medium text-slate-500 uppercase tracking-wide mb-1">
+          <h4 className="text-xs font-medium text-ink/60 uppercase tracking-wide mb-1">
             Speech Patterns
           </h4>
-          <p className="text-sm text-slate-700">{character.speech_patterns}</p>
+          <p className="text-sm text-ink/80">{character.speech_patterns}</p>
         </div>
       )}
 
@@ -173,7 +173,7 @@ function CharacterCard({ character }) {
         <div className="mt-4">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="text-xs font-medium text-refinery-blue hover:underline mb-2"
+            className="text-xs font-medium text-plum hover:underline mb-2"
           >
             {expanded ? 'Hide' : 'Show'} sample dialogue (
             {character.sample_dialogue.length})
@@ -183,7 +183,7 @@ function CharacterCard({ character }) {
               {character.sample_dialogue.slice(0, 3).map((line, i) => (
                 <div
                   key={i}
-                  className="bg-slate-50 rounded-md p-3 text-sm text-slate-700 italic border-l-2 border-refinery-blue"
+                  className="bg-ink/5 rounded-md p-3 text-sm text-ink/80 italic border-l-2 border-plum"
                 >
                   &ldquo;{line}&rdquo;
                 </div>
@@ -200,40 +200,40 @@ function SimilarityMatrix({ matrix }) {
   if (!matrix || matrix.length === 0) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+    <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
       <div className="flex items-center space-x-2 mb-4">
-        <Users className="h-5 w-5 text-refinery-blue" />
-        <h2 className="font-display font-semibold text-refinery-navy">
+        <Users className="h-5 w-5 text-plum" />
+        <h2 className="font-semibold text-ink">
           Voice Similarity Matrix
         </h2>
       </div>
-      <p className="text-xs text-slate-500 mb-4">
+      <p className="text-xs text-ink/60 mb-4">
         Pairs with similarity above 60% are flagged as potential voice blending
         risks.
       </p>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-xs text-slate-500 border-b border-slate-200">
+            <tr className="text-left text-xs text-ink/60 border-b border-ink/10">
               <th className="pb-2 pr-4">Character A</th>
               <th className="pb-2 pr-4">Character B</th>
               <th className="pb-2 pr-4 text-right">Similarity</th>
               <th className="pb-2">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-ink/5">
             {matrix.map((pair, i) => {
               const score = pair.similarity_score ?? pair.similarity ?? 0;
               const flagged = score > 60;
               return (
                 <tr
                   key={i}
-                  className={flagged ? 'bg-red-50' : 'hover:bg-slate-50'}
+                  className={flagged ? 'bg-red-50' : 'hover:bg-ink/5'}
                 >
-                  <td className="py-2.5 pr-4 font-medium text-refinery-navy">
+                  <td className="py-2.5 pr-4 font-medium text-ink">
                     {pair.character_a}
                   </td>
-                  <td className="py-2.5 pr-4 font-medium text-refinery-navy">
+                  <td className="py-2.5 pr-4 font-medium text-ink">
                     {pair.character_b}
                   </td>
                   <td className="py-2.5 pr-4 text-right">
@@ -278,14 +278,14 @@ function JargonBleedSection({ characters }) {
   if (allBleedItems.length === 0) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+    <div className="rounded-3xl border border-ink/10 bg-white/90 p-6">
       <div className="flex items-center space-x-2 mb-4">
         <ShieldAlert className="h-5 w-5 text-amber-500" />
-        <h2 className="font-display font-semibold text-refinery-navy">
+        <h2 className="font-semibold text-ink">
           Jargon Bleed ({allBleedItems.length} instances)
         </h2>
       </div>
-      <p className="text-xs text-slate-500 mb-4">
+      <p className="text-xs text-ink/60 mb-4">
         Instances where specialized language bleeds between characters or breaks
         voice consistency.
       </p>
@@ -297,11 +297,11 @@ function JargonBleedSection({ characters }) {
           >
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center space-x-2">
-                <span className="text-sm font-semibold text-refinery-navy">
+                <span className="text-sm font-semibold text-ink">
                   {item.character}
                 </span>
                 {item.chapter && (
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-ink/60">
                     {item.chapter}
                   </span>
                 )}
@@ -313,7 +313,7 @@ function JargonBleedSection({ characters }) {
               )}
             </div>
             {item.passage && (
-              <p className="text-sm text-slate-700 italic mb-1">
+              <p className="text-sm text-ink/80 italic mb-1">
                 &ldquo;{item.passage}&rdquo;
               </p>
             )}
@@ -378,7 +378,7 @@ export default function VoiceIsolationView() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-refinery-blue"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-plum"></div>
       </div>
     );
   }
@@ -387,10 +387,10 @@ export default function VoiceIsolationView() {
   if (!manuscript) {
     return (
       <div className="text-center py-20">
-        <p className="text-slate-500">Manuscript not found.</p>
+        <p className="text-ink/60">Manuscript not found.</p>
         <Link
           to="/dashboard"
-          className="text-refinery-blue mt-2 inline-block hover:underline"
+          className="text-plum mt-2 inline-block hover:underline"
         >
           Back to dashboard
         </Link>
@@ -412,21 +412,21 @@ export default function VoiceIsolationView() {
       {/* Back navigation */}
       <Link
         to={`/manuscript/${id}`}
-        className="flex items-center text-refinery-blue hover:underline mb-6 text-sm"
+        className="flex items-center text-plum hover:underline mb-6 text-sm"
       >
         <ArrowLeft className="h-4 w-4 mr-1" /> Back to manuscript
       </Link>
 
       {/* Page title */}
       <div className="flex items-center space-x-3 mb-2">
-        <Mic className="h-8 w-8 text-refinery-blue" />
-        <h1 className="text-3xl font-display font-bold text-refinery-navy">
+        <Mic className="h-8 w-8 text-plum" />
+        <h1 className="text-3xl font-display text-ink">
           Voice Isolation Lab
         </h1>
       </div>
-      <p className="text-refinery-slate mb-6">
+      <p className="text-ink/60 mb-6">
         Character voice distinctiveness analysis for{' '}
-        <span className="font-medium text-refinery-navy">
+        <span className="font-medium text-ink">
           {manuscript.title}
         </span>
       </p>
@@ -441,19 +441,19 @@ export default function VoiceIsolationView() {
 
       {/* No results -- show run button */}
       {!results && !running && (
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-10 text-center">
-          <Fingerprint className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-          <h2 className="text-lg font-display font-semibold text-refinery-navy mb-2">
+        <div className="rounded-3xl border border-ink/10 bg-white/90 p-10 text-center">
+          <Fingerprint className="h-12 w-12 text-ink/40 mx-auto mb-4" />
+          <h2 className="text-lg font-semibold text-ink mb-2">
             No voice analysis found
           </h2>
-          <p className="text-sm text-slate-500 mb-6 max-w-md mx-auto">
+          <p className="text-sm text-ink/60 mb-6 max-w-md mx-auto">
             Run the Voice Isolation analysis to examine how distinct each
             character's voice is, detect similarity risks, and identify jargon
             bleed across your manuscript.
           </p>
           <button
             onClick={handleRunAnalysis}
-            className="inline-flex items-center space-x-2 bg-refinery-blue text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
+            className="inline-flex items-center space-x-2 bg-ink text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-ink/80 transition"
           >
             <Play className="h-4 w-4" />
             <span>Run Voice Analysis</span>
@@ -463,12 +463,12 @@ export default function VoiceIsolationView() {
 
       {/* Running state */}
       {running && (
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-10 text-center">
-          <Loader className="h-10 w-10 text-refinery-blue animate-spin mx-auto mb-4" />
-          <h2 className="text-lg font-display font-semibold text-refinery-navy mb-2">
+        <div className="rounded-3xl border border-ink/10 bg-white/90 p-10 text-center">
+          <Loader className="h-10 w-10 text-plum animate-spin mx-auto mb-4" />
+          <h2 className="text-lg font-semibold text-ink mb-2">
             Analyzing character voices...
           </h2>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-ink/60">
             This may take a minute. Examining dialogue patterns, vocabulary, and
             voice fingerprints.
           </p>
@@ -479,35 +479,35 @@ export default function VoiceIsolationView() {
       {results && (
         <div className="space-y-8">
           {/* Header scoreboard */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+          <div className="border border-ink/10 bg-white/90 rounded-xl p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
               {/* Voice score */}
               <div className="text-center">
-                <p className="text-xs text-slate-500 uppercase tracking-wide mb-1">
+                <p className="text-xs text-ink/60 uppercase tracking-wide mb-1">
                   Voice Distinctiveness Score
                 </p>
-                <p className="text-5xl font-bold text-refinery-navy">
+                <p className="text-5xl font-bold text-ink">
                   {voiceScore ?? '--'}
                 </p>
-                <p className="text-sm text-slate-400 mt-1">/100</p>
+                <p className="text-sm text-ink/40 mt-1">/100</p>
               </div>
 
               {/* Most distinctive */}
               <div className="text-center">
-                <p className="text-xs text-slate-500 uppercase tracking-wide mb-1">
+                <p className="text-xs text-ink/60 uppercase tracking-wide mb-1">
                   Most Distinctive
                 </p>
-                <p className="text-xl font-display font-semibold text-green-600">
+                <p className="text-xl font-semibold text-green-600">
                   {mostDistinctive || '--'}
                 </p>
               </div>
 
               {/* Least distinctive */}
               <div className="text-center">
-                <p className="text-xs text-slate-500 uppercase tracking-wide mb-1">
+                <p className="text-xs text-ink/60 uppercase tracking-wide mb-1">
                   Least Distinctive
                 </p>
-                <p className="text-xl font-display font-semibold text-red-500">
+                <p className="text-xl font-semibold text-red-500">
                   {leastDistinctive || '--'}
                 </p>
               </div>
@@ -519,7 +519,7 @@ export default function VoiceIsolationView() {
             <button
               onClick={handleRunAnalysis}
               disabled={running}
-              className="inline-flex items-center space-x-2 bg-refinery-blue text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition"
+              className="inline-flex items-center space-x-2 bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
             >
               {running ? (
                 <>
@@ -539,8 +539,8 @@ export default function VoiceIsolationView() {
           {characters.length > 0 && (
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <Users className="h-5 w-5 text-refinery-blue" />
-                <h2 className="text-xl font-display font-semibold text-refinery-navy">
+                <Users className="h-5 w-5 text-plum" />
+                <h2 className="text-xl font-semibold text-ink">
                   Character Voices ({characters.length})
                 </h2>
               </div>
@@ -560,11 +560,11 @@ export default function VoiceIsolationView() {
 
           {/* Summary */}
           {summary && (
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
-              <h2 className="font-display font-semibold text-refinery-navy mb-2">
+            <div className="border border-ink/10 bg-white/90 rounded-xl p-6">
+              <h2 className="font-semibold text-ink mb-2">
                 Analysis Summary
               </h2>
-              <p className="text-sm text-slate-700 whitespace-pre-line">
+              <p className="text-sm text-ink/80 whitespace-pre-line">
                 {summary}
               </p>
             </div>

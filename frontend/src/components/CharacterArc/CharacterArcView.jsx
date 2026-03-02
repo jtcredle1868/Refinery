@@ -63,9 +63,9 @@ export default function CharacterArcView() {
       protagonist: 'bg-blue-100 text-blue-700',
       antagonist: 'bg-red-100 text-red-700',
       supporting: 'bg-amber-100 text-amber-700',
-      minor: 'bg-slate-100 text-slate-600',
+      minor: 'bg-ink/10 text-ink/70',
     };
-    return map[role?.toLowerCase()] || 'bg-slate-100 text-slate-600';
+    return map[role?.toLowerCase()] || 'bg-ink/10 text-ink/70';
   };
 
   /* ---------- Severity badge color mapping ---------- */
@@ -73,9 +73,9 @@ export default function CharacterArcView() {
     const map = {
       high: 'bg-red-100 text-red-700',
       medium: 'bg-yellow-100 text-yellow-700',
-      low: 'bg-slate-100 text-slate-600',
+      low: 'bg-ink/10 text-ink/70',
     };
-    return map[severity?.toLowerCase()] || 'bg-slate-100 text-slate-600';
+    return map[severity?.toLowerCase()] || 'bg-ink/10 text-ink/70';
   };
 
   /* ---------- Relationship type badge ---------- */
@@ -89,14 +89,14 @@ export default function CharacterArcView() {
       friendship: 'bg-sky-100 text-sky-700',
       alliance: 'bg-teal-100 text-teal-700',
     };
-    return map[type?.toLowerCase()] || 'bg-slate-100 text-slate-600';
+    return map[type?.toLowerCase()] || 'bg-ink/10 text-ink/70';
   };
 
   /* ---------- Loading state ---------- */
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-refinery-blue"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-plum"></div>
       </div>
     );
   }
@@ -104,7 +104,7 @@ export default function CharacterArcView() {
   /* ---------- No manuscript ---------- */
   if (!manuscript) {
     return (
-      <div className="text-center py-20 text-slate-500">Manuscript not found.</div>
+      <div className="text-center py-20 text-ink/60">Manuscript not found.</div>
     );
   }
 
@@ -116,20 +116,20 @@ export default function CharacterArcView() {
       {/* Back link */}
       <button
         onClick={() => navigate(`/manuscript/${id}`)}
-        className="flex items-center text-refinery-blue hover:underline mb-6 text-sm"
+        className="flex items-center text-plum hover:underline mb-6 text-sm"
       >
         <ArrowLeft className="h-4 w-4 mr-1" /> Back to manuscript
       </button>
 
       {/* Title */}
       <div className="flex items-center space-x-3 mb-2">
-        <Users className="h-8 w-8 text-refinery-blue" />
-        <h1 className="text-3xl font-display font-bold text-refinery-navy">
+        <Users className="h-8 w-8 text-plum" />
+        <h1 className="text-3xl font-display text-ink">
           Character Arc Workshop
         </h1>
       </div>
-      <p className="text-refinery-slate mb-6">
-        Character development tracking for <span className="font-medium text-refinery-navy">{manuscript.title}</span>
+      <p className="text-ink/60 mb-6">
+        Character development tracking for <span className="font-medium text-ink">{manuscript.title}</span>
       </p>
 
       {/* Error */}
@@ -144,7 +144,7 @@ export default function CharacterArcView() {
       <button
         onClick={handleRunAnalysis}
         disabled={running}
-        className="flex items-center space-x-2 bg-refinery-blue text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition mb-8"
+        className="flex items-center space-x-2 bg-ink text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition mb-8"
       >
         {running ? (
           <>
@@ -162,8 +162,8 @@ export default function CharacterArcView() {
       {/* No results yet */}
       {!results && !running && (
         <div className="text-center py-16">
-          <Users className="h-12 w-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500">No character arc analysis results yet. Run the analysis to get started.</p>
+          <Users className="h-12 w-12 text-ink/40 mx-auto mb-3" />
+          <p className="text-ink/60">No character arc analysis results yet. Run the analysis to get started.</p>
         </div>
       )}
 
@@ -171,24 +171,24 @@ export default function CharacterArcView() {
       {results && (
         <div className="space-y-8">
           {/* Header: Score + Character Count */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 flex flex-wrap items-center gap-8">
+          <div className="border border-ink/10 bg-white/90 rounded-xl p-6 flex flex-wrap items-center gap-8">
             {results.character_score !== undefined && (
               <div>
-                <span className="text-sm text-slate-600">Character Score: </span>
-                <span className="text-3xl font-bold text-refinery-navy">{results.character_score}</span>
-                <span className="text-sm text-slate-500">/100</span>
+                <span className="text-sm text-ink/70">Character Score: </span>
+                <span className="text-3xl font-bold text-ink">{results.character_score}</span>
+                <span className="text-sm text-ink/60">/100</span>
               </div>
             )}
             <div>
-              <span className="text-sm text-slate-600">Characters Tracked: </span>
-              <span className="text-3xl font-bold text-refinery-navy">{characters.length}</span>
+              <span className="text-sm text-ink/70">Characters Tracked: </span>
+              <span className="text-3xl font-bold text-ink">{characters.length}</span>
             </div>
           </div>
 
           {/* ---------- Character Cards ---------- */}
           {characters.length > 0 && (
             <div>
-              <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Characters</h2>
+              <h2 className="text-lg font-semibold text-ink mb-4">Characters</h2>
               <div className="space-y-4">
                 {characters.map((char, idx) => {
                   const isExpanded = expandedCharacter === idx;
@@ -200,15 +200,15 @@ export default function CharacterArcView() {
                   return (
                     <div
                       key={idx}
-                      className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden"
+                      className="rounded-3xl border border-ink/10 bg-white/90 overflow-hidden"
                     >
                       {/* Card header (always visible, clickable) */}
                       <button
                         onClick={() => setExpandedCharacter(isExpanded ? null : idx)}
-                        className="w-full text-left px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition"
+                        className="w-full text-left px-6 py-4 flex items-center justify-between hover:bg-ink/5 transition"
                       >
                         <div className="flex items-center space-x-3">
-                          <h3 className="font-display font-semibold text-refinery-navy text-lg">
+                          <h3 className="font-semibold text-ink text-lg">
                             {char.name}
                           </h3>
                           {char.role && (
@@ -223,7 +223,7 @@ export default function CharacterArcView() {
                           )}
                         </div>
                         <svg
-                          className={`h-5 w-5 text-slate-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                          className={`h-5 w-5 text-ink/40 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
                           fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -238,25 +238,25 @@ export default function CharacterArcView() {
                             {char.want && (
                               <div className="bg-blue-50 rounded-lg p-4">
                                 <p className="text-xs font-medium text-blue-600 mb-1">Want</p>
-                                <p className="text-sm text-slate-700">{char.want}</p>
+                                <p className="text-sm text-ink/80">{char.want}</p>
                               </div>
                             )}
                             {char.fear && (
                               <div className="bg-red-50 rounded-lg p-4">
                                 <p className="text-xs font-medium text-red-600 mb-1">Fear</p>
-                                <p className="text-sm text-slate-700">{char.fear}</p>
+                                <p className="text-sm text-ink/80">{char.fear}</p>
                               </div>
                             )}
                             {char.belief && (
                               <div className="bg-amber-50 rounded-lg p-4">
                                 <p className="text-xs font-medium text-amber-600 mb-1">Belief</p>
-                                <p className="text-sm text-slate-700">{char.belief}</p>
+                                <p className="text-sm text-ink/80">{char.belief}</p>
                               </div>
                             )}
                             {char.arc_summary && (
                               <div className="bg-indigo-50 rounded-lg p-4">
                                 <p className="text-xs font-medium text-indigo-600 mb-1">Arc Summary</p>
-                                <p className="text-sm text-slate-700">{char.arc_summary}</p>
+                                <p className="text-sm text-ink/80">{char.arc_summary}</p>
                               </div>
                             )}
                           </div>
@@ -264,8 +264,8 @@ export default function CharacterArcView() {
                           {/* Chapter Tracking Timeline */}
                           {chapterData.length > 0 && (
                             <div>
-                              <h4 className="text-sm font-medium text-slate-700 mb-2">Chapter Tracking Timeline</h4>
-                              <div className="bg-slate-50 rounded-lg p-4">
+                              <h4 className="text-sm font-medium text-ink/80 mb-2">Chapter Tracking Timeline</h4>
+                              <div className="bg-ink/5 rounded-lg p-4">
                                 <ResponsiveContainer width="100%" height={120}>
                                   <LineChart data={chapterData}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -296,7 +296,7 @@ export default function CharacterArcView() {
                           {/* Inconsistencies */}
                           {char.inconsistencies && char.inconsistencies.length > 0 && (
                             <div>
-                              <h4 className="text-sm font-medium text-slate-700 mb-2 flex items-center space-x-1">
+                              <h4 className="text-sm font-medium text-ink/80 mb-2 flex items-center space-x-1">
                                 <AlertTriangle className="h-4 w-4 text-amber-500" />
                                 <span>Inconsistencies ({char.inconsistencies.length})</span>
                               </h4>
@@ -309,7 +309,7 @@ export default function CharacterArcView() {
                                         ? 'border-red-200 bg-red-50'
                                         : inc.severity === 'medium'
                                         ? 'border-yellow-200 bg-yellow-50'
-                                        : 'border-slate-200 bg-slate-50'
+                                        : 'border-ink/10 bg-ink/5'
                                     }`}
                                   >
                                     <div className="flex items-center justify-between mb-2">
@@ -321,14 +321,14 @@ export default function CharacterArcView() {
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                                       {inc.expected && (
                                         <div>
-                                          <span className="text-xs font-medium text-slate-500">Expected: </span>
-                                          <span className="text-slate-700">{inc.expected}</span>
+                                          <span className="text-xs font-medium text-ink/60">Expected: </span>
+                                          <span className="text-ink/80">{inc.expected}</span>
                                         </div>
                                       )}
                                       {inc.actual && (
                                         <div>
-                                          <span className="text-xs font-medium text-slate-500">Actual: </span>
-                                          <span className="text-slate-700">{inc.actual}</span>
+                                          <span className="text-xs font-medium text-ink/60">Actual: </span>
+                                          <span className="text-ink/80">{inc.actual}</span>
                                         </div>
                                       )}
                                     </div>
@@ -338,7 +338,7 @@ export default function CharacterArcView() {
                                       ) : (
                                         <XCircle className="h-4 w-4 text-red-500" />
                                       )}
-                                      <span className="text-xs text-slate-500">
+                                      <span className="text-xs text-ink/60">
                                         {inc.justified ? 'Justified' : 'Not justified'}
                                       </span>
                                     </div>
@@ -351,33 +351,33 @@ export default function CharacterArcView() {
                           {/* Transformation Validation */}
                           {char.transformation_validation && (
                             <div>
-                              <h4 className="text-sm font-medium text-slate-700 mb-2">Transformation Validation</h4>
-                              <div className="bg-white rounded-lg border border-slate-200 p-4 space-y-3">
+                              <h4 className="text-sm font-medium text-ink/80 mb-2">Transformation Validation</h4>
+                              <div className="bg-white rounded-lg border border-ink/10 p-4 space-y-3">
                                 {char.transformation_validation.climax_chapter !== undefined && (
                                   <div className="flex items-center space-x-2">
-                                    <span className="text-xs font-medium text-slate-500">Climax Chapter:</span>
-                                    <span className="text-sm font-semibold text-refinery-navy">
+                                    <span className="text-xs font-medium text-ink/60">Climax Chapter:</span>
+                                    <span className="text-sm font-semibold text-ink">
                                       {char.transformation_validation.climax_chapter}
                                     </span>
                                   </div>
                                 )}
 
                                 <div className="flex items-center space-x-2">
-                                  <span className="text-xs font-medium text-slate-500">Change Earned:</span>
+                                  <span className="text-xs font-medium text-ink/60">Change Earned:</span>
                                   {char.transformation_validation.change_earned ? (
                                     <CheckCircle className="h-5 w-5 text-green-500" />
                                   ) : (
                                     <XCircle className="h-5 w-5 text-red-500" />
                                   )}
-                                  <span className="text-sm text-slate-700">
+                                  <span className="text-sm text-ink/80">
                                     {char.transformation_validation.change_earned ? 'Yes' : 'No'}
                                   </span>
                                 </div>
 
                                 {char.transformation_validation.earning_evidence && (
                                   <div>
-                                    <span className="text-xs font-medium text-slate-500">Earning Evidence:</span>
-                                    <p className="text-sm text-slate-700 mt-1">
+                                    <span className="text-xs font-medium text-ink/60">Earning Evidence:</span>
+                                    <p className="text-sm text-ink/80 mt-1">
                                       {char.transformation_validation.earning_evidence}
                                     </p>
                                   </div>
@@ -386,10 +386,10 @@ export default function CharacterArcView() {
                                 {char.transformation_validation.missing_setup &&
                                   char.transformation_validation.missing_setup.length > 0 && (
                                     <div>
-                                      <span className="text-xs font-medium text-slate-500">Missing Setup:</span>
+                                      <span className="text-xs font-medium text-ink/60">Missing Setup:</span>
                                       <ul className="mt-1 space-y-1">
                                         {char.transformation_validation.missing_setup.map((item, i) => (
-                                          <li key={i} className="flex items-start space-x-2 text-sm text-slate-700">
+                                          <li key={i} className="flex items-start space-x-2 text-sm text-ink/80">
                                             <AlertTriangle className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
                                             <span>{item}</span>
                                           </li>
@@ -412,7 +412,7 @@ export default function CharacterArcView() {
           {/* ---------- Relationship Dynamics ---------- */}
           {relationships.length > 0 && (
             <div>
-              <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4 flex items-center space-x-2">
+              <h2 className="text-lg font-semibold text-ink mb-4 flex items-center space-x-2">
                 <Heart className="h-5 w-5 text-pink-500" />
                 <span>Relationship Dynamics</span>
               </h2>
@@ -420,13 +420,13 @@ export default function CharacterArcView() {
                 {relationships.map((rel, idx) => (
                   <div
                     key={idx}
-                    className="bg-white rounded-lg shadow-sm border border-slate-200 p-5"
+                    className="rounded-3xl border border-ink/10 bg-white/90 p-5"
                   >
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center space-x-2">
-                        <span className="font-medium text-refinery-navy">{rel.character_a}</span>
-                        <span className="text-slate-400">&harr;</span>
-                        <span className="font-medium text-refinery-navy">{rel.character_b}</span>
+                        <span className="font-medium text-ink">{rel.character_a}</span>
+                        <span className="text-ink/40">&harr;</span>
+                        <span className="font-medium text-ink">{rel.character_b}</span>
                       </div>
                       {rel.relationship_type && (
                         <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${relationshipBadge(rel.relationship_type)}`}>
@@ -436,16 +436,16 @@ export default function CharacterArcView() {
                     </div>
 
                     {rel.evolution && (
-                      <p className="text-sm text-slate-600 mb-3">{rel.evolution}</p>
+                      <p className="text-sm text-ink/70 mb-3">{rel.evolution}</p>
                     )}
 
                     {rel.key_scenes && rel.key_scenes.length > 0 && (
                       <div>
-                        <p className="text-xs font-medium text-slate-500 mb-1">Key Scenes</p>
+                        <p className="text-xs font-medium text-ink/60 mb-1">Key Scenes</p>
                         <ul className="space-y-1">
                           {rel.key_scenes.map((scene, i) => (
-                            <li key={i} className="text-sm text-slate-600 flex items-start space-x-2">
-                              <span className="text-slate-400 mt-1">&bull;</span>
+                            <li key={i} className="text-sm text-ink/70 flex items-start space-x-2">
+                              <span className="text-ink/40 mt-1">&bull;</span>
                               <span>{scene}</span>
                             </li>
                           ))}
@@ -460,9 +460,9 @@ export default function CharacterArcView() {
 
           {/* ---------- Summary ---------- */}
           {results.summary && (
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
-              <h2 className="font-display font-semibold text-refinery-navy mb-2">Summary</h2>
-              <p className="text-sm text-slate-700 whitespace-pre-line">{results.summary}</p>
+            <div className="border border-ink/10 bg-white/90 rounded-xl p-6">
+              <h2 className="font-semibold text-ink mb-2">Summary</h2>
+              <p className="text-sm text-ink/80 whitespace-pre-line">{results.summary}</p>
             </div>
           )}
         </div>

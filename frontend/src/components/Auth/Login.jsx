@@ -31,13 +31,13 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-refinery-navy to-slate-800">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <BookOpen className="h-12 w-12 text-refinery-light-blue mx-auto mb-3" />
-          <h1 className="text-3xl font-display font-bold text-white">REFINERY</h1>
-          <p className="text-slate-400 mt-1">Where Prose Becomes Perfect</p>
+          <BookOpen className="h-12 w-12 text-plum mx-auto mb-3" />
+          <h1 className="text-3xl font-display text-white">REFINERY</h1>
+          <p className="text-ink/40 mt-1">Where Prose Becomes Perfect</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-8">
-          <h2 className="text-2xl font-display font-semibold text-refinery-navy mb-6">Sign In</h2>
+          <h2 className="text-2xl font-semibold text-ink mb-6">Sign In</h2>
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm">
@@ -47,7 +47,7 @@ export default function Login() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-ink/80 mb-1">Email</label>
               <input
                 type="email"
                 value={email}
@@ -58,7 +58,7 @@ export default function Login() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
+              <label className="block text-sm font-medium text-ink/80 mb-1">Password</label>
               <input
                 type="password"
                 value={password}
@@ -73,14 +73,14 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-6 bg-refinery-blue text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition"
+            className="w-full mt-6 bg-ink text-white py-2.5 rounded-lg font-medium hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
 
-          <p className="mt-4 text-center text-sm text-slate-600">
+          <p className="mt-4 text-center text-sm text-ink/70">
             Don't have an account?{' '}
-            <Link to="/signup" className="text-refinery-blue font-medium hover:underline">
+            <Link to="/signup" className="text-plum font-medium hover:underline">
               Create one free
             </Link>
           </p>

@@ -95,7 +95,7 @@ export default function ProcessingView() {
   }, [manuscriptId, navigate]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-parchment flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
         {/* Animated spinner */}
         <div className="relative w-32 h-32 mx-auto mb-10">
@@ -126,10 +126,10 @@ export default function ProcessingView() {
         </div>
 
         {/* Title */}
-        <h1 className="text-2xl md:text-3xl font-display font-bold text-white mb-3">
+        <h1 className="text-2xl md:text-3xl font-display text-white mb-3">
           Analyzing your manuscript...
         </h1>
-        <p className="text-slate-400 mb-10">
+        <p className="text-ink/40 mb-10">
           Running all modules to give you a complete picture.
         </p>
 
@@ -168,7 +168,7 @@ export default function ProcessingView() {
                         ? 'text-green-400'
                         : isActive
                         ? 'text-blue-400'
-                        : 'text-slate-500'
+                        : 'text-ink/60'
                     }`}
                   />
 
@@ -179,7 +179,7 @@ export default function ProcessingView() {
                         ? 'text-green-300'
                         : isActive
                         ? 'text-blue-300'
-                        : 'text-slate-500'
+                        : 'text-ink/60'
                     }`}
                   >
                     {mod.label}
@@ -203,7 +203,7 @@ export default function ProcessingView() {
         </div>
 
         {/* Time estimate note */}
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-ink/60">
           This usually takes 30&ndash;60 seconds. You can wait here or come
           back to your dashboard.
         </p>

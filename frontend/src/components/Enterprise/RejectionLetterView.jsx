@@ -9,13 +9,13 @@ import {
 function toneBadge(tone) {
   switch (tone) {
     case 'standard':
-      return 'bg-slate-100 text-slate-700';
+      return 'bg-ink/10 text-ink/80';
     case 'encouraging':
       return 'bg-blue-100 text-blue-800';
     case 'detailed':
       return 'bg-purple-100 text-purple-800';
     default:
-      return 'bg-slate-100 text-slate-600';
+      return 'bg-ink/10 text-ink/70';
   }
 }
 
@@ -97,7 +97,7 @@ export default function RejectionLetterView() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-refinery-blue"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-plum"></div>
       </div>
     );
   }
@@ -105,22 +105,22 @@ export default function RejectionLetterView() {
   if (!manuscript) {
     return (
       <div className="text-center py-20">
-        <p className="text-slate-500">Manuscript not found.</p>
-        <Link to="/" className="text-refinery-blue mt-2 inline-block hover:underline">Back to dashboard</Link>
+        <p className="text-ink/60">Manuscript not found.</p>
+        <Link to="/" className="text-plum mt-2 inline-block hover:underline">Back to dashboard</Link>
       </div>
     );
   }
 
   return (
     <div className="max-w-3xl mx-auto">
-      <Link to={`/manuscript/${manuscriptId}`} className="flex items-center text-refinery-blue hover:underline mb-6 text-sm">
+      <Link to={`/manuscript/${manuscriptId}`} className="flex items-center text-plum hover:underline mb-6 text-sm">
         <ArrowLeft className="h-4 w-4 mr-1" /> Back to manuscript
       </Link>
 
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-display font-bold text-refinery-navy">Rejection Letter</h1>
-        <p className="text-refinery-slate mt-1">
+        <h1 className="text-3xl font-display text-ink">Rejection Letter</h1>
+        <p className="text-ink/60 mt-1">
           Draft a professional rejection letter for "{manuscript.title}"
         </p>
       </div>
@@ -135,10 +135,10 @@ export default function RejectionLetterView() {
       {/* Input form */}
       {!letter && (
         <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
-          <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Letter Details</h2>
+          <h2 className="text-lg font-semibold text-ink mb-4">Letter Details</h2>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Author Name</label>
+              <label className="block text-sm font-medium text-ink/80 mb-1">Author Name</label>
               <input
                 type="text"
                 value={authorName}
@@ -149,7 +149,7 @@ export default function RejectionLetterView() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Tone</label>
+              <label className="block text-sm font-medium text-ink/80 mb-1">Tone</label>
               <select
                 value={tone}
                 onChange={(e) => setTone(e.target.value)}
@@ -164,7 +164,7 @@ export default function RejectionLetterView() {
             <button
               onClick={() => handleGenerate()}
               disabled={generating}
-              className="w-full bg-refinery-blue text-white py-3 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition flex items-center justify-center space-x-2"
+              className="w-full bg-ink text-white py-3 rounded-lg font-medium hover:bg-ink/80 disabled:opacity-50 transition flex items-center justify-center space-x-2"
             >
               {generating ? (
                 <>
@@ -190,8 +190,8 @@ export default function RejectionLetterView() {
             {/* Tone badge */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-2">
-                <Mail className="h-5 w-5 text-refinery-blue" />
-                <h3 className="font-display font-semibold text-refinery-navy">Generated Letter</h3>
+                <Mail className="h-5 w-5 text-plum" />
+                <h3 className="font-semibold text-ink">Generated Letter</h3>
               </div>
               {letter.tone && (
                 <span className={`text-xs px-3 py-1 rounded-full font-medium capitalize ${toneBadge(letter.tone)}`}>
@@ -202,20 +202,20 @@ export default function RejectionLetterView() {
 
             {/* Subject */}
             {letter.subject && (
-              <div className="mb-4 pb-4 border-b border-slate-200">
-                <p className="text-xs text-slate-500 uppercase tracking-wide mb-1">Subject</p>
-                <p className="text-sm font-medium text-refinery-navy">{letter.subject}</p>
+              <div className="mb-4 pb-4 border-b border-ink/10">
+                <p className="text-xs text-ink/60 uppercase tracking-wide mb-1">Subject</p>
+                <p className="text-sm font-medium text-ink">{letter.subject}</p>
               </div>
             )}
 
             {/* Salutation */}
             {letter.salutation && (
-              <p className="text-sm text-slate-700 mb-4">{letter.salutation}</p>
+              <p className="text-sm text-ink/80 mb-4">{letter.salutation}</p>
             )}
 
             {/* Body */}
             {letter.body && (
-              <div className="text-sm text-slate-700 leading-relaxed mb-4 space-y-3">
+              <div className="text-sm text-ink/80 leading-relaxed mb-4 space-y-3">
                 {letter.body.split('\n').filter(Boolean).map((paragraph, i) => (
                   <p key={i}>{paragraph}</p>
                 ))}
@@ -224,7 +224,7 @@ export default function RejectionLetterView() {
 
             {/* Closing */}
             {letter.closing && (
-              <p className="text-sm text-slate-700 mt-6">{letter.closing}</p>
+              <p className="text-sm text-ink/80 mt-6">{letter.closing}</p>
             )}
           </div>
 
@@ -235,7 +235,7 @@ export default function RejectionLetterView() {
               className={`flex items-center space-x-2 px-5 py-2.5 rounded-lg font-medium transition ${
                 copied
                   ? 'bg-green-100 text-green-800 border border-green-200'
-                  : 'bg-refinery-blue text-white hover:bg-blue-700'
+                  : 'bg-ink text-white hover:bg-ink/80'
               }`}
             >
               {copied ? (
@@ -253,7 +253,7 @@ export default function RejectionLetterView() {
 
             {/* Regenerate with different tone */}
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-slate-500">Regenerate:</span>
+              <span className="text-sm text-ink/60">Regenerate:</span>
               {['standard', 'encouraging', 'detailed']
                 .filter((t) => t !== letter.tone)
                 .map((t) => (
@@ -261,7 +261,7 @@ export default function RejectionLetterView() {
                     key={t}
                     onClick={() => handleRegenerate(t)}
                     disabled={generating}
-                    className="flex items-center space-x-1 border border-slate-300 text-slate-700 px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 disabled:opacity-50 transition capitalize"
+                    className="flex items-center space-x-1 border border-slate-300 text-ink/80 px-3 py-2 rounded-lg text-sm font-medium hover:bg-ink/5 disabled:opacity-50 transition capitalize"
                   >
                     <RefreshCw className="h-3 w-3" />
                     <span>{t}</span>
@@ -274,7 +274,7 @@ export default function RejectionLetterView() {
           <div className="flex justify-center pt-2">
             <button
               onClick={() => { setLetter(null); setCopied(false); }}
-              className="text-sm text-slate-400 hover:text-slate-600 transition"
+              className="text-sm text-ink/40 hover:text-ink/70 transition"
             >
               Start Over
             </button>

@@ -118,9 +118,9 @@ export default function BatchUploadView() {
   const statusIcon = (status) => {
     switch (status) {
       case 'pending':
-        return <FileText className="h-4 w-4 text-slate-400" />;
+        return <FileText className="h-4 w-4 text-ink/40" />;
       case 'uploading':
-        return <Loader className="h-4 w-4 text-refinery-blue animate-spin" />;
+        return <Loader className="h-4 w-4 text-plum animate-spin" />;
       case 'done':
         return <CheckCircle className="h-4 w-4 text-green-500" />;
       case 'error':
@@ -142,11 +142,11 @@ export default function BatchUploadView() {
 
   const statusLabelClasses = (status) => {
     switch (status) {
-      case 'pending': return 'bg-slate-100 text-slate-600';
+      case 'pending': return 'bg-ink/10 text-ink/70';
       case 'uploading': return 'bg-blue-100 text-blue-800';
       case 'done': return 'bg-green-100 text-green-800';
       case 'error': return 'bg-red-100 text-red-800';
-      default: return 'bg-slate-100 text-slate-600';
+      default: return 'bg-ink/10 text-ink/70';
     }
   };
 
@@ -160,8 +160,8 @@ export default function BatchUploadView() {
     <div className="max-w-3xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-display font-bold text-refinery-navy">Batch Upload</h1>
-        <p className="text-refinery-slate mt-1">
+        <h1 className="text-3xl font-display text-ink">Batch Upload</h1>
+        <p className="text-ink/60 mt-1">
           Upload multiple manuscripts at once for enterprise-scale processing.
         </p>
       </div>
@@ -174,8 +174,8 @@ export default function BatchUploadView() {
         onClick={() => inputRef.current?.click()}
         className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all ${
           dragOver
-            ? 'border-refinery-blue bg-blue-50'
-            : 'border-slate-300 hover:border-refinery-blue hover:bg-slate-50'
+            ? 'border-plum bg-blue-50'
+            : 'border-slate-300 hover:border-plum hover:bg-ink/5'
         }`}
       >
         <input
@@ -186,10 +186,10 @@ export default function BatchUploadView() {
           onChange={handleFileInput}
           className="hidden"
         />
-        <FolderUp className="h-12 w-12 text-slate-400 mx-auto mb-3" />
-        <p className="font-medium text-refinery-navy">Drop manuscripts here</p>
-        <p className="text-sm text-slate-400 mt-1">or click to browse</p>
-        <p className="text-xs text-slate-400 mt-3">
+        <FolderUp className="h-12 w-12 text-ink/40 mx-auto mb-3" />
+        <p className="font-medium text-ink">Drop manuscripts here</p>
+        <p className="text-sm text-ink/40 mt-1">or click to browse</p>
+        <p className="text-xs text-ink/40 mt-3">
           Supports .docx, .txt, .rtf, .pdf -- select multiple files at once
         </p>
       </div>
@@ -198,13 +198,13 @@ export default function BatchUploadView() {
       {files.length > 0 && (
         <div className="bg-white rounded-lg shadow-sm border p-6 mt-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-display font-semibold text-refinery-navy">
+            <h2 className="text-lg font-semibold text-ink">
               File Queue ({files.length} {files.length === 1 ? 'file' : 'files'})
             </h2>
             {!uploading && results.length === 0 && (
               <button
                 onClick={() => setFiles([])}
-                className="text-sm text-slate-400 hover:text-red-500 transition"
+                className="text-sm text-ink/40 hover:text-red-500 transition"
               >
                 Clear All
               </button>
@@ -214,13 +214,13 @@ export default function BatchUploadView() {
           {/* Progress bar (shown during upload) */}
           {uploading && (
             <div className="mb-4">
-              <div className="flex items-center justify-between text-sm text-slate-600 mb-1">
+              <div className="flex items-center justify-between text-sm text-ink/70 mb-1">
                 <span>Uploading {uploadProgress.current} of {uploadProgress.total}</span>
                 <span>{progressPercent}%</span>
               </div>
               <div className="w-full bg-slate-200 rounded-full h-2.5">
                 <div
-                  className="bg-refinery-blue h-2.5 rounded-full transition-all duration-300"
+                  className="bg-ink h-2.5 rounded-full transition-all duration-300"
                   style={{ width: `${progressPercent}%` }}
                 ></div>
               </div>
@@ -231,13 +231,13 @@ export default function BatchUploadView() {
             {files.map((f, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-slate-50 border border-slate-100"
+                className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-ink/5 border border-slate-100"
               >
                 <div className="flex items-center space-x-3 min-w-0">
                   {statusIcon(f.status)}
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-refinery-navy truncate">{f.name}</p>
-                    <p className="text-xs text-slate-400">{formatFileSize(f.size)}</p>
+                    <p className="text-sm font-medium text-ink truncate">{f.name}</p>
+                    <p className="text-xs text-ink/40">{formatFileSize(f.size)}</p>
                     {f.error && (
                       <p className="text-xs text-red-500 mt-0.5">{f.error}</p>
                     )}
@@ -250,7 +250,7 @@ export default function BatchUploadView() {
                   {f.status === 'pending' && !uploading && (
                     <button
                       onClick={() => removeFile(i)}
-                      className="text-slate-400 hover:text-red-500 transition"
+                      className="text-ink/40 hover:text-red-500 transition"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -264,7 +264,7 @@ export default function BatchUploadView() {
           {!uploading && results.length === 0 && files.some((f) => f.status === 'pending') && (
             <button
               onClick={handleUploadAll}
-              className="w-full mt-4 bg-refinery-blue text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition flex items-center justify-center space-x-2"
+              className="w-full mt-4 bg-ink text-white py-3 rounded-lg font-medium hover:bg-ink/80 transition flex items-center justify-center space-x-2"
             >
               <Upload className="h-5 w-5" />
               <span>Upload All ({files.filter((f) => f.status === 'pending').length} files)</span>
@@ -276,17 +276,17 @@ export default function BatchUploadView() {
       {/* Results summary */}
       {results.length > 0 && (
         <div className="bg-white rounded-lg shadow-sm border p-6 mt-6">
-          <h2 className="text-lg font-display font-semibold text-refinery-navy mb-4">Upload Results</h2>
+          <h2 className="text-lg font-semibold text-ink mb-4">Upload Results</h2>
 
           <div className="flex items-center space-x-4 mb-4">
             <div className="flex items-center space-x-1.5">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              <span className="text-sm text-slate-600">{completedCount} succeeded</span>
+              <span className="text-sm text-ink/70">{completedCount} succeeded</span>
             </div>
             {errorCount > 0 && (
               <div className="flex items-center space-x-1.5">
                 <AlertCircle className="h-4 w-4 text-red-500" />
-                <span className="text-sm text-slate-600">{errorCount} failed</span>
+                <span className="text-sm text-ink/70">{errorCount} failed</span>
               </div>
             )}
           </div>
@@ -306,14 +306,14 @@ export default function BatchUploadView() {
                     <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
                   )}
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-refinery-navy truncate">{r.title}</p>
+                    <p className="text-sm font-medium text-ink truncate">{r.title}</p>
                     {r.error && <p className="text-xs text-red-500">{r.error}</p>}
                   </div>
                 </div>
                 {r.success && r.manuscriptId && (
                   <Link
                     to={`/manuscript/${r.manuscriptId}`}
-                    className="flex items-center space-x-1 text-xs text-refinery-blue hover:underline flex-shrink-0 ml-3"
+                    className="flex items-center space-x-1 text-xs text-plum hover:underline flex-shrink-0 ml-3"
                   >
                     <span>View</span>
                     <ExternalLink className="h-3 w-3" />
@@ -325,7 +325,7 @@ export default function BatchUploadView() {
 
           <button
             onClick={() => { setFiles([]); setResults([]); }}
-            className="w-full mt-4 border border-slate-300 text-slate-700 py-2.5 rounded-lg font-medium hover:bg-slate-50 transition"
+            className="w-full mt-4 border border-slate-300 text-ink/80 py-2.5 rounded-lg font-medium hover:bg-ink/5 transition"
           >
             Upload More Files
           </button>

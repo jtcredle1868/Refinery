@@ -87,7 +87,7 @@ export default function DecisionWorkflowView() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-refinery-blue"></div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-plum"></div>
       </div>
     );
   }
@@ -95,8 +95,8 @@ export default function DecisionWorkflowView() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-display font-bold text-refinery-navy">Decision Workflow</h1>
-        <p className="text-refinery-slate mt-1">Acquisition decision pipeline for this manuscript</p>
+        <h1 className="text-2xl font-display text-ink">Decision Workflow</h1>
+        <p className="text-ink/60 mt-1">Acquisition decision pipeline for this manuscript</p>
       </div>
 
       {error && (
@@ -113,20 +113,20 @@ export default function DecisionWorkflowView() {
               <div className="flex flex-col items-center flex-1">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                   i < currentStageIndex ? 'bg-green-500 text-white'
-                    : i === currentStageIndex ? 'bg-refinery-blue text-white ring-4 ring-blue-100'
-                      : 'bg-slate-200 text-slate-400'
+                    : i === currentStageIndex ? 'bg-ink text-white ring-4 ring-blue-100'
+                      : 'bg-slate-200 text-ink/40'
                 }`}>
                   {i < currentStageIndex ? <CheckCircle className="h-5 w-5" /> : <Circle className="h-5 w-5" />}
                 </div>
                 <p className={`text-xs mt-2 text-center ${
-                  i <= currentStageIndex ? 'text-refinery-navy font-medium' : 'text-slate-400'
+                  i <= currentStageIndex ? 'text-ink font-medium' : 'text-ink/40'
                 }`}>
                   {stage.label}
                 </p>
               </div>
               {i < STAGES.length - 1 && (
                 <ArrowRight className={`h-5 w-5 mx-2 flex-shrink-0 ${
-                  i < currentStageIndex ? 'text-green-500' : 'text-slate-300'
+                  i < currentStageIndex ? 'text-green-500' : 'text-ink/40'
                 }`} />
               )}
             </React.Fragment>
@@ -137,7 +137,7 @@ export default function DecisionWorkflowView() {
         {workflow?.outcome && workflow.outcome !== 'pending' && (
           <div className="mt-4 text-center">
             <span className={`inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold text-white ${
-              OUTCOMES.find((o) => o.value === workflow.outcome)?.color || 'bg-slate-500'
+              OUTCOMES.find((o) => o.value === workflow.outcome)?.color || 'bg-ink/50'
             }`}>
               {OUTCOMES.find((o) => o.value === workflow.outcome)?.label || workflow.outcome}
             </span>
@@ -149,20 +149,20 @@ export default function DecisionWorkflowView() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {workflow?.reader_notes && (
           <div className="bg-white rounded-lg shadow-sm border p-4">
-            <h4 className="text-xs font-medium text-slate-500 uppercase mb-2">Reader Notes</h4>
-            <p className="text-sm text-slate-700">{workflow.reader_notes}</p>
+            <h4 className="text-xs font-medium text-ink/60 uppercase mb-2">Reader Notes</h4>
+            <p className="text-sm text-ink/80">{workflow.reader_notes}</p>
           </div>
         )}
         {workflow?.editor_notes && (
           <div className="bg-white rounded-lg shadow-sm border p-4">
-            <h4 className="text-xs font-medium text-slate-500 uppercase mb-2">Editor Notes</h4>
-            <p className="text-sm text-slate-700">{workflow.editor_notes}</p>
+            <h4 className="text-xs font-medium text-ink/60 uppercase mb-2">Editor Notes</h4>
+            <p className="text-sm text-ink/80">{workflow.editor_notes}</p>
           </div>
         )}
         {workflow?.director_notes && (
           <div className="bg-white rounded-lg shadow-sm border p-4">
-            <h4 className="text-xs font-medium text-slate-500 uppercase mb-2">Director Notes</h4>
-            <p className="text-sm text-slate-700">{workflow.director_notes}</p>
+            <h4 className="text-xs font-medium text-ink/60 uppercase mb-2">Director Notes</h4>
+            <p className="text-sm text-ink/80">{workflow.director_notes}</p>
           </div>
         )}
       </div>
@@ -170,7 +170,7 @@ export default function DecisionWorkflowView() {
       {/* Advance workflow form */}
       {currentStageIndex < STAGES.length - 1 && (
         <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
-          <h3 className="text-sm font-semibold text-refinery-navy mb-3">
+          <h3 className="text-sm font-semibold text-ink mb-3">
             Advance to: {STAGES[currentStageIndex + 1]?.label}
           </h3>
           <textarea
@@ -183,7 +183,7 @@ export default function DecisionWorkflowView() {
           {/* Outcome selector (only at editor_recommended -> director_decision) */}
           {currentStageIndex === 2 && (
             <div className="mb-3">
-              <label className="block text-xs font-medium text-slate-600 mb-2">Final Decision</label>
+              <label className="block text-xs font-medium text-ink/70 mb-2">Final Decision</label>
               <div className="flex space-x-2">
                 {OUTCOMES.map((o) => (
                   <button
@@ -192,7 +192,7 @@ export default function DecisionWorkflowView() {
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition ${
                       selectedOutcome === o.value
                         ? `${o.color} text-white border-transparent`
-                        : 'bg-white text-slate-600 border-slate-300 hover:bg-slate-50'
+                        : 'bg-white text-ink/70 border-slate-300 hover:bg-ink/5'
                     }`}
                   >
                     {o.label}
@@ -205,7 +205,7 @@ export default function DecisionWorkflowView() {
           <button
             onClick={handleAdvance}
             disabled={advancing || (currentStageIndex === 2 && !selectedOutcome)}
-            className="flex items-center space-x-2 bg-refinery-blue text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition"
+            className="flex items-center space-x-2 bg-ink text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {advancing ? <Loader className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
             <span>{advancing ? 'Advancing...' : 'Advance Workflow'}</span>
@@ -215,31 +215,31 @@ export default function DecisionWorkflowView() {
 
       {/* Annotations / Editor Comments */}
       <div className="bg-white rounded-xl shadow-sm border p-6">
-        <h3 className="text-sm font-semibold text-refinery-navy mb-4 flex items-center space-x-2">
+        <h3 className="text-sm font-semibold text-ink mb-4 flex items-center space-x-2">
           <MessageSquare className="h-4 w-4" /><span>Editor Comments ({annotations.length})</span>
         </h3>
 
         <div className="space-y-3 max-h-80 overflow-y-auto mb-4">
           {annotations.length === 0 && (
-            <p className="text-sm text-slate-400 text-center py-6">No comments yet. Be the first to add one.</p>
+            <p className="text-sm text-ink/40 text-center py-6">No comments yet. Be the first to add one.</p>
           )}
           {annotations.map((a) => (
-            <div key={a.id} className="flex space-x-3 p-3 bg-slate-50 rounded-lg">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-refinery-blue text-white flex items-center justify-center text-xs font-bold">
+            <div key={a.id} className="flex space-x-3 p-3 bg-ink/5 rounded-lg">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-ink text-white flex items-center justify-center text-xs font-bold">
                 {(a.user_name || '?')[0].toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center space-x-2 mb-1">
-                  <span className="text-sm font-medium text-refinery-navy">{a.user_name}</span>
-                  <span className="text-xs text-slate-400 flex items-center">
+                  <span className="text-sm font-medium text-ink">{a.user_name}</span>
+                  <span className="text-xs text-ink/40 flex items-center">
                     <Clock className="h-3 w-3 mr-1" />
                     {new Date(a.created_at).toLocaleDateString()}
                   </span>
                   {a.chapter_num && (
-                    <span className="text-xs bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded">Ch. {a.chapter_num}</span>
+                    <span className="text-xs bg-slate-200 text-ink/70 px-1.5 py-0.5 rounded">Ch. {a.chapter_num}</span>
                   )}
                 </div>
-                <p className="text-sm text-slate-700">{a.content}</p>
+                <p className="text-sm text-ink/80">{a.content}</p>
               </div>
             </div>
           ))}
@@ -258,7 +258,7 @@ export default function DecisionWorkflowView() {
           <button
             onClick={handlePostComment}
             disabled={!newComment.trim() || posting}
-            className="bg-refinery-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition"
+            className="bg-ink text-white px-4 py-2 rounded-lg hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {posting ? <Loader className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
           </button>

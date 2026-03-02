@@ -39,7 +39,7 @@ export default function AcademicVoiceView() {
 
   return (
     <div>
-      <button onClick={() => navigate(`/manuscript/${id}`)} className="flex items-center text-sm text-slate-500 hover:text-slate-700 mb-6">
+      <button onClick={() => navigate(`/manuscript/${id}`)} className="flex items-center text-sm text-ink/60 hover:text-ink/80 mb-6">
         <ArrowLeft className="h-4 w-4 mr-1" /> Back to Manuscript
       </button>
 
@@ -47,8 +47,8 @@ export default function AcademicVoiceView() {
         <div className="flex items-center space-x-3">
           <GraduationCap className="h-10 w-10 text-violet-500" />
           <div>
-            <h1 className="text-2xl font-display font-bold text-refinery-navy">Academic Voice Calibration</h1>
-            <p className="text-sm text-slate-500">{manuscript?.title}</p>
+            <h1 className="text-2xl font-display text-ink">Academic Voice Calibration</h1>
+            <p className="text-sm text-ink/60">{manuscript?.title}</p>
           </div>
         </div>
         {!results && (
@@ -73,12 +73,12 @@ export default function AcademicVoiceView() {
           <div className="grid grid-cols-4 gap-4">
             <div className="bg-white rounded-lg shadow-sm border p-6 text-center">
               <p className="text-4xl font-bold text-violet-600">{results.voice_score || 0}</p>
-              <p className="text-sm text-slate-500 mt-1">Overall Voice Score</p>
+              <p className="text-sm text-ink/60 mt-1">Overall Voice Score</p>
             </div>
             {results.sub_scores && Object.entries(results.sub_scores).map(([key, val]) => (
               <div key={key} className="bg-white rounded-lg shadow-sm border p-6 text-center">
-                <p className="text-3xl font-bold text-refinery-navy">{val || 0}</p>
-                <p className="text-sm text-slate-500 mt-1 capitalize">{key.replace(/_/g, ' ')}</p>
+                <p className="text-3xl font-bold text-ink">{val || 0}</p>
+                <p className="text-sm text-ink/60 mt-1 capitalize">{key.replace(/_/g, ' ')}</p>
               </div>
             ))}
           </div>
@@ -86,11 +86,11 @@ export default function AcademicVoiceView() {
           {/* Register Consistency */}
           {results.register_consistency?.chapters && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-refinery-navy mb-4">Register Consistency</h2>
-              <p className="text-sm text-slate-500 mb-4">Overall Formality: {results.register_consistency.overall_formality}/10</p>
+              <h2 className="text-lg font-semibold text-ink mb-4">Register Consistency</h2>
+              <p className="text-sm text-ink/60 mb-4">Overall Formality: {results.register_consistency.overall_formality}/10</p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
-                  <thead className="bg-slate-50">
+                  <thead className="bg-ink/5">
                     <tr>
                       <th className="text-left px-3 py-2">Chapter</th>
                       <th className="text-left px-3 py-2">Formality</th>
@@ -114,7 +114,7 @@ export default function AcademicVoiceView() {
                             <span className="flex items-center text-green-600"><CheckCircle className="h-3 w-3 mr-1" />OK</span>
                           )}
                         </td>
-                        <td className="px-3 py-2 text-xs text-slate-500">{ch.informal_passages?.length || 0} issues</td>
+                        <td className="px-3 py-2 text-xs text-ink/60">{ch.informal_passages?.length || 0} issues</td>
                       </tr>
                     ))}
                   </tbody>
@@ -123,11 +123,11 @@ export default function AcademicVoiceView() {
               {/* Informal passages detail */}
               {results.register_consistency.chapters.filter(ch => ch.informal_passages?.length).map(ch => (
                 <div key={ch.chapter} className="mt-4 border-t pt-4">
-                  <h3 className="text-sm font-medium text-slate-700 mb-2">Chapter {ch.chapter} — Informal Passages</h3>
+                  <h3 className="text-sm font-medium text-ink/80 mb-2">Chapter {ch.chapter} — Informal Passages</h3>
                   {ch.informal_passages.map((p, i) => (
                     <div key={i} className="ml-4 mb-3 border-l-2 border-amber-300 pl-3">
                       <p className="text-sm text-red-600">"{p.text}"</p>
-                      <p className="text-xs text-slate-500">{p.issue}</p>
+                      <p className="text-xs text-ink/60">{p.issue}</p>
                       <p className="text-xs text-green-600 mt-1">Suggestion: {p.suggestion}</p>
                     </div>
                   ))}
@@ -139,14 +139,14 @@ export default function AcademicVoiceView() {
           {/* Hedge Analysis */}
           {results.hedge_analysis && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-refinery-navy mb-4">Hedge Analysis</h2>
+              <h2 className="text-lg font-semibold text-ink mb-4">Hedge Analysis</h2>
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <h3 className="text-sm font-semibold text-amber-600 mb-3">Over-Hedged ({results.hedge_analysis.over_hedged?.length || 0})</h3>
                   {results.hedge_analysis.over_hedged?.map((h, i) => (
                     <div key={i} className="mb-3 border rounded-lg p-3">
-                      <p className="text-xs text-slate-400">Chapter {h.chapter}</p>
-                      <p className="text-sm text-slate-700">"{h.passage}"</p>
+                      <p className="text-xs text-ink/40">Chapter {h.chapter}</p>
+                      <p className="text-sm text-ink/80">"{h.passage}"</p>
                       <p className="text-xs text-amber-600 mt-1">Hedge words: {h.hedge_words?.join(', ')}</p>
                       <p className="text-xs text-green-600 mt-1">{h.suggestion}</p>
                     </div>
@@ -156,8 +156,8 @@ export default function AcademicVoiceView() {
                   <h3 className="text-sm font-semibold text-red-600 mb-3">Under-Hedged ({results.hedge_analysis.under_hedged?.length || 0})</h3>
                   {results.hedge_analysis.under_hedged?.map((h, i) => (
                     <div key={i} className="mb-3 border rounded-lg p-3">
-                      <p className="text-xs text-slate-400">Chapter {h.chapter}</p>
-                      <p className="text-sm text-slate-700">"{h.passage}"</p>
+                      <p className="text-xs text-ink/40">Chapter {h.chapter}</p>
+                      <p className="text-sm text-ink/80">"{h.passage}"</p>
                       <p className="text-xs text-red-600 mt-1">{h.issue}</p>
                       <p className="text-xs text-green-600 mt-1">{h.suggestion}</p>
                     </div>
@@ -170,7 +170,7 @@ export default function AcademicVoiceView() {
           {/* Passive Voice Chart */}
           {results.passive_voice?.chapters && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-refinery-navy mb-4">
+              <h2 className="text-lg font-semibold text-ink mb-4">
                 Passive Voice Density — Overall: {results.passive_voice.overall_percentage?.toFixed(1)}%
               </h2>
               <ResponsiveContainer width="100%" height={300}>
@@ -189,7 +189,7 @@ export default function AcademicVoiceView() {
               {/* Worst examples */}
               {results.passive_voice.chapters.filter(ch => ch.worst_examples?.length).slice(0, 3).map(ch => (
                 <div key={ch.chapter} className="mt-3 border-t pt-3">
-                  <h3 className="text-sm font-medium text-slate-700 mb-1">Chapter {ch.chapter} examples</h3>
+                  <h3 className="text-sm font-medium text-ink/80 mb-1">Chapter {ch.chapter} examples</h3>
                   {ch.worst_examples.slice(0, 2).map((ex, i) => (
                     <div key={i} className="ml-4 text-xs mb-1">
                       <span className="text-red-500 line-through">{ex.passive}</span> → <span className="text-green-600">{ex.active}</span>
@@ -203,8 +203,8 @@ export default function AcademicVoiceView() {
           {/* Summary */}
           {results.summary && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-refinery-navy mb-3">Summary</h2>
-              <p className="text-sm text-slate-700 whitespace-pre-line">{results.summary}</p>
+              <h2 className="text-lg font-semibold text-ink mb-3">Summary</h2>
+              <p className="text-sm text-ink/80 whitespace-pre-line">{results.summary}</p>
             </div>
           )}
         </div>

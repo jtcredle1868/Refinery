@@ -41,7 +41,7 @@ export default function CitationArchitectureView() {
 
   return (
     <div>
-      <button onClick={() => navigate(`/manuscript/${id}`)} className="flex items-center text-sm text-slate-500 hover:text-slate-700 mb-6">
+      <button onClick={() => navigate(`/manuscript/${id}`)} className="flex items-center text-sm text-ink/60 hover:text-ink/80 mb-6">
         <ArrowLeft className="h-4 w-4 mr-1" /> Back to Manuscript
       </button>
 
@@ -49,8 +49,8 @@ export default function CitationArchitectureView() {
         <div className="flex items-center space-x-3">
           <Quote className="h-10 w-10 text-cyan-500" />
           <div>
-            <h1 className="text-2xl font-display font-bold text-refinery-navy">Citation & Source Architecture</h1>
-            <p className="text-sm text-slate-500">{manuscript?.title}</p>
+            <h1 className="text-2xl font-display text-ink">Citation & Source Architecture</h1>
+            <p className="text-sm text-ink/60">{manuscript?.title}</p>
           </div>
         </div>
         {!results && (
@@ -75,15 +75,15 @@ export default function CitationArchitectureView() {
             <div className="grid grid-cols-3 gap-6 text-center">
               <div>
                 <p className="text-4xl font-bold text-cyan-600">{results.citation_score || 0}</p>
-                <p className="text-sm text-slate-500 mt-1">Citation Score</p>
+                <p className="text-sm text-ink/60 mt-1">Citation Score</p>
               </div>
               <div>
-                <p className="text-4xl font-bold text-refinery-navy">{results.citation_frequency_heatmap?.total_citations || 0}</p>
-                <p className="text-sm text-slate-500 mt-1">Total Citations</p>
+                <p className="text-4xl font-bold text-ink">{results.citation_frequency_heatmap?.total_citations || 0}</p>
+                <p className="text-sm text-ink/60 mt-1">Total Citations</p>
               </div>
               <div>
-                <p className="text-4xl font-bold text-refinery-navy">{results.citation_frequency_heatmap?.unique_sources || 0}</p>
-                <p className="text-sm text-slate-500 mt-1">Unique Sources</p>
+                <p className="text-4xl font-bold text-ink">{results.citation_frequency_heatmap?.unique_sources || 0}</p>
+                <p className="text-sm text-ink/60 mt-1">Unique Sources</p>
               </div>
             </div>
           </div>
@@ -91,7 +91,7 @@ export default function CitationArchitectureView() {
           {/* Citation Frequency by Chapter */}
           {results.citation_frequency_heatmap?.chapters && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-refinery-navy mb-4">Citation Frequency by Chapter</h2>
+              <h2 className="text-lg font-semibold text-ink mb-4">Citation Frequency by Chapter</h2>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={results.citation_frequency_heatmap.chapters}>
                   <XAxis dataKey="chapter" label={{ value: 'Chapter', position: 'bottom' }} />
@@ -106,7 +106,7 @@ export default function CitationArchitectureView() {
                   <h3 className="text-sm font-semibold text-amber-600 mb-2">Over-reliant Sources</h3>
                   {results.citation_frequency_heatmap.chapters.map(ch =>
                     ch.top_cited_sources?.filter(s => s.over_reliant).map((s, i) => (
-                      <div key={`${ch.chapter}-${i}`} className="flex items-center space-x-2 text-sm text-slate-600 py-1">
+                      <div key={`${ch.chapter}-${i}`} className="flex items-center space-x-2 text-sm text-ink/70 py-1">
                         <AlertTriangle className="h-4 w-4 text-amber-500" />
                         <span>Ch. {ch.chapter}: "{s.source}" — {s.percentage_of_chapter?.toFixed(0)}% of citations</span>
                       </div>
@@ -120,18 +120,18 @@ export default function CitationArchitectureView() {
           {/* Citation Gaps */}
           {results.citation_gaps?.length > 0 && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-refinery-navy mb-4">Citation Gaps ({results.citation_gaps.length})</h2>
+              <h2 className="text-lg font-semibold text-ink mb-4">Citation Gaps ({results.citation_gaps.length})</h2>
               <div className="space-y-3">
                 {results.citation_gaps.map((gap, i) => (
                   <div key={i} className="border rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium">Chapter {gap.chapter}</span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${gap.confidence > 80 ? 'bg-red-100 text-red-700' : gap.confidence > 50 ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${gap.confidence > 80 ? 'bg-red-100 text-red-700' : gap.confidence > 50 ? 'bg-amber-100 text-amber-700' : 'bg-ink/10 text-ink/70'}`}>
                         {gap.confidence}% confidence
                       </span>
                     </div>
-                    <p className="text-sm text-slate-700 mb-1">"{gap.claim}"</p>
-                    <p className="text-xs text-slate-500">Needs: {gap.suggested_type}</p>
+                    <p className="text-sm text-ink/80 mb-1">"{gap.claim}"</p>
+                    <p className="text-xs text-ink/60">Needs: {gap.suggested_type}</p>
                   </div>
                 ))}
               </div>
@@ -141,7 +141,7 @@ export default function CitationArchitectureView() {
           {/* Source Recency */}
           {results.source_recency && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-refinery-navy mb-4">Source Recency</h2>
+              <h2 className="text-lg font-semibold text-ink mb-4">Source Recency</h2>
               <div className="flex items-center justify-center">
                 <ResponsiveContainer width={300} height={250}>
                   <PieChart>
@@ -165,34 +165,34 @@ export default function CitationArchitectureView() {
           {/* Primary/Secondary Balance */}
           {results.primary_secondary_balance && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-refinery-navy mb-4">Primary vs Secondary Sources</h2>
+              <h2 className="text-lg font-semibold text-ink mb-4">Primary vs Secondary Sources</h2>
               <div className="flex items-center space-x-4 mb-4">
-                <div className="flex-1 bg-slate-100 rounded-full h-6 overflow-hidden">
+                <div className="flex-1 bg-ink/10 rounded-full h-6 overflow-hidden">
                   <div className="bg-blue-500 h-full rounded-full" style={{ width: `${results.primary_secondary_balance.primary_source_pct || 50}%` }}></div>
                 </div>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-blue-600">Primary: {results.primary_secondary_balance.primary_source_pct?.toFixed(0)}%</span>
-                <span className="text-slate-600">Secondary: {results.primary_secondary_balance.secondary_source_pct?.toFixed(0)}%</span>
+                <span className="text-ink/70">Secondary: {results.primary_secondary_balance.secondary_source_pct?.toFixed(0)}%</span>
               </div>
-              <p className="text-sm text-slate-500 mt-2">{results.primary_secondary_balance.recommendation}</p>
+              <p className="text-sm text-ink/60 mt-2">{results.primary_secondary_balance.recommendation}</p>
             </div>
           )}
 
           {/* Format Validation */}
           {results.format_validation && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-refinery-navy mb-4">
+              <h2 className="text-lg font-semibold text-ink mb-4">
                 Format Validation ({results.format_validation.format}) — {results.format_validation.errors_found || 0} errors
               </h2>
               {results.format_validation.errors?.length > 0 ? (
                 <div className="space-y-3">
                   {results.format_validation.errors.map((err, i) => (
                     <div key={i} className="border rounded-lg p-3">
-                      <p className="text-sm text-slate-500">Chapter {err.chapter}</p>
+                      <p className="text-sm text-ink/60">Chapter {err.chapter}</p>
                       <p className="text-sm text-red-600 line-through">{err.citation_text}</p>
                       <p className="text-sm text-green-600">{err.correction}</p>
-                      <p className="text-xs text-slate-400 mt-1">{err.issue}</p>
+                      <p className="text-xs text-ink/40 mt-1">{err.issue}</p>
                     </div>
                   ))}
                 </div>
@@ -205,8 +205,8 @@ export default function CitationArchitectureView() {
           {/* Summary */}
           {results.summary && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-refinery-navy mb-3">Summary</h2>
-              <p className="text-sm text-slate-700 whitespace-pre-line">{results.summary}</p>
+              <h2 className="text-lg font-semibold text-ink mb-3">Summary</h2>
+              <p className="text-sm text-ink/80 whitespace-pre-line">{results.summary}</p>
             </div>
           )}
         </div>

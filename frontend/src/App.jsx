@@ -28,10 +28,10 @@ function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-refinery-bg">
+      <div className="min-h-screen flex items-center justify-center bg-parchment">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-refinery-blue mx-auto"></div>
-          <p className="mt-4 text-refinery-slate">Loading Refinery...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-plum mx-auto"></div>
+          <p className="mt-4 text-ink/60">Loading Refinery...</p>
         </div>
       </div>
     );
