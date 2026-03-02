@@ -3,6 +3,7 @@ import json
 import datetime
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
+from typing import Optional
 
 from app.config import settings
 from app.database import get_db
@@ -34,7 +35,7 @@ def _manuscript_to_dict(m: Manuscript) -> dict:
 @router.post("", status_code=201)
 async def upload_manuscript(
     file: UploadFile = File(...),
-    title: str = Form(None),
+    title: Optional[str] = Form(None),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -54,7 +55,7 @@ async def upload_manuscript(
 
     # Save file
     os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
-    safe_filename = f"{current_user.id}_{datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S')}_{filename}"
+    safe_filename = f"{current_user.id}_{datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S')}_{os.path.basename(filename)}"
     file_path = os.path.join(settings.UPLOAD_DIR, safe_filename)
     with open(file_path, "wb") as f:
         f.write(content)
