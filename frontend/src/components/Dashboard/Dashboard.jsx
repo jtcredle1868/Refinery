@@ -76,7 +76,7 @@ export default function Dashboard() {
           <h2 className="text-lg font-semibold text-ink">Your Manuscripts</h2>
           <Link
             to="/upload"
-            className="flex items-center space-x-1 bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 transition"
+            className="flex items-center space-x-1 bg-ink text-parchment px-4 py-2 rounded-full text-xs font-medium uppercase tracking-wider hover:bg-ink/80 transition"
           >
             <Upload className="h-4 w-4" />
             <span>Upload New</span>
@@ -95,7 +95,7 @@ export default function Dashboard() {
             <p className="text-ink/40 mt-1 mb-4">Upload your first manuscript to get started</p>
             <Link
               to="/upload"
-              className="inline-flex items-center space-x-2 bg-ink text-white px-6 py-2.5 rounded-lg font-medium hover:bg-ink/80 transition"
+              className="inline-flex items-center space-x-2 bg-ink text-parchment px-6 py-2.5 rounded-full text-sm font-medium uppercase tracking-wider hover:bg-ink/80 transition"
             >
               <Upload className="h-4 w-4" />
               <span>Upload Manuscript</span>

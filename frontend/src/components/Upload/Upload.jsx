@@ -103,11 +103,11 @@ export default function Upload() {
         <button
           onClick={handleUpload}
           disabled={uploading}
-          className="w-full mt-6 bg-ink text-white py-3 rounded-lg font-medium text-lg hover:bg-ink/80 disabled:opacity-50 transition flex items-center justify-center space-x-2"
+          className="w-full mt-6 bg-ink text-parchment py-3 rounded-full font-medium text-sm uppercase tracking-wider hover:bg-ink/80 disabled:opacity-50 transition flex items-center justify-center space-x-2"
         >
           {uploading ? (
             <>
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-parchment"></div>
               <span>Uploading & parsing...</span>
             </>
           ) : (
