@@ -113,7 +113,7 @@ export default function DecisionWorkflowView() {
               <div className="flex flex-col items-center flex-1">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                   i < currentStageIndex ? 'bg-green-500 text-white'
-                    : i === currentStageIndex ? 'bg-ink text-white ring-4 ring-blue-100'
+                    : i === currentStageIndex ? 'bg-ink text-parchment ring-4 ring-blue-100'
                       : 'bg-slate-200 text-ink/40'
                 }`}>
                   {i < currentStageIndex ? <CheckCircle className="h-5 w-5" /> : <Circle className="h-5 w-5" />}
@@ -225,7 +225,7 @@ export default function DecisionWorkflowView() {
           )}
           {annotations.map((a) => (
             <div key={a.id} className="flex space-x-3 p-3 bg-ink/5 rounded-lg">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-ink text-white flex items-center justify-center text-xs font-bold">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-ink text-parchment flex items-center justify-center text-xs font-bold">
                 {(a.user_name || '?')[0].toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">

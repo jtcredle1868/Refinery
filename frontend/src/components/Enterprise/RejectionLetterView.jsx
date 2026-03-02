@@ -235,7 +235,7 @@ export default function RejectionLetterView() {
               className={`flex items-center space-x-2 px-5 py-2.5 rounded-lg font-medium transition ${
                 copied
                   ? 'bg-green-100 text-green-800 border border-green-200'
-                  : 'bg-ink text-white hover:bg-ink/80'
+                  : 'bg-ink text-parchment hover:bg-ink/80'
               }`}
             >
               {copied ? (

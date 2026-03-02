@@ -134,7 +134,7 @@ export default function AdvisorDashboardView() {
             </div>
           ) : (
             <button onClick={handleCreateInvite} disabled={inviteLoading}
-              className="flex items-center space-x-2 bg-violet-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-violet-700 disabled:opacity-50 transition">
+              className="flex items-center space-x-2 bg-violet-500 text-parchment px-4 py-2 rounded-full text-sm font-medium uppercase tracking-wider hover:bg-violet-700 disabled:opacity-50 transition">
               {inviteLoading ? <Loader className="h-4 w-4 animate-spin" /> : <UserPlus className="h-4 w-4" />}
               <span>Add Student</span>
             </button>
@@ -267,7 +267,7 @@ export default function AdvisorDashboardView() {
                       className="w-full border rounded-lg px-3 py-2 text-sm h-24" placeholder="Any notes for the committee report..." />
                   </div>
                   <button onClick={() => handleGenerateReport(reportModal.id)} disabled={generating}
-                    className="w-full flex items-center justify-center space-x-2 bg-violet-500 text-white px-4 py-3 rounded-lg font-medium hover:bg-violet-700 disabled:opacity-50">
+                    className="w-full flex items-center justify-center space-x-2 bg-violet-500 text-parchment px-4 py-3 rounded-full font-medium uppercase tracking-wider hover:bg-violet-700 disabled:opacity-50">
                     {generating ? <><Loader className="h-4 w-4 animate-spin" /><span>Generating...</span></> : <><FileText className="h-4 w-4" /><span>Generate Report</span></>}
                   </button>
                 </div>
@@ -304,7 +304,7 @@ export default function AdvisorDashboardView() {
               {annotations.length === 0 && <p className="text-sm text-ink/40 text-center py-8">No annotations yet.</p>}
               {annotations.map((a) => (
                 <div key={a.id} className="flex space-x-3 p-3 bg-ink/5 rounded-lg">
-                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-violet-500 text-white flex items-center justify-center text-xs font-bold">
+                  <div className="flex-shrink-0 w-7 h-7 rounded-full bg-violet-500 text-parchment flex items-center justify-center text-xs font-bold">
                     {(a.user_name || '?')[0].toUpperCase()}
                   </div>
                   <div className="flex-1">
@@ -322,7 +322,7 @@ export default function AdvisorDashboardView() {
                 onKeyDown={(e) => e.key === 'Enter' && handlePostAnnotation()}
                 placeholder="Add annotation..." className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" />
               <button onClick={handlePostAnnotation} disabled={!newComment.trim() || posting}
-                className="bg-violet-500 text-white px-3 py-2 rounded-lg hover:bg-violet-700 disabled:opacity-50 transition">
+                className="bg-violet-500 text-parchment px-3 py-2 rounded-full text-sm uppercase tracking-wider hover:bg-violet-700 disabled:opacity-50 transition">
                 {posting ? <Loader className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               </button>
             </div>

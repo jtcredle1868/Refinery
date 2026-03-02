@@ -28,19 +28,19 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-refinery-navy to-slate-800">
+    <div className="min-h-screen flex items-center justify-center bg-parchment">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <BookOpen className="h-12 w-12 text-plum mx-auto mb-3" />
-          <h1 className="text-3xl font-display text-white">REFINERY</h1>
+          <h1 className="text-3xl font-display text-ink">REFINERY</h1>
           <p className="text-ink/40 mt-1">Where Prose Becomes Perfect</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-2xl p-8">
+        <form onSubmit={handleSubmit} className="bg-white/90 rounded-3xl shadow-2xl border border-ink/10 p-8">
           <h2 className="text-2xl font-semibold text-ink mb-6">Sign In</h2>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 text-sm">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-4 text-sm">
               {error}
             </div>
           )}
@@ -52,7 +52,7 @@ export default function Login() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-refinery-blue focus:border-transparent outline-none transition"
+                className="w-full px-4 py-2.5 border border-ink/20 rounded-xl focus:ring-2 focus:ring-plum focus:border-transparent outline-none transition"
                 placeholder="you@example.com"
                 required
               />
@@ -63,7 +63,7 @@ export default function Login() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-refinery-blue focus:border-transparent outline-none transition"
+                className="w-full px-4 py-2.5 border border-ink/20 rounded-xl focus:ring-2 focus:ring-plum focus:border-transparent outline-none transition"
                 placeholder="Your password"
                 required
               />

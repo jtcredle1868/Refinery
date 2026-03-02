@@ -58,7 +58,7 @@ export default function AcademicVoiceView() {
               <option value="social_sciences">Social Sciences</option><option value="stem">STEM</option>
               <option value="law">Law</option>
             </select>
-            <button onClick={handleRun} disabled={running} className="flex items-center space-x-2 bg-violet-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-violet-700 disabled:opacity-50">
+            <button onClick={handleRun} disabled={running} className="flex items-center space-x-2 bg-violet-500 text-parchment px-4 py-2 rounded-full text-sm font-medium uppercase tracking-wider hover:bg-violet-700 disabled:opacity-50">
               {running ? <><Loader className="h-4 w-4 animate-spin" /><span>Analyzing...</span></> : <><Play className="h-4 w-4" /><span>Run Voice Analysis</span></>}
             </button>
           </div>

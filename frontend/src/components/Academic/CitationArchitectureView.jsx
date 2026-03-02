@@ -59,7 +59,7 @@ export default function CitationArchitectureView() {
               <option value="APA">APA</option><option value="MLA">MLA</option>
               <option value="Chicago">Chicago</option><option value="AMA">AMA</option>
             </select>
-            <button onClick={handleRun} disabled={running} className="flex items-center space-x-2 bg-cyan-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-cyan-700 disabled:opacity-50">
+            <button onClick={handleRun} disabled={running} className="flex items-center space-x-2 bg-cyan-500 text-parchment px-4 py-2 rounded-full text-sm font-medium uppercase tracking-wider hover:bg-cyan-700 disabled:opacity-50">
               {running ? <><Loader className="h-4 w-4 animate-spin" /><span>Analyzing...</span></> : <><Play className="h-4 w-4" /><span>Run Citation Analysis</span></>}
             </button>
           </div>

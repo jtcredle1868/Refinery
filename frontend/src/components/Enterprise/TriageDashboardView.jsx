@@ -283,7 +283,7 @@ export default function TriageDashboardView() {
           <div className="flex items-center space-x-2">
             <span className="text-sm text-ink/70 mr-2">{selectedIds.size} selected</span>
             <button onClick={() => setShowAssignModal(true)} disabled={batchLoading}
-              className="flex items-center space-x-1 bg-blue-500 text-white px-3 py-1.5 rounded-full text-xs font-medium hover:bg-blue-600 disabled:opacity-50 transition">
+              className="flex items-center space-x-1 bg-blue-500 text-parchment px-3 py-1.5 rounded-full text-xs font-medium hover:bg-blue-600 disabled:opacity-50 transition">
               <UserPlus className="h-3 w-3" /><span>Assign</span>
             </button>
             <button onClick={handleBatchPass} disabled={batchLoading}
