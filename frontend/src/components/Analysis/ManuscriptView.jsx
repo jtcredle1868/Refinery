@@ -162,7 +162,7 @@ export default function ManuscriptView() {
           {latest ? (
             <Link
               to={`/manuscript/${id}/${mod.route}`}
-              className="flex items-center space-x-1 bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 transition"
+              className="flex items-center space-x-1 bg-ink text-parchment px-4 py-2 rounded-full text-sm font-medium uppercase tracking-wider hover:bg-ink/80 transition"
             >
               <BarChart3 className="h-4 w-4" />
               <span>View Results</span>
@@ -172,7 +172,7 @@ export default function ManuscriptView() {
           <button
             onClick={() => handleRunAnalysis(mod.key === 'xray' ? 'xray' : mod.type)}
             disabled={running === mod.type || running === mod.key}
-            className={`flex items-center space-x-1 ${mod.btnColor} text-white px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-50 transition`}
+            className={`flex items-center space-x-1 ${mod.btnColor} text-parchment px-4 py-2 rounded-full text-sm font-medium uppercase tracking-wider disabled:opacity-50 transition`}
           >
             {running === mod.type || running === mod.key ? (
               <><Loader className="h-4 w-4 animate-spin" /><span>Running...</span></>
@@ -195,14 +195,15 @@ export default function ManuscriptView() {
       {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
+          <p className="text-sm uppercase tracking-[0.4em] text-ink/60 mb-1">Manuscript</p>
           <h1 className="text-3xl font-display text-ink">{manuscript.title}</h1>
-          <p className="text-ink/60 mt-1">
+          <p className="text-ink/50 mt-1">
             {manuscript.word_count.toLocaleString()} words &middot; {manuscript.chapter_count} chapters &middot; .{manuscript.file_type}
           </p>
         </div>
         <button
           onClick={() => setShowExport(true)}
-          className="flex items-center space-x-2 bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 transition"
+          className="flex items-center space-x-2 bg-ink text-parchment px-5 py-2.5 rounded-full text-sm font-medium uppercase tracking-wider hover:bg-ink/80 transition"
         >
           <Download className="h-4 w-4" />
           <span>Export</span>
@@ -210,7 +211,7 @@ export default function ManuscriptView() {
       </div>
 
       {error && (
-        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
+        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">
           <AlertCircle className="h-4 w-4" />
           <span>{error}</span>
         </div>
@@ -238,19 +239,22 @@ export default function ManuscriptView() {
       )}
 
       {/* Core Module Cards */}
-      <h2 className="text-lg font-semibold text-ink mb-4">Core Analysis Modules</h2>
+      <p className="text-sm uppercase tracking-[0.4em] text-ink/60 mb-2">Core Modules</p>
+      <h2 className="text-lg font-display text-ink mb-4">Analysis Modules</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {MODULES.map(renderModuleCard)}
       </div>
 
       {/* Academic Module Cards */}
-      <h2 className="text-lg font-semibold text-ink mb-4">Academic Modules</h2>
+      <p className="text-sm uppercase tracking-[0.4em] text-ink/60 mb-2">Academic</p>
+      <h2 className="text-lg font-display text-ink mb-4">Academic Modules</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {ACADEMIC_MODULES.map(renderModuleCard)}
       </div>
 
       {/* Enterprise Actions */}
-      <h2 className="text-lg font-semibold text-ink mb-4">Enterprise</h2>
+      <p className="text-sm uppercase tracking-[0.4em] text-ink/60 mb-2">Enterprise</p>
+      <h2 className="text-lg font-display text-ink mb-4">Enterprise Tools</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <Link
           to={`/manuscript/${id}/reader-report`}

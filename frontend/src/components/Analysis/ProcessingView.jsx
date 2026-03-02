@@ -100,25 +100,25 @@ export default function ProcessingView() {
         {/* Animated spinner */}
         <div className="relative w-32 h-32 mx-auto mb-10">
           {/* Outer pulsing ring */}
-          <div className="absolute inset-0 rounded-full border-4 border-blue-500/20 animate-ping" />
+          <div className="absolute inset-0 rounded-full border-4 border-plum/20 animate-ping" />
           {/* Middle rotating ring */}
           <div
-            className="absolute inset-2 rounded-full border-4 border-transparent border-t-blue-400 border-r-blue-400 animate-spin"
+            className="absolute inset-2 rounded-full border-4 border-transparent border-t-plum border-r-plum animate-spin"
             style={{ animationDuration: '1.5s' }}
           />
           {/* Inner pulsing dot cluster */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative w-12 h-12">
               <div
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-blue-400 rounded-full animate-pulse"
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-plum rounded-full animate-pulse"
                 style={{ animationDelay: '0ms' }}
               />
               <div
-                className="absolute bottom-0 left-0 w-3 h-3 bg-blue-300 rounded-full animate-pulse"
+                className="absolute bottom-0 left-0 w-3 h-3 bg-plum/70 rounded-full animate-pulse"
                 style={{ animationDelay: '300ms' }}
               />
               <div
-                className="absolute bottom-0 right-0 w-3 h-3 bg-blue-500 rounded-full animate-pulse"
+                className="absolute bottom-0 right-0 w-3 h-3 bg-ember rounded-full animate-pulse"
                 style={{ animationDelay: '600ms' }}
               />
             </div>
@@ -126,15 +126,16 @@ export default function ProcessingView() {
         </div>
 
         {/* Title */}
-        <h1 className="text-2xl md:text-3xl font-display text-white mb-3">
-          Analyzing your manuscript...
+        <p className="text-sm uppercase tracking-[0.4em] text-ink/60 mb-2">Analysis in progress</p>
+        <h1 className="text-2xl md:text-3xl font-display text-ink mb-3">
+          Analyzing your manuscript&hellip;
         </h1>
-        <p className="text-ink/40 mb-10">
+        <p className="text-ink/50 mb-10">
           Running all modules to give you a complete picture.
         </p>
 
         {/* Module progress indicators */}
-        <div className="bg-slate-800/50 rounded-xl border border-slate-700 p-6 mb-8 text-left">
+        <div className="bg-white/90 rounded-3xl border border-ink/10 p-6 mb-8 text-left">
           <div className="space-y-4">
             {modules.map((mod, index) => {
               const Icon = mod.icon;
@@ -153,11 +154,11 @@ export default function ProcessingView() {
                   {/* Status icon */}
                   <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
                     {isCompleted ? (
-                      <CheckCircle className="h-5 w-5 text-green-400" />
+                      <CheckCircle className="h-5 w-5 text-emerald-500" />
                     ) : isActive ? (
-                      <Loader className="h-5 w-5 text-blue-400 animate-spin" />
+                      <Loader className="h-5 w-5 text-plum animate-spin" />
                     ) : (
-                      <div className="h-2 w-2 rounded-full bg-slate-600" />
+                      <div className="h-2 w-2 rounded-full bg-ink/20" />
                     )}
                   </div>
 
@@ -165,10 +166,10 @@ export default function ProcessingView() {
                   <Icon
                     className={`h-4 w-4 flex-shrink-0 ${
                       isCompleted
-                        ? 'text-green-400'
+                        ? 'text-emerald-500'
                         : isActive
-                        ? 'text-blue-400'
-                        : 'text-ink/60'
+                        ? 'text-plum'
+                        : 'text-ink/40'
                     }`}
                   />
 
@@ -176,10 +177,10 @@ export default function ProcessingView() {
                   <span
                     className={`text-sm font-medium ${
                       isCompleted
-                        ? 'text-green-300'
+                        ? 'text-ink'
                         : isActive
-                        ? 'text-blue-300'
-                        : 'text-ink/60'
+                        ? 'text-plum'
+                        : 'text-ink/40'
                     }`}
                   >
                     {mod.label}
@@ -187,12 +188,12 @@ export default function ProcessingView() {
 
                   {/* Active indicator */}
                   {isActive && (
-                    <span className="text-xs text-blue-400/70 ml-auto">
+                    <span className="text-xs text-plum/70 ml-auto">
                       Processing...
                     </span>
                   )}
                   {isCompleted && (
-                    <span className="text-xs text-green-400/70 ml-auto">
+                    <span className="text-xs text-emerald-500/70 ml-auto">
                       Done
                     </span>
                   )}
