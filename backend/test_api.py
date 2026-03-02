@@ -5,6 +5,7 @@ import json
 import time
 import subprocess
 import signal
+import uuid
 import requests
 
 BASE = "http://localhost:8000/api/v1"
@@ -29,6 +30,8 @@ def main():
     print("  REFINERY API - End-to-End Test Suite")
     print("=" * 50)
 
+    unique_email = f"demo+{uuid.uuid4().hex[:8]}@refinery.io"
+
     # 1. Health
     print("\n--- Health ---")
     r = requests.get(f"{BASE}/health")
@@ -37,18 +40,18 @@ def main():
     # 2. Register
     print("\n--- Auth: Register ---")
     r = requests.post(f"{BASE}/auth/register", json={
-        "email": "demo@refinery.io", "password": "demopass123",
+        "email": unique_email, "password": "demopass123",
         "full_name": "Demo User", "tier": "indie_pro"
     })
     data = r.json()
-    check(data["success"] and data["data"]["user"]["email"] == "demo@refinery.io", "Register",
+    check(data["success"] and data["data"]["user"]["email"] == unique_email, "Register",
           f"user={data['data']['user']['email']}")
     token = data["data"]["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
     # 3. Login
     print("\n--- Auth: Login ---")
-    r = requests.post(f"{BASE}/auth/login", json={"email": "demo@refinery.io", "password": "demopass123"})
+    r = requests.post(f"{BASE}/auth/login", json={"email": unique_email, "password": "demopass123"})
     data = r.json()
     check(data["success"], "Login")
 
@@ -56,7 +59,7 @@ def main():
     print("\n--- Auth: Get Me ---")
     r = requests.get(f"{BASE}/auth/me", headers=headers)
     data = r.json()
-    check(data["success"] and data["data"]["email"] == "demo@refinery.io", "Get Me",
+    check(data["success"] and data["data"]["email"] == unique_email, "Get Me",
           f"name={data['data']['full_name']} tier={data['data']['tier']}")
 
     # 5. Upload
