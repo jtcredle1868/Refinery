@@ -3,6 +3,7 @@ import os
 import sys
 import json
 import time
+import uuid
 import subprocess
 import signal
 import requests
@@ -36,19 +37,20 @@ def main():
 
     # 2. Register
     print("\n--- Auth: Register ---")
+    test_email = f"demo_{uuid.uuid4().hex[:8]}@refinery.io"
     r = requests.post(f"{BASE}/auth/register", json={
-        "email": "demo@refinery.io", "password": "demopass123",
+        "email": test_email, "password": "demopass123",
         "full_name": "Demo User", "tier": "indie_pro"
     })
     data = r.json()
-    check(data["success"] and data["data"]["user"]["email"] == "demo@refinery.io", "Register",
+    check(data["success"] and data["data"]["user"]["email"] == test_email, "Register",
           f"user={data['data']['user']['email']}")
     token = data["data"]["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
     # 3. Login
     print("\n--- Auth: Login ---")
-    r = requests.post(f"{BASE}/auth/login", json={"email": "demo@refinery.io", "password": "demopass123"})
+    r = requests.post(f"{BASE}/auth/login", json={"email": test_email, "password": "demopass123"})
     data = r.json()
     check(data["success"], "Login")
 
@@ -56,7 +58,7 @@ def main():
     print("\n--- Auth: Get Me ---")
     r = requests.get(f"{BASE}/auth/me", headers=headers)
     data = r.json()
-    check(data["success"] and data["data"]["email"] == "demo@refinery.io", "Get Me",
+    check(data["success"] and data["data"]["email"] == test_email, "Get Me",
           f"name={data['data']['full_name']} tier={data['data']['tier']}")
 
     # 5. Upload

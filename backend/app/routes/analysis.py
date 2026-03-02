@@ -30,6 +30,10 @@ class EditQueueUpdateRequest(BaseModel):
     status: str  # "ACCEPTED" or "REJECTED"
 
 
+def _is_valid_module(name: str) -> bool:
+    return name in {m.value for m in AnalysisModule}
+
+
 @router.post("/{manuscript_id}/analyze")
 def analyze_manuscript(
     manuscript_id: int,
@@ -50,16 +54,22 @@ def analyze_manuscript(
     if not manuscript.extracted_text:
         raise HTTPException(status_code=400, detail="Manuscript text not yet extracted")
 
+    # Validate module names upfront before starting analysis
+    if req and req.modules:
+        invalid_modules = [m for m in req.modules if not _is_valid_module(m)]
+        if invalid_modules:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid module name(s): {', '.join(invalid_modules)}"
+            )
+
     try:
         if req and req.modules:
             results = {}
             for mod_name in req.modules:
-                try:
-                    module = AnalysisModule(mod_name)
-                    result = run_single_module(db, manuscript, module)
-                    results[mod_name] = result
-                except ValueError:
-                    pass
+                module = AnalysisModule(mod_name)
+                result = run_single_module(db, manuscript, module)
+                results[mod_name] = result
             manuscript.status = ManuscriptStatus.COMPLETE
             manuscript.progress_percent = 100.0
             db.commit()
