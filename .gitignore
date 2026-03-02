@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+*.egg
+*.db
+
+# Backend
+backend/uploads/*
+backend/exports/*
+!backend/uploads/.gitkeep
+!backend/exports/.gitkeep
+.env
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
