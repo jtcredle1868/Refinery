@@ -40,6 +40,10 @@ class TokenResponse(BaseModel):
     user: UserResponse
 
 
+class UpgradeTierRequest(BaseModel):
+    tier: UserTier
+
+
 @router.post("/signup", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
     # Check if email exists
@@ -85,10 +89,10 @@ async def get_profile(current_user: User = Depends(get_current_user)):
 
 @router.patch("/me/upgrade")
 async def upgrade_tier(
-    tier: UserTier,
+    request: UpgradeTierRequest,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    current_user.tier = tier
+    current_user.tier = request.tier
     db.add(current_user)
-    return {"message": f"Upgraded to {tier.value}", "tier": tier.value}
+    return {"message": f"Upgraded to {request.tier.value}", "tier": request.tier.value}
