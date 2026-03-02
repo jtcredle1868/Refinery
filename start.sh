@@ -15,9 +15,14 @@ command -v node >/dev/null 2>&1 || { echo "Node.js is required. Install from nod
 
 # Backend
 echo ""
+echo "[Backend] Setting up virtual environment..."
+cd backend || { echo "Error: backend directory not found"; exit 1; }
+if [ ! -d ".venv" ]; then
+  python3 -m venv .venv
+fi
+source .venv/bin/activate
 echo "[Backend] Installing dependencies..."
-cd backend
-pip install -r requirements.txt --quiet 2>/dev/null || pip install -r requirements.txt
+python3 -m pip install -r requirements.txt --quiet 2>/dev/null || python3 -m pip install -r requirements.txt
 mkdir -p uploads exports
 
 echo "[Backend] Starting FastAPI server on http://localhost:8000..."
