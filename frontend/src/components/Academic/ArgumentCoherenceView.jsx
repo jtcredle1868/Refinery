@@ -85,7 +85,7 @@ export default function ArgumentCoherenceView() {
       if (analysis) {
         setResults(JSON.parse(analysis.results_json));
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to load manuscript');
     } finally {
       setLoading(false);

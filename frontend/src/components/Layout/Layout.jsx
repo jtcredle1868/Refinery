@@ -1,4 +1,3 @@
-import React from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { BookOpen, Upload, LayoutDashboard, LogOut, GraduationCap, Building2, FolderUp } from 'lucide-react';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getManuscriptAnalyses } from '../../services/api';
 import {
@@ -77,7 +77,7 @@ export default function ProcessingView() {
           if (simulationIntervalRef.current) clearInterval(simulationIntervalRef.current);
           navigate(`/manuscript/${manuscriptId}`);
         }
-      } catch (err) {
+      } catch (_err) {
         // Silently retry on next poll
       }
     };

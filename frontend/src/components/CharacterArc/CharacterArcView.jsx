@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Users, Heart, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 import {
@@ -33,7 +33,7 @@ export default function CharacterArcView() {
           : arc.results_json;
         setResults(parsed);
       }
-    } catch (err) {
+    } catch (_err) {
       setError('Failed to load manuscript or analysis data.');
     } finally {
       setLoading(false);
