@@ -6,6 +6,8 @@ __pycache__/
 dist/
 *.egg
 *.db
+.venv/
+venv/
 
 # Backend
 backend/uploads/*
