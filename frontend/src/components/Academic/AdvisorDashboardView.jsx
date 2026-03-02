@@ -142,7 +142,7 @@ export default function AdvisorDashboardView() {
         </div>
       </div>
 
-      {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">{error}</div>}
+      {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">{error}</div>}
 
       {/* Tab bar */}
       <div className="flex space-x-1 bg-ink/10 rounded-lg p-1 mb-6 w-fit">
@@ -189,7 +189,7 @@ export default function AdvisorDashboardView() {
             <div className="text-center py-20">
               <GraduationCap className="h-16 w-16 text-ink/40 mx-auto mb-4" />
               <p className="text-ink/60">No manuscripts yet.</p>
-              <Link to="/upload" className="mt-4 inline-block bg-ink text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-ink/80">Upload Manuscript</Link>
+              <Link to="/upload" className="mt-4 inline-block bg-ink text-parchment px-6 py-2 rounded-full uppercase tracking-wider text-sm font-medium hover:bg-ink/80">Upload Manuscript</Link>
             </div>
           )}
         </>
@@ -244,7 +244,7 @@ export default function AdvisorDashboardView() {
           <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className="p-6 border-b sticky top-0 bg-white rounded-t-2xl flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-semibold text-ink">Committee Report</h2>
+                <h2 className="text-lg font-display text-ink">Committee Report</h2>
                 <p className="text-sm text-ink/60">{reportModal.title}</p>
               </div>
               <button onClick={() => setReportModal(null)} className="text-ink/40 hover:text-ink/70"><X className="h-5 w-5" /></button>
@@ -353,7 +353,7 @@ export default function AdvisorDashboardView() {
                       <YAxis domain={[0, 100]} tick={{ fontSize: 11 }} />
                       <Tooltip />
                       <Legend />
-                      <Line type="monotone" dataKey="overall" stroke="#3b82f6" strokeWidth={2} name="Overall" dot={{ r: 4 }} />
+                      <Line type="monotone" dataKey="overall" stroke="#5f2d82" strokeWidth={2} name="Overall" dot={{ r: 4 }} />
                       <Line type="monotone" dataKey="structure" stroke="#10b981" strokeWidth={1.5} name="Structure" />
                       <Line type="monotone" dataKey="voice" stroke="#8b5cf6" strokeWidth={1.5} name="Voice" />
                       <Line type="monotone" dataKey="pacing" stroke="#f59e0b" strokeWidth={1.5} name="Pacing" />

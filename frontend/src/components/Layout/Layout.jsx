@@ -1,4 +1,4 @@
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { BookOpen, Upload, LayoutDashboard, LogOut, GraduationCap, Building2, FolderUp } from 'lucide-react';
 
@@ -15,70 +15,62 @@ export default function Layout() {
   const isAcademic = ['academic', 'advisor'].includes(tier);
   const isEnterprise = tier === 'enterprise';
 
+  const navLinkClass = ({ isActive }) =>
+    `flex items-center space-x-1.5 px-3 py-2 rounded-full text-xs font-medium uppercase tracking-wider transition ${
+      isActive
+        ? 'bg-ink text-parchment'
+        : 'text-ink/50 hover:text-ink hover:bg-ink/5'
+    }`;
+
   return (
     <div className="min-h-screen bg-parchment">
-      {/* Top nav */}
-      <header className="bg-ink text-white shadow-lg">
+      {/* Glassmorphic nav */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center space-x-3">
-              <BookOpen className="h-8 w-8 text-plum" />
-              <div>
-                <span className="text-xl font-display">REFINERY</span>
-                <span className="hidden sm:inline text-xs text-ink/40 ml-2">Where Prose Becomes Perfect</span>
-              </div>
-            </Link>
+            <NavLink to="/" end className="flex items-center space-x-3 group">
+              <BookOpen className="h-7 w-7 text-plum group-hover:scale-110 transition-transform" />
+              <span className="text-lg font-display uppercase tracking-[0.15em] text-ink">
+                Refinery
+              </span>
+            </NavLink>
 
-            <nav className="flex items-center space-x-2">
-              <Link
-                to="/"
-                className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-ink/40 hover:text-white hover:bg-slate-700 transition"
-              >
+            <nav className="flex items-center space-x-1">
+              <NavLink to="/" end className={navLinkClass}>
                 <LayoutDashboard className="h-4 w-4" />
-                <span>Dashboard</span>
-              </Link>
-              <Link
-                to="/upload"
-                className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-ink/40 hover:text-white hover:bg-slate-700 transition"
-              >
+                <span className="hidden sm:inline">Dashboard</span>
+              </NavLink>
+              <NavLink to="/upload" className={navLinkClass}>
                 <Upload className="h-4 w-4" />
-                <span>Upload</span>
-              </Link>
+                <span className="hidden sm:inline">Upload</span>
+              </NavLink>
               {isAcademic && (
-                <Link
-                  to="/advisor"
-                  className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-ink/40 hover:text-white hover:bg-slate-700 transition"
-                >
+                <NavLink to="/advisor" className={navLinkClass}>
                   <GraduationCap className="h-4 w-4" />
-                  <span>Advisor</span>
-                </Link>
+                  <span className="hidden sm:inline">Advisor</span>
+                </NavLink>
               )}
               {isEnterprise && (
                 <>
-                  <Link
-                    to="/triage"
-                    className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-ink/40 hover:text-white hover:bg-slate-700 transition"
-                  >
+                  <NavLink to="/triage" className={navLinkClass}>
                     <Building2 className="h-4 w-4" />
-                    <span>Triage</span>
-                  </Link>
-                  <Link
-                    to="/batch-upload"
-                    className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-ink/40 hover:text-white hover:bg-slate-700 transition"
-                  >
+                    <span className="hidden sm:inline">Triage</span>
+                  </NavLink>
+                  <NavLink to="/batch-upload" className={navLinkClass}>
                     <FolderUp className="h-4 w-4" />
-                    <span>Batch</span>
-                  </Link>
+                    <span className="hidden sm:inline">Batch</span>
+                  </NavLink>
                 </>
               )}
-              <div className="flex items-center space-x-3 ml-4 pl-4 border-l border-slate-600">
-                <span className="text-sm text-ink/40">{user?.email}</span>
-                <span className="text-xs bg-ink px-2 py-0.5 rounded-full uppercase">
+
+              <div className="flex items-center space-x-3 ml-3 pl-3 border-l border-ink/10">
+                <span className="text-xs text-ink/40 hidden sm:inline">{user?.email}</span>
+                <span className="text-[10px] bg-plum/10 text-plum px-2.5 py-0.5 rounded-full uppercase font-semibold tracking-wider">
                   {tier}
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="text-ink/40 hover:text-white transition"
+                  className="text-ink/30 hover:text-ink transition p-1 rounded-full hover:bg-ink/5"
                   title="Log out"
                 >
                   <LogOut className="h-4 w-4" />
@@ -93,6 +85,13 @@ export default function Layout() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Outlet />
       </main>
+
+      {/* Footer */}
+      <footer className="border-t border-ink/10 py-8 mt-16">
+        <p className="text-center text-xs text-ink/30 uppercase tracking-widest">
+          Refinery &mdash; Where Prose Becomes Perfect
+        </p>
+      </footer>
     </div>
   );
 }

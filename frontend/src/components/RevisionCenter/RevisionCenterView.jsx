@@ -232,7 +232,7 @@ export default function RevisionCenterView() {
 
       {/* Error message */}
       {error && (
-        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
+        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">
           <AlertTriangle className="h-4 w-4 flex-shrink-0" />
           <span>{error}</span>
         </div>
@@ -252,7 +252,7 @@ export default function RevisionCenterView() {
           <button
             onClick={handleGenerate}
             disabled={generating}
-            className="inline-flex items-center space-x-2 bg-ink text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
+            className="inline-flex items-center space-x-2 bg-ink text-parchment px-6 py-3 rounded-full uppercase tracking-wider text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {generating ? (
               <>
@@ -382,7 +382,7 @@ export default function RevisionCenterView() {
                     <button
                       key={opt}
                       onClick={() => setSeverityFilter(opt)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition ${
                         severityFilter === opt
                           ? opt === 'high'
                             ? 'bg-red-600 text-white'
@@ -413,7 +413,7 @@ export default function RevisionCenterView() {
                       <button
                         key={opt}
                         onClick={() => setModuleFilter(opt)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                        className={`px-3 py-1.5 rounded-full text-xs font-medium transition ${
                           isActive
                             ? colors
                               ? `${colors.bg} ${colors.text} ring-1 ${colors.border}`
@@ -438,7 +438,7 @@ export default function RevisionCenterView() {
                     <button
                       key={opt}
                       onClick={() => setStatusFilter(opt)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition ${
                         statusFilter === opt
                           ? opt === 'accepted'
                             ? 'bg-green-600 text-white'
@@ -640,7 +640,7 @@ export default function RevisionCenterView() {
                           <button
                             onClick={() => updateItemStatus(item._idx, 'accepted')}
                             title="Accept"
-                            className={`p-1.5 rounded-lg transition ${
+                            className={`p-1.5 rounded-full transition ${
                               currentStatus === 'accepted'
                                 ? 'bg-green-200 text-green-800'
                                 : 'hover:bg-green-100 text-ink/40 hover:text-green-700'
@@ -651,7 +651,7 @@ export default function RevisionCenterView() {
                           <button
                             onClick={() => updateItemStatus(item._idx, 'rejected')}
                             title="Reject"
-                            className={`p-1.5 rounded-lg transition ${
+                            className={`p-1.5 rounded-full transition ${
                               currentStatus === 'rejected'
                                 ? 'bg-red-200 text-red-800'
                                 : 'hover:bg-red-100 text-ink/40 hover:text-red-700'
@@ -662,7 +662,7 @@ export default function RevisionCenterView() {
                           <button
                             onClick={() => updateItemStatus(item._idx, 'deferred')}
                             title="Defer"
-                            className={`p-1.5 rounded-lg transition ${
+                            className={`p-1.5 rounded-full transition ${
                               currentStatus === 'deferred'
                                 ? 'bg-slate-300 text-slate-800'
                                 : 'hover:bg-slate-200 text-ink/40 hover:text-ink/80'
@@ -735,7 +735,7 @@ export default function RevisionCenterView() {
                                   e.stopPropagation();
                                   updateItemStatus(item._idx, 'accepted');
                                 }}
-                                className={`flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                                className={`flex items-center space-x-1 px-3 py-1.5 rounded-full text-xs font-medium transition ${
                                   currentStatus === 'accepted'
                                     ? 'bg-green-200 text-green-800'
                                     : 'bg-green-50 text-green-700 hover:bg-green-100'
@@ -749,7 +749,7 @@ export default function RevisionCenterView() {
                                   e.stopPropagation();
                                   updateItemStatus(item._idx, 'rejected');
                                 }}
-                                className={`flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                                className={`flex items-center space-x-1 px-3 py-1.5 rounded-full text-xs font-medium transition ${
                                   currentStatus === 'rejected'
                                     ? 'bg-red-200 text-red-800'
                                     : 'bg-red-50 text-red-700 hover:bg-red-100'
@@ -763,7 +763,7 @@ export default function RevisionCenterView() {
                                   e.stopPropagation();
                                   updateItemStatus(item._idx, 'deferred');
                                 }}
-                                className={`flex items-center space-x-1 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                                className={`flex items-center space-x-1 px-3 py-1.5 rounded-full text-xs font-medium transition ${
                                   currentStatus === 'deferred'
                                     ? 'bg-slate-300 text-slate-800'
                                     : 'bg-ink/10 text-ink/70 hover:bg-slate-200'

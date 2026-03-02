@@ -134,7 +134,7 @@ export default function CharacterArcView() {
 
       {/* Error */}
       {error && (
-        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
+        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">
           <AlertTriangle className="h-4 w-4 flex-shrink-0" />
           <span>{error}</span>
         </div>
@@ -188,7 +188,7 @@ export default function CharacterArcView() {
           {/* ---------- Character Cards ---------- */}
           {characters.length > 0 && (
             <div>
-              <h2 className="text-lg font-semibold text-ink mb-4">Characters</h2>
+              <h2 className="text-lg font-display text-ink mb-4">Characters</h2>
               <div className="space-y-4">
                 {characters.map((char, idx) => {
                   const isExpanded = expandedCharacter === idx;
@@ -282,7 +282,7 @@ export default function CharacterArcView() {
                                     <Line
                                       type="monotone"
                                       dataKey="presence"
-                                      stroke="#3b82f6"
+                                      stroke="#5f2d82"
                                       strokeWidth={2}
                                       dot={{ r: 4, fill: '#3b82f6' }}
                                       activeDot={{ r: 6 }}
@@ -412,7 +412,7 @@ export default function CharacterArcView() {
           {/* ---------- Relationship Dynamics ---------- */}
           {relationships.length > 0 && (
             <div>
-              <h2 className="text-lg font-semibold text-ink mb-4 flex items-center space-x-2">
+              <h2 className="text-lg font-display text-ink mb-4 flex items-center space-x-2">
                 <Heart className="h-5 w-5 text-pink-500" />
                 <span>Relationship Dynamics</span>
               </h2>

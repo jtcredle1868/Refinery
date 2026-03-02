@@ -100,7 +100,7 @@ export default function DecisionWorkflowView() {
       </div>
 
       {error && (
-        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
+        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">
           <AlertCircle className="h-4 w-4" /><span>{error}</span>
         </div>
       )}
@@ -189,7 +189,7 @@ export default function DecisionWorkflowView() {
                   <button
                     key={o.value}
                     onClick={() => setSelectedOutcome(o.value)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition ${
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
                       selectedOutcome === o.value
                         ? `${o.color} text-white border-transparent`
                         : 'bg-white text-ink/70 border-slate-300 hover:bg-ink/5'
@@ -258,7 +258,7 @@ export default function DecisionWorkflowView() {
           <button
             onClick={handlePostComment}
             disabled={!newComment.trim() || posting}
-            className="bg-ink text-white px-4 py-2 rounded-lg hover:bg-ink/80 disabled:opacity-50 transition"
+            className="bg-ink text-parchment px-4 py-2 rounded-full uppercase tracking-wider hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {posting ? <Loader className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
           </button>

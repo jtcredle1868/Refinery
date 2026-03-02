@@ -110,7 +110,7 @@ export default function ReaderReportView() {
       </div>
 
       {error && (
-        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
+        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">
           <AlertCircle className="h-4 w-4 flex-shrink-0" />
           <span>{error}</span>
         </div>
@@ -119,7 +119,7 @@ export default function ReaderReportView() {
       {/* Input form */}
       {!report && (
         <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
-          <h2 className="text-lg font-semibold text-ink mb-4">Report Details</h2>
+          <h2 className="text-lg font-display text-ink mb-4">Report Details</h2>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-ink/80 mb-1">Author Name</label>

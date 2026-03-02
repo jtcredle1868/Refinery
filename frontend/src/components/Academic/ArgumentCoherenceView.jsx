@@ -150,7 +150,7 @@ export default function ArgumentCoherenceView() {
       <p className="text-ink/60 mb-6">Module 7 -- Argument structure and logical coherence analysis</p>
 
       {error && (
-        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
+        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">
           <AlertCircle className="h-4 w-4" />
           <span>{error}</span>
         </div>
@@ -192,7 +192,7 @@ export default function ArgumentCoherenceView() {
           <button
             onClick={handleRunAnalysis}
             disabled={running}
-            className="flex items-center space-x-2 bg-ink text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
+            className="flex items-center space-x-2 bg-ink text-parchment px-5 py-2 rounded-full uppercase tracking-wider text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {running ? (
               <><Loader className="h-4 w-4 animate-spin" /><span>Analyzing...</span></>
@@ -236,11 +236,11 @@ export default function ArgumentCoherenceView() {
                 )}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-ink/5 rounded-lg p-3 text-center">
+                <div className="bg-ink/5 rounded-xl p-3 text-center">
                   <p className="text-2xl font-bold text-ink">{Math.round(thesis.clarity_score || 0)}</p>
                   <p className="text-xs text-ink/60">Clarity Score</p>
                 </div>
-                <div className="bg-ink/5 rounded-lg p-3">
+                <div className="bg-ink/5 rounded-xl p-3">
                   <p className="text-xs font-medium text-ink/70 mb-1">Restated in Chapters</p>
                   <div className="flex flex-wrap gap-1">
                     {(thesis.restated_chapters || []).map((ch, i) => (
@@ -251,7 +251,7 @@ export default function ArgumentCoherenceView() {
                     )}
                   </div>
                 </div>
-                <div className="bg-ink/5 rounded-lg p-3">
+                <div className="bg-ink/5 rounded-xl p-3">
                   <p className="text-xs font-medium text-ink/70 mb-1">Contested in Chapters</p>
                   <div className="flex flex-wrap gap-1">
                     {(thesis.contested_chapters || []).map((ch, i) => (

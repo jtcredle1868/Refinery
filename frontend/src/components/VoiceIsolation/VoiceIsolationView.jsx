@@ -89,8 +89,8 @@ function VoiceRadarChart({ fingerprint }) {
         <Radar
           name="Voice"
           dataKey="value"
-          stroke="#3b82f6"
-          fill="#3b82f6"
+          stroke="#5f2d82"
+          fill="#5f2d82"
           fillOpacity={0.25}
         />
       </RadarChart>
@@ -107,7 +107,7 @@ function CharacterCard({ character }) {
       {/* Character header */}
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h3 className="text-lg font-semibold text-ink">
+          <h3 className="text-lg font-display text-ink">
             {character.name}
           </h3>
           <div className="flex items-center space-x-3 mt-1">
@@ -128,25 +128,25 @@ function CharacterCard({ character }) {
 
       {/* Voice fingerprint stats */}
       <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="bg-ink/5 rounded-lg p-3">
+        <div className="bg-ink/5 rounded-xl p-3">
           <p className="text-xs text-ink/60">Avg Sentence Length</p>
           <p className="text-lg font-bold text-ink">
             {fp.avg_sentence_length?.toFixed(1) ?? '--'}
           </p>
         </div>
-        <div className="bg-ink/5 rounded-lg p-3">
+        <div className="bg-ink/5 rounded-xl p-3">
           <p className="text-xs text-ink/60">Vocabulary Richness</p>
           <p className="text-lg font-bold text-ink">
             {fp.vocabulary_richness?.toFixed(2) ?? '--'}
           </p>
         </div>
-        <div className="bg-ink/5 rounded-lg p-3">
+        <div className="bg-ink/5 rounded-xl p-3">
           <p className="text-xs text-ink/60">Register</p>
           <p className="text-sm font-semibold text-ink capitalize">
             {fp.register ?? '--'}
           </p>
         </div>
-        <div className="bg-ink/5 rounded-lg p-3">
+        <div className="bg-ink/5 rounded-xl p-3">
           <p className="text-xs text-ink/60">Formality Score</p>
           <p className="text-lg font-bold text-ink">
             {fp.formality_score?.toFixed(1) ?? '--'}
@@ -433,7 +433,7 @@ export default function VoiceIsolationView() {
 
       {/* Error banner */}
       {error && (
-        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
+        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">
           <AlertTriangle className="h-4 w-4" />
           <span>{error}</span>
         </div>
@@ -443,7 +443,7 @@ export default function VoiceIsolationView() {
       {!results && !running && (
         <div className="rounded-3xl border border-ink/10 bg-white/90 p-10 text-center">
           <Fingerprint className="h-12 w-12 text-ink/40 mx-auto mb-4" />
-          <h2 className="text-lg font-semibold text-ink mb-2">
+          <h2 className="text-lg font-display text-ink mb-2">
             No voice analysis found
           </h2>
           <p className="text-sm text-ink/60 mb-6 max-w-md mx-auto">
@@ -453,7 +453,7 @@ export default function VoiceIsolationView() {
           </p>
           <button
             onClick={handleRunAnalysis}
-            className="inline-flex items-center space-x-2 bg-ink text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-ink/80 transition"
+            className="inline-flex items-center space-x-2 bg-ink text-parchment px-6 py-3 rounded-full uppercase tracking-wider text-sm font-medium hover:bg-ink/80 transition"
           >
             <Play className="h-4 w-4" />
             <span>Run Voice Analysis</span>
@@ -465,7 +465,7 @@ export default function VoiceIsolationView() {
       {running && (
         <div className="rounded-3xl border border-ink/10 bg-white/90 p-10 text-center">
           <Loader className="h-10 w-10 text-plum animate-spin mx-auto mb-4" />
-          <h2 className="text-lg font-semibold text-ink mb-2">
+          <h2 className="text-lg font-display text-ink mb-2">
             Analyzing character voices...
           </h2>
           <p className="text-sm text-ink/60">
@@ -519,7 +519,7 @@ export default function VoiceIsolationView() {
             <button
               onClick={handleRunAnalysis}
               disabled={running}
-              className="inline-flex items-center space-x-2 bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
+              className="inline-flex items-center space-x-2 bg-ink text-parchment px-4 py-2 rounded-full uppercase tracking-wider text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
             >
               {running ? (
                 <>

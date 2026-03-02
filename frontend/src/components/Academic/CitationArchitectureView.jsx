@@ -66,7 +66,7 @@ export default function CitationArchitectureView() {
         )}
       </div>
 
-      {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">{error}</div>}
+      {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">{error}</div>}
 
       {results && (
         <div className="space-y-8">
@@ -91,7 +91,7 @@ export default function CitationArchitectureView() {
           {/* Citation Frequency by Chapter */}
           {results.citation_frequency_heatmap?.chapters && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-ink mb-4">Citation Frequency by Chapter</h2>
+              <h2 className="text-lg font-display text-ink mb-4">Citation Frequency by Chapter</h2>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={results.citation_frequency_heatmap.chapters}>
                   <XAxis dataKey="chapter" label={{ value: 'Chapter', position: 'bottom' }} />
@@ -120,7 +120,7 @@ export default function CitationArchitectureView() {
           {/* Citation Gaps */}
           {results.citation_gaps?.length > 0 && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-ink mb-4">Citation Gaps ({results.citation_gaps.length})</h2>
+              <h2 className="text-lg font-display text-ink mb-4">Citation Gaps ({results.citation_gaps.length})</h2>
               <div className="space-y-3">
                 {results.citation_gaps.map((gap, i) => (
                   <div key={i} className="border rounded-lg p-4">
@@ -141,7 +141,7 @@ export default function CitationArchitectureView() {
           {/* Source Recency */}
           {results.source_recency && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-ink mb-4">Source Recency</h2>
+              <h2 className="text-lg font-display text-ink mb-4">Source Recency</h2>
               <div className="flex items-center justify-center">
                 <ResponsiveContainer width={300} height={250}>
                   <PieChart>
@@ -165,7 +165,7 @@ export default function CitationArchitectureView() {
           {/* Primary/Secondary Balance */}
           {results.primary_secondary_balance && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-ink mb-4">Primary vs Secondary Sources</h2>
+              <h2 className="text-lg font-display text-ink mb-4">Primary vs Secondary Sources</h2>
               <div className="flex items-center space-x-4 mb-4">
                 <div className="flex-1 bg-ink/10 rounded-full h-6 overflow-hidden">
                   <div className="bg-blue-500 h-full rounded-full" style={{ width: `${results.primary_secondary_balance.primary_source_pct || 50}%` }}></div>
@@ -182,7 +182,7 @@ export default function CitationArchitectureView() {
           {/* Format Validation */}
           {results.format_validation && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-ink mb-4">
+              <h2 className="text-lg font-display text-ink mb-4">
                 Format Validation ({results.format_validation.format}) — {results.format_validation.errors_found || 0} errors
               </h2>
               {results.format_validation.errors?.length > 0 ? (
@@ -205,7 +205,7 @@ export default function CitationArchitectureView() {
           {/* Summary */}
           {results.summary && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-ink mb-3">Summary</h2>
+              <h2 className="text-lg font-display text-ink mb-3">Summary</h2>
               <p className="text-sm text-ink/80 whitespace-pre-line">{results.summary}</p>
             </div>
           )}

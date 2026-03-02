@@ -65,7 +65,7 @@ export default function AcademicVoiceView() {
         )}
       </div>
 
-      {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">{error}</div>}
+      {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">{error}</div>}
 
       {results && (
         <div className="space-y-8">
@@ -86,7 +86,7 @@ export default function AcademicVoiceView() {
           {/* Register Consistency */}
           {results.register_consistency?.chapters && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-ink mb-4">Register Consistency</h2>
+              <h2 className="text-lg font-display text-ink mb-4">Register Consistency</h2>
               <p className="text-sm text-ink/60 mb-4">Overall Formality: {results.register_consistency.overall_formality}/10</p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -139,7 +139,7 @@ export default function AcademicVoiceView() {
           {/* Hedge Analysis */}
           {results.hedge_analysis && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-ink mb-4">Hedge Analysis</h2>
+              <h2 className="text-lg font-display text-ink mb-4">Hedge Analysis</h2>
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <h3 className="text-sm font-semibold text-amber-600 mb-3">Over-Hedged ({results.hedge_analysis.over_hedged?.length || 0})</h3>
@@ -170,7 +170,7 @@ export default function AcademicVoiceView() {
           {/* Passive Voice Chart */}
           {results.passive_voice?.chapters && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-ink mb-4">
+              <h2 className="text-lg font-display text-ink mb-4">
                 Passive Voice Density — Overall: {results.passive_voice.overall_percentage?.toFixed(1)}%
               </h2>
               <ResponsiveContainer width="100%" height={300}>
@@ -203,7 +203,7 @@ export default function AcademicVoiceView() {
           {/* Summary */}
           {results.summary && (
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className="text-lg font-semibold text-ink mb-3">Summary</h2>
+              <h2 className="text-lg font-display text-ink mb-3">Summary</h2>
               <p className="text-sm text-ink/80 whitespace-pre-line">{results.summary}</p>
             </div>
           )}

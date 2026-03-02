@@ -253,7 +253,7 @@ export default function TriageDashboardView() {
       </div>
 
       {error && (
-        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
+        <div className="flex items-center space-x-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">
           <AlertCircle className="h-4 w-4 flex-shrink-0" /><span>{error}</span>
           <button onClick={() => setError('')} className="ml-auto"><XCircle className="h-4 w-4" /></button>
         </div>
@@ -283,15 +283,15 @@ export default function TriageDashboardView() {
           <div className="flex items-center space-x-2">
             <span className="text-sm text-ink/70 mr-2">{selectedIds.size} selected</span>
             <button onClick={() => setShowAssignModal(true)} disabled={batchLoading}
-              className="flex items-center space-x-1 bg-blue-500 text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-blue-600 disabled:opacity-50 transition">
+              className="flex items-center space-x-1 bg-blue-500 text-white px-3 py-1.5 rounded-full text-xs font-medium hover:bg-blue-600 disabled:opacity-50 transition">
               <UserPlus className="h-3 w-3" /><span>Assign</span>
             </button>
             <button onClick={handleBatchPass} disabled={batchLoading}
-              className="flex items-center space-x-1 bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-red-600 disabled:opacity-50 transition">
+              className="flex items-center space-x-1 bg-red-500 text-white px-3 py-1.5 rounded-full text-xs font-medium hover:bg-red-600 disabled:opacity-50 transition">
               <XCircle className="h-3 w-3" /><span>Pass</span>
             </button>
             <button onClick={handleExportCsv} disabled={batchLoading}
-              className="flex items-center space-x-1 bg-slate-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-slate-700 disabled:opacity-50 transition">
+              className="flex items-center space-x-1 bg-slate-600 text-white px-3 py-1.5 rounded-full text-xs font-medium hover:bg-slate-700 disabled:opacity-50 transition">
               <Download className="h-3 w-3" /><span>CSV</span>
             </button>
           </div>
@@ -379,7 +379,7 @@ export default function TriageDashboardView() {
                     <td className="px-4 py-4">
                       {m.acquisitionScore == null && (
                         <button onClick={(e) => handleRunScore(e, m.id)} disabled={runningId === m.id}
-                          className="flex items-center space-x-1 bg-ink text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-ink/80 disabled:opacity-50 transition">
+                          className="flex items-center space-x-1 bg-ink text-white px-3 py-1.5 rounded-full text-xs font-medium hover:bg-ink/80 disabled:opacity-50 transition">
                           {runningId === m.id ? <><Loader className="h-3 w-3 animate-spin" /><span>Scoring...</span></> : <><Play className="h-3 w-3" /><span>Score</span></>}
                         </button>
                       )}
@@ -396,7 +396,7 @@ export default function TriageDashboardView() {
       {showAssignModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowAssignModal(false)}>
           <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6" onClick={(e) => e.stopPropagation()}>
-            <h3 className="text-lg font-semibold text-ink mb-4">
+            <h3 className="text-lg font-display text-ink mb-4">
               <Users className="h-5 w-5 inline mr-2" />Assign {selectedIds.size} Manuscript{selectedIds.size > 1 ? 's' : ''} to Editor
             </h3>
             <input type="email" value={assignEmail} onChange={(e) => setAssignEmail(e.target.value)} placeholder="Editor's email address"
@@ -404,7 +404,7 @@ export default function TriageDashboardView() {
             <div className="flex space-x-3">
               <button onClick={() => setShowAssignModal(false)} className="flex-1 border border-slate-300 text-ink/80 px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/5 transition">Cancel</button>
               <button onClick={handleBatchAssign} disabled={!assignEmail.trim() || batchLoading}
-                className="flex-1 bg-ink text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition">
+                className="flex-1 bg-ink text-parchment px-4 py-2 rounded-full uppercase tracking-wider text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition">
                 {batchLoading ? 'Assigning...' : 'Assign'}
               </button>
             </div>

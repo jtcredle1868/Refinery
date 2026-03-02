@@ -198,7 +198,7 @@ export default function BatchUploadView() {
       {files.length > 0 && (
         <div className="bg-white rounded-lg shadow-sm border p-6 mt-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-ink">
+            <h2 className="text-lg font-display text-ink">
               File Queue ({files.length} {files.length === 1 ? 'file' : 'files'})
             </h2>
             {!uploading && results.length === 0 && (
@@ -276,7 +276,7 @@ export default function BatchUploadView() {
       {/* Results summary */}
       {results.length > 0 && (
         <div className="bg-white rounded-lg shadow-sm border p-6 mt-6">
-          <h2 className="text-lg font-semibold text-ink mb-4">Upload Results</h2>
+          <h2 className="text-lg font-display text-ink mb-4">Upload Results</h2>
 
           <div className="flex items-center space-x-4 mb-4">
             <div className="flex items-center space-x-1.5">

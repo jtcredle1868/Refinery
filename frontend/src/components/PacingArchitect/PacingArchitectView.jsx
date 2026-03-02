@@ -134,7 +134,7 @@ export default function PacingArchitectView() {
 
       {/* Error banner */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 text-sm">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-6 text-sm">
           {error}
         </div>
       )}
@@ -143,7 +143,7 @@ export default function PacingArchitectView() {
       {!results && (
         <div className="rounded-3xl border border-ink/10 bg-white/90 p-12 text-center">
           <Activity className="h-12 w-12 text-ink/40 mx-auto mb-4" />
-          <h2 className="text-lg font-semibold text-ink mb-2">
+          <h2 className="text-lg font-display text-ink mb-2">
             No Pacing Analysis Yet
           </h2>
           <p className="text-sm text-ink/60 mb-6 max-w-md mx-auto">
@@ -153,7 +153,7 @@ export default function PacingArchitectView() {
           <button
             onClick={handleRunAnalysis}
             disabled={running}
-            className="inline-flex items-center space-x-2 bg-ink text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
+            className="inline-flex items-center space-x-2 bg-ink text-parchment px-6 py-3 rounded-full uppercase tracking-wider text-sm font-medium hover:bg-ink/80 disabled:opacity-50 transition"
           >
             {running ? (
               <>
@@ -519,7 +519,7 @@ export default function PacingArchitectView() {
                       {results.act_structure.act_breaks.map((chapterNum, idx) => (
                         <span
                           key={idx}
-                          className="inline-flex items-center justify-center bg-ink text-white text-sm font-medium rounded-full w-10 h-10"
+                          className="inline-flex items-center justify-center bg-ink text-parchment text-sm font-medium rounded-full w-10 h-10"
                         >
                           {chapterNum}
                         </span>
