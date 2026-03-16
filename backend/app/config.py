@@ -23,7 +23,7 @@ class Settings(BaseSettings):
 
     # Claude API
     ANTHROPIC_API_KEY: str = ""
-    CLAUDE_MODEL: str = "claude-sonnet-4-5-20250929"
+    CLAUDE_MODEL: str = "claude-sonnet-4-6"
     CLAUDE_MAX_TOKENS: int = 8192
 
     # Manuscript limits
@@ -37,7 +37,12 @@ class Settings(BaseSettings):
     STRIPE_PUBLISHABLE_KEY: str = ""
 
     # CORS — comma-separated list of allowed origins
+    # In production, set this to your Railway/Vercel frontend URL(s)
     ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:5173"
+
+    # DB connection pool (reduce for Railway hobby tier connection limits)
+    DB_POOL_SIZE: int = 5
+    DB_MAX_OVERFLOW: int = 10
 
     # Analysis
     ANALYSIS_TIMEOUT_SECONDS: int = 300  # 5 minutes max
