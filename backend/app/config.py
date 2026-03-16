@@ -36,6 +36,9 @@ class Settings(BaseSettings):
     STRIPE_WEBHOOK_SECRET: str = ""
     STRIPE_PUBLISHABLE_KEY: str = ""
 
+    # CORS — comma-separated list of allowed origins
+    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:5173"
+
     # Analysis
     ANALYSIS_TIMEOUT_SECONDS: int = 300  # 5 minutes max
 
