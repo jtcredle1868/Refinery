@@ -15,10 +15,14 @@ RUN npm run build
 FROM nginx:alpine
 
 COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf.template /tmp/nginx.conf.template
 
-# Use a template so Railway's $PORT and $BACKEND_URL are substituted at container start.
-# nginx:alpine automatically processes files in /etc/nginx/templates/ via envsubst.
-COPY nginx.conf.template /etc/nginx/templates/default.conf.template
+# Default values — overridden by Railway environment variables at runtime.
+# BACKEND_URL: set to your Railway backend service URL (e.g. https://refinery-backend.up.railway.app)
+# PORT: Railway injects this automatically
+ENV PORT=80
+ENV BACKEND_URL=http://localhost:8000
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# envsubst substitutes ONLY ${PORT} and ${BACKEND_URL} — leaves nginx's own
+# $uri, $host, $remote_addr, etc. untouched.
+CMD ["/bin/sh", "-c", "envsubst '${PORT} ${BACKEND_URL}' < /tmp/nginx.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
