@@ -5,7 +5,7 @@ Handles long-context document processing as specified in the RDD.
 """
 import json
 from typing import Optional
-from anthropic import Anthropic
+from anthropic import AsyncAnthropic
 from app.config import get_settings
 
 settings = get_settings()
@@ -13,13 +13,13 @@ settings = get_settings()
 
 class ClaudeClient:
     def __init__(self):
-        self.client = Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+        self.client = AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
         self.model = settings.CLAUDE_MODEL
         self.max_tokens = settings.CLAUDE_MAX_TOKENS
 
     async def analyze(self, system_prompt: str, user_prompt: str, max_tokens: Optional[int] = None) -> str:
         """Send a prompt to Claude and return the response text."""
-        response = self.client.messages.create(
+        response = await self.client.messages.create(
             model=self.model,
             max_tokens=max_tokens or self.max_tokens,
             system=system_prompt,

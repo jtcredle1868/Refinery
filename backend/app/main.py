@@ -7,6 +7,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.core.database import init_db
+
+# Import all models before init_db so SQLAlchemy registers them with Base.metadata
+import app.models.user  # noqa: F401
+import app.models.manuscript  # noqa: F401
+import app.models.analysis  # noqa: F401
+import app.models.enterprise  # noqa: F401
+
 from app.api.routes import auth, manuscripts, analysis, reports, exports, enterprise, advisor, payments
 
 settings = get_settings()
