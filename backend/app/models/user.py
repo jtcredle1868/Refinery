@@ -32,4 +32,4 @@ class User(Base):
         onupdate=lambda: datetime.now(timezone.utc),
     )
 
-    manuscripts = relationship("Manuscript", back_populates="owner", cascade="all, delete-orphan")
+    manuscripts = relationship("Manuscript", back_populates="owner", cascade="all, delete-orphan", foreign_keys="[Manuscript.owner_id]")
