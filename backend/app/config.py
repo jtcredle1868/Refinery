@@ -1,3 +1,4 @@
+from pydantic import field_validator
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 
@@ -12,6 +13,14 @@ class Settings(BaseSettings):
     # Database
     DATABASE_URL: str = "postgresql+asyncpg://refinery:refinery@localhost:5432/refinery"
     DATABASE_SYNC_URL: str = "postgresql://refinery:refinery@localhost:5432/refinery"
+
+    @field_validator("DATABASE_URL", mode="after")
+    @classmethod
+    def ensure_async_driver(cls, v: str) -> str:
+        """Rewrite a plain postgresql:// URL (e.g. from Railway) to use asyncpg."""
+        if v.startswith("postgresql://"):
+            return v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return v
 
     # Redis
     REDIS_URL: str = "redis://localhost:6379/0"
